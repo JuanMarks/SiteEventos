@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+    {% load static %}
+    {% block content %}
+    <main class="wrapper-container-events">
+        <section class="wrapper-container__events">
+            
+            {% for evento in eventos %}
+            <article class="eventos__card">
+                <div class="events__card--date">
+                    <span>15/07</span>
+                </div>
+                <div class="events__card--title">
+                    <h2>{{ evento.nome_evento }}</h2>
+                </div>
+                <div class="events__card--description">
+                    <p>{{evento.descricao}}</p>
+                </div>
+                <div class="events__card--button">
+                    <a href="{% url 'view_evento' %}">Saiba mais</a>
+                    <a href="{% url 'view_evento' %}">Inscrever-se</a>
+                </div>
+            </article>
+            {% endfor %}
+            
+        </section>
+    </main>
+    {% endblock content %}
