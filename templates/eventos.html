@@ -13,7 +13,9 @@
                     <h2>{{ evento.nome_evento }}</h2>
                 </div>
                 <div class="events__card--description">
-                    <p>{{evento.descricao}}</p>
+                    <p><br>Evento: {{evento.publico}}</p>
+                    <p>Participantes: {{evento.convidados_qtd}}<br></p>
+                    <p><br>{{evento.descricao}}</p>
                 </div>
                 <div class="events__card--button">
                     <a href="{% url 'view_evento' %}">Saiba mais</a>
