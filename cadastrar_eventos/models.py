@@ -15,7 +15,7 @@ class Evento(models.Model):
         choices=PUBLICO,
         )
     convidados_qtd = models.IntegerField()
-
+    habilitar_inscrever = models.BooleanField(default=False)
     def __str__(self):
         return self.nome_evento
     

@@ -19,7 +19,10 @@
                 </div>
                 <div class="events__card--button">
                     <a href="{% url 'view_evento' %}">Saiba mais</a>
+                    {% if evento.habilitar_inscrever == True %}
                     <a href="{% url 'view_evento' %}">Inscrever-se</a>
+                    {% else %}
+                    {% endif %}
                 </div>
             </article>
             {% endfor %}
