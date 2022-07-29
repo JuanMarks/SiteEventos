@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+
+</head>
+<body>
+    <div class="wrapper-login">
+        <form action="" class="wrapper-login__form" method="post">
+            {% csrf_token %}
+            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
+            <div class="wrapper-login__form--user">
+                <label for="user">Usuário</label>
+                <input type="text" name="username" class="form-input input-user" id="user">
+            </div>
+
+            <div class="wrapper-login__form--password">
+                <label for="password">Senha</label>
+                <input type="password" name="senha" class="form-input input-password" id="password">
+            </div>
+
+            <div class="wrapper-login__form--password--request">
+                <a href="#">Esqueci a senha</a>
+                <a href="#">É novo por aqui? Criar conta</a>
+            </div>
+
+            <div class="wrapper-login__form--button">
+                <button type="submit" class="form-submit">Entrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

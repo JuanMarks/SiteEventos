@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/hero.jpeg) center center / cover no-repeat;
+}
+
+.wrapper-login {
+    margin: 50px auto;
+    display: flex;
+    width: 400px;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.wrapper-login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.wrapper-login__form--logo {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.wrapper-login__form--user, .wrapper-login__form--password {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper-login__form label {
+    font-family: 'Righteous', cursive;
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.wrapper-login__form input {
+    padding: 8px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, .4);
+}
+
+.wrapper-login__form--password--request {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-login__form--password--request a {
+    text-decoration: none;
+    font-weight: 700;
+    color: #000;
+}
+
+.wrapper-login__form--button {
+    display: flex;
+}
+
+.form-submit {
+    background: #00257A;
+    color: #FFF;
+    font-weight: 700;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    cursor: pointer;
+    margin: 20px auto 0;
+}
+

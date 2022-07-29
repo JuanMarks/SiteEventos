@@ -1,0 +1,11 @@
+/* Responsividade para Tablets */
+@media screen and (max-width: 1024px) {
+    
+}
+
+/* Rsponsivo para celular */
+@media screen and (max-width: 768px) {
+    .eventos {
+        justify-content: center;
+    }
+}
