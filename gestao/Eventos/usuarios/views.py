@@ -6,7 +6,57 @@ from cadastrar_eventos.models import Evento
 # Create your views here.
 
 def cadastro(request):
-    pass
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        email = request.POST['email']
+        senha = request.POST['password']
+        senha2 = request.POST['password2']
+
+        if not nome.strip():
+            print("O campo nome nao pode ficar em branco")
+            return redirect('cadastro')
+        
+        if not email.strip():
+            print("O campo email nao pode ficar em branco")
+            return redirect('cadastro')
+        
+        if senha != senha2:
+            print('As senhas nao estao iguais')
+            return redirect('cadastro')
+        
+        if User.objects.filter(email=email).exists():
+            print('usuario ja cadastrado')
+            return redirect('cadastro')
+        
+        usuario1 = User.objects.create_user(username=nome, first_name='USR', email=email, password=senha) 
+        usuario1.save()
+        return redirect('login')
+    else:
+        return render(request, 'cadastro.html')
+
+def cadastro_empresa(request):
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        email = request.POST['email']
+        senha = request.POST['password']
+
+        if not nome.strip():
+            print("O campo nome nao pode ficar em branco")
+            return redirect('cadastro_empresa')
+        
+        if not email.strip():
+            print("O campo email nao pode ficar em branco")
+            return redirect('cadastro_empresa')
+        
+        if User.objects.filter(email=email).exists():
+            print('usuario ja cadastrado')
+            return redirect('cadastro_empresa')
+
+        usuario1 = User.objects.create_user(username=nome, first_name='ADM', email=email, password=senha) 
+        usuario1.save()
+        return redirect('login')
+    else:
+        return render(request, 'cadastro_empresa.html')
 
 def login(request):
     if request.method == 'POST':

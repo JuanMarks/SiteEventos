@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body{
+  width: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(fundo-nina.jpeg) center center / cover no-repeat ;
+}
+
+.tela__adm{
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  background-color: #FFF;
+  border-radius: 10px;
+  align-items: center;
+  width: 450px;
+  margin: 100px auto;
+  padding: 20px;
+}
+
+#logo__nina{
+  width: 200px;
+}
+
+.tela__adm h3{
+  padding: 6%;
+  font-weight: 700;
+}
+
+.tela__adm ul{
+  list-style: none;
+}
+ .tela__adm li {
+  text-align: center;
+  width: 300px;
+  border-radius: 8px;
+  margin-bottom: 2%;
+  padding: 5px;
+  background: #0000CD;
+  color: #FFF;
+  padding: 10px;
+}
+
+.tela__adm a{
+  text-decoration: none;
+  color: #FFF;
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+/* CSS HOVER LI */
+.tela__adm li:hover {
+  background: #00257A;
+  transition: 0.2s;
+}
