@@ -1,0 +1,142 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../Logo_NINNA_Hub/hero.jpeg) center center / cover no-repeat;
+}
+
+#step2, #step3, #step4, .botao{
+    display: none;
+}
+
+.botaoAnterior {
+    visibility: hidden;
+}
+
+.bdy-containerEvento {
+    opacity: 0.95;
+    height: 100%;
+}
+
+.principal-containerEventos {
+    border: #00000032 1px solid;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 10px 10px 5px #00000032;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.principal-containerEventos img {
+    height: 100px;
+    margin-left: 44%;
+}
+
+.painel-progressoEvento {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px auto; 
+}
+
+.step-next {
+    border-radius: 30px;
+    padding: 10px;
+    height: 50px;
+    width: 200px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    background: rgb(126, 126, 126);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.active {
+    background: #00257A;
+}
+
+.step-next a {
+    text-decoration: none;
+    color:#fff;
+}
+
+.step-next a:hover {
+    color: #fff
+}
+
+.datahora {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 4px;
+}
+
+.campo label {
+    margin-bottom: 3px;
+    font-size: 18px;
+    color: #00257A;
+}
+
+.campo input {
+    border: 1px solid #00000032;
+    border-radius: 10px;
+    font-size: 15px;
+    height: 42px;
+    padding: 1%;  
+    color: #00000032; 
+}
+
+.campo select {
+    padding: 10px;
+}
+
+.campo textarea {
+    border: solid 1px #00000032;
+    border-radius: 10px;
+}
+
+.campo select {
+    padding: 10px;
+}
+
+.midia {
+    padding: 10px;
+    font-weight: 700;
+    color: #00257A;
+}
+
+.botaoCadastrar,
+.botaoAvancar,
+.botaoAnterior {
+    background-color: #00257A;
+    border: 1px solid #00257A;
+    border-radius: 30px;
+    color: #fff;
+    text-align: center;
+    width: 150px;
+    padding: 10px;
+    cursor: pointer
+}
+
+.botaoCadastrar:hover {
+    background: #00256A;
+    transform: scale(1.05);
+}
+
+.button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
