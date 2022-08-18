@@ -1,46 +1,99 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Usuario</title>
-
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
-
+    <link rel="stylesheet" href="{% static 'assets/css/cadastroUsuario1.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
+    <title> Cadastro de Usuário </title>
 </head>
+
 <body>
-    <div class="wrapper-login">
-        <form action="{% url 'cadastro' %}" class="wrapper-login__form" method="post">
-            {% csrf_token %}
-            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
-            <h1>Cadastro</h1>
-            <div class="wrapper-login__form--user">
-                <label for="user">Nome de Usuário</label>
-                <input type="text" name="nome" class="form-input input-user" id="user">
-            </div>
+    <div class="bdy-container">
+        <div class="container">
+            <div class="principal-container">
+                <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="Logo do NINNA Hub">
 
-            <div class="wrapper-login__form--user">
-                <label for="user">Email</label>
-                <input type="text" name="email" class="form-input input-user" id="user">
-            </div>
+                <section class="painel-progresso">
+                    <div class="step-next active" id="step-usuario">
+                        <a href="#" class="step-usuario"> Nome do Usuário </a>
+                    </div>
+                    <div class="step-next" id="step-empresa">
+                        <a href="#" class="step-empresa"> Empresa </a>
+                    </div>
+                    <div class="step-next" id="step-email">
+                        <a href="#" class="step-email"> Email </a>
+                    </div>
+                    <div class="step-next" id="step-senha">
+                        <a href="#" class="step-senha"> Senha </a>
+                    </div>
+                </section>
 
-            <div class="wrapper-login__form--password">
-                <label for="password">Senha</label>
-                <input type="password" name="password" class="form-input input-password" id="password">
-            </div>
+                <section class="formularioUser">
+                    <form action="{% url 'cadastro' %}" method="">
+                        <div class="pessoa" id="step1">
+                            <div class="campo">
+                                <label for="nome"> Nome Completo: </label>
+                                <input type="text" id="nome" class="" placeholder="Seu Nome" required>
+                            </div>
+                            <div class="campo">
+                                <label for="telefone"> Telefone: </label>
+                                <input type="tel" id="telefone" class="" placeholder="(xx) xxxxx-xxxx" required>
+                            </div>
+                        </div>
 
-            <div class="wrapper-login__form--password">
-                <label for="password">Confirme sua senha</label>
-                <input type="password" name="password2" class="form-input input-password" id="password">
-            </div>
+                        <div class="empresa" id="step2">
+                            <div class="campo">
+                                <label for="grupo"> Grupo que faço parte: </label>
+                                <select name="" id="grupo">
+                                    <option value="startup"> STARTUP </option>
+                                    <option value="mantenedor"> MANTENEDOR </option>
+                                    <option value="pessoa"> PESSOA FÍSICA</option>
+                                </select>
+                            </div>
+                            <div class="campo">
+                                <label for="empresa"> Nome da Empresa: </label>
+                                <input type="text" id="empresa" class="" placeholder="Empresa">
+                            </div>
+                        </div>
 
-            <div class="wrapper-login__form--button">
-                <button type="submit" class="form-submit">Enviar</button>
+                        <div class="email" id="step3">
+                            <div class="campo">
+                                <label for="email"> Email: </label>
+                                <input type="email" id="email" class="" placeholder="seuemail@email.com" required>
+                            </div>
+                        </div>
+
+                        <div class="senha" id="step4">
+                            <div class="campo">
+                                <label for="senha"> Senha: </label>
+                                <input type="password" id="senha" class="" required>
+                            </div>
+                            <div class="campo">
+                                <label for="csenha"> Confirmar Senha: </label>
+                                <input type="password" id="csenha" class="" required>
+                            </div>
+                        </div>
+
+                        <div class="button">
+                            <button class="botaoAnterior" value="" type="button"> Anterior </button>
+                            <button class="botaoAvancar" value="step2" type="button"> Próximo </button>
+
+                            <div class="botao">
+                                <button class="botaoCadastrar" data-target="step4" type="submit">
+                                    Cadastrar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
             </div>
-        </form>
+        </div>
     </div>
+
+    <script src="{% static 'assets/js/cadastroUsuario1.js' %}"></script>
 </body>
 </html>
