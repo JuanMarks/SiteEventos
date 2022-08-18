@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
+</head>
+<body>
+    <header class="wrapper-hero">
+        <div class="menu">
+            <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt="">
+            <nav class="navegacao">
+                {% if user.is_authenticated %}
+                    {% if user.first_name == 'ADM' %}
+                        <a href="{% url 'logout' %}">Logout</a>
+                        <a href="{% url 'dashboard' %}">Meus Eventos</a>
+                        <a href="{% url 'cadastrar_eventos' %}">Criar Eventos</a>
+                    {% else %}
+                        <a href="{% url 'logout' %}">Logout</a>
+                        <a href="{% url 'dashboard' %}">Meus Eventos</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="#">Sobre</a>
+                    <a href="#">Contato</a>
+                {% endif %}
+            </nav>
+        </div>
+
+        <h1 class="hero-title">Gestão de Eventos</h1>
+
+        
+    </header>
+    <main class="wrapper-container">
+        <section class="wrapper-carousel">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{% static 'assets/img/item1.jpg' %}" class="carousel-item-img" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{% static 'assets/img/item2.jpg' %}" class="carousel-item-img" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{% static 'assets/img/item3.jpg' %}" class="carousel-item-img" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{% static 'assets/img/item4.jpg' %}" class="carousel-item-img" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </section>
+
+        <h2>Próximos eventos</h2>
+
+        <section class="eventos">
+            {% for evento in eventos %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{evento.img.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{evento.nome_evento}}</h5>
+                    <p class="card-title">Evento: {{evento.publico}}</p>
+                    <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
+                    <a href="#" class="btn btn-primary">Saiba mais</a>
+                    {% if evento.habilitar_inscrever == True %}
+                    <a href="#" class="btn btn-primary">Inscrever-se</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        
+    </main>
+
+    <footer class="wrapper-footer">
+        <div class="wrapper-footer__info">
+            <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">
+            <div class="wrapper-footer__info--geral">
+                <ul class="info--localizacao__list">
+                    <li class="info--localizacao__item">
+                        Av. Dom Manuel, 1020 - Centro, Fortaleza - CE, 60060-090
+                    </li>
+                    <li class="info--localizacao__item">
+                        (85) 3211-4201
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="wrapper-footer__info--sociais">
+                <ul class="info--sociais__list">
+                    <li class="info--sociais__item">Instagram</li>
+                    <li class="info--sociais__item">Youtube</li>
+                    <li class="info--sociais__item">LinkedIn</li>
+                </ul>
+            </div> -->
+        </div>
+
+        <div class="wrapper-footer__copyright">
+            Todos os direitos reservados &copy; 2022
+        </div>
+    </footer>
+
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Usuario</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+
+</head>
+<body>
+    <div class="wrapper-login">
+        <form action="{% url 'cadastrar_eventos' %}" class="wrapper-login__form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
+            <h1>Cadastro</h1>
+            <div class="wrapper-login__form--user">
+                <label for="user">Nome do Evento</label>
+                <input type="text" name="nome_evento" class="form-input input-user" id="user">
+            </div>
+
+            <div class="wrapper-login__form--user">
+                <label for="user">Descrição</label>
+                <input type="text" name="descricao" class="form-input input-user" id="user">
+            </div>
+
+            <div class="wrapper-login__form--user">
+                <label for="user">Publico</label>
+                <select type="text" name="publico" class="form-input input-user" id="user">
+                    <option value="Aberto">Aberto</option>
+                    <option value="Privado">Privado</option>
+                </select>
+            </div>
+
+            <div class="wrapper-login__form--user">
+                <label for="user">Quantidade de Convidados</label>
+                <input type="text" name="convidados" class="form-input input-user" id="user">
+            </div>
+
+            <div class="wrapper-login__form--user">
+                <label for="file"><b>Foto</b></label>
+                <input type="file" name="foto_evento" required>
+            </div>
+
+            <div class="wrapper-login__form--button">
+                <button type="submit" class="form-submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
