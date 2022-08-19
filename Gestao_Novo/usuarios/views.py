@@ -2,17 +2,22 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from cadastrar_eventos.models import Evento
+from .models import Usuarios
 
 # Create your views here.
 
 def cadastro(request):
     if request.method == 'POST':
-        nome = request.POST['nome']
+        nome_completo = request.POST['nome_completo']
+        nome_usuario = request.POST['nome_usuario']
+        telefone = request.POST['telefone']
+        grupo = request.POST['grupo']
+        nome_empresa = request.POST['nome_empresa']
         email = request.POST['email']
         senha = request.POST['password']
         senha2 = request.POST['password2']
 
-        if not nome.strip():
+        if not nome_usuario.strip():
             print("O campo nome nao pode ficar em branco")
             return redirect('cadastro')
         
@@ -27,9 +32,18 @@ def cadastro(request):
         if User.objects.filter(email=email).exists():
             print('usuario ja cadastrado')
             return redirect('cadastro')
+        print(nome_empresa, nome_completo)
         
-        usuario1 = User.objects.create_user(username=nome, first_name='USR', email=email, password=senha) 
+        usuario1 = User.objects.create_user(username=nome_usuario, first_name='USR', email=email, password=senha) 
         usuario1.save()
+        usuario = Usuarios.objects.create(
+            nome_completo=nome_completo, 
+            nome_usuario=nome_usuario, 
+            telefone=telefone, 
+            grupo=grupo, 
+            nome_empresa=nome_empresa,
+            email=email,)
+        usuario.save()
         return redirect('login')
     else:
         return render(request, 'cadastro.html')

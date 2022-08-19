@@ -33,22 +33,27 @@
                 </section>
 
                 <section class="formularioUser">
-                    <form action="{% url 'cadastro' %}" method="">
+                    <form action="{% url 'cadastro' %}" method="post">
+                        {% csrf_token %}
                         <div class="pessoa" id="step1">
                             <div class="campo">
                                 <label for="nome"> Nome Completo: </label>
-                                <input type="text" id="nome" class="" placeholder="Seu Nome" required>
+                                <input type="text" name="nome_completo" id="nome" class="" placeholder="Seu Nome" required>
+                            </div>
+                            <div class="campo">
+                                <label for="nome"> Nome de Usuario: </label>
+                                <input type="text" name="nome_usuario" id="nome" class="" placeholder="Seu Nome" required>
                             </div>
                             <div class="campo">
                                 <label for="telefone"> Telefone: </label>
-                                <input type="tel" id="telefone" class="" placeholder="(xx) xxxxx-xxxx" required>
+                                <input type="tel" name="telefone" id="telefone" class="" placeholder="(xx) xxxxx-xxxx" required>
                             </div>
                         </div>
 
                         <div class="empresa" id="step2">
                             <div class="campo">
                                 <label for="grupo"> Grupo que faço parte: </label>
-                                <select name="" id="grupo">
+                                <select name="grupo" id="grupo">
                                     <option value="startup"> STARTUP </option>
                                     <option value="mantenedor"> MANTENEDOR </option>
                                     <option value="pessoa"> PESSOA FÍSICA</option>
@@ -56,25 +61,25 @@
                             </div>
                             <div class="campo">
                                 <label for="empresa"> Nome da Empresa: </label>
-                                <input type="text" id="empresa" class="" placeholder="Empresa">
+                                <input type="text" name="nome_empresa" id="empresa" class="" placeholder="Empresa">
                             </div>
                         </div>
 
                         <div class="email" id="step3">
                             <div class="campo">
                                 <label for="email"> Email: </label>
-                                <input type="email" id="email" class="" placeholder="seuemail@email.com" required>
+                                <input type="email" name="email" id="email" class="" placeholder="seuemail@email.com" required>
                             </div>
                         </div>
 
                         <div class="senha" id="step4">
                             <div class="campo">
                                 <label for="senha"> Senha: </label>
-                                <input type="password" id="senha" class="" required>
+                                <input type="password" name="password" id="senha" class="" required>
                             </div>
                             <div class="campo">
                                 <label for="csenha"> Confirmar Senha: </label>
-                                <input type="password" id="csenha" class="" required>
+                                <input type="password" name="password2" id="csenha" class="" required>
                             </div>
                         </div>
 
@@ -83,10 +88,11 @@
                             <button class="botaoAvancar" value="step2" type="button"> Próximo </button>
 
                             <div class="botao">
-                                <button class="botaoCadastrar" data-target="step4" type="submit">
-                                    Cadastrar
-                                </button>
+                                
                             </div>
+                            <button class="botaoCadastrar" data-target="step4" type="submit">
+                                Cadastrar
+                            </button>
                         </div>
                     </form>
                 </section>
