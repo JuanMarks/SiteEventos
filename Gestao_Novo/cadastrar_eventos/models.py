@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # Create your models here.
 
@@ -10,7 +11,14 @@ class Evento(models.Model):
         ('Privado', 'Privado'),
     )
     pessoa = models.ForeignKey(User, on_delete=models.CASCADE)
-    nome_evento = models.CharField(max_length=200)
+    nome_completo = models.CharField(max_length=200)
+    telefone = models.CharField(max_length=100)
+    email = models.EmailField()
+    grupo = models.CharField(max_length=20)
+    nome_empresa = models.CharField(max_length=50)
+    nome_evento = models.CharField(max_length=50)
+    data_inicio = models.DateField(default=datetime.now(), blank=True)
+    data_termino = models.DateField(default=datetime.now(), blank=True)
     img = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True)
     descricao = models.TextField()
     publico = models.CharField(
@@ -22,12 +30,6 @@ class Evento(models.Model):
     habilitar_importante = models.BooleanField(default=False)
     def __str__(self):
         return self.nome_evento
-    
-class Cadastro_Evento(models.Model):
-    nome_evento = models.ForeignKey(Evento,on_delete=models.CASCADE)
-    nome = models.CharField(max_length=200)
-    cpf_cnpj = models.CharField(max_length=20)
-    email = models.EmailField()
 
 class Inscrito_Evento(models.Model):
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)

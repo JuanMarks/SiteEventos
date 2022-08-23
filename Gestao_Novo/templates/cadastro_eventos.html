@@ -33,26 +33,26 @@
                 </section>
 
                 <section class="formularioEven">
-                    <form action="{% url 'cadastrar_eventos' %}" method="">
+                    <form action="{% url 'cadastrar_eventos' %}" method="post" enctype="multipart/form-data">
                         <div class="pessoa" id="step1">
                             <div class="campo">
                                 <label for="nome"> Nome Completo </label>
-                                <input type="text" id="nome" class="" required placeholder="Seu Nome">
+                                <input type="text" name="nome_completo" id="nome" class="" required placeholder="Seu Nome">
                             </div>
                             <div class="campo">
                                 <label for="telefone"> Telefone </label>
-                                <input type="tel" id="telefone" class="" required placeholder="Seu Telefone">
+                                <input type="tel" name="telefone" id="telefone" class="" required placeholder="Seu Telefone">
                             </div>
                             <div class="campo">
                                 <label for="email"> Email </label>
-                                <input type="email" id="email" class="" required placeholder="seuemail@email.com">
+                                <input type="email" name="email" id="email" class="" required placeholder="seuemail@email.com">
                             </div>
                         </div>
 
                         <div class="empresa" id="step2">
                             <div class="campo">
                                 <label for="grupo"> Grupo que faço parte: </label>
-                                <select name="" id="grupo">
+                                <select name="grupo" id="grupo">
                                     <option value="startup"> STARTUP </option>
                                     <option value="mantenedor"> MANTENEDOR </option>
                                     <option value="outraempresa"> OUTRA EMPRESA </option>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="campo">
                                 <label for="empresa"> Nome da Empresa: </label>
-                                <input type="text" id="empresa" class="" placeholder="Empresa" required>
+                                <input type="text" name="nome_empresa" id="empresa" class="" placeholder="Empresa" required>
                             </div>
                         </div>
 
@@ -68,29 +68,40 @@
                             <div class="datahora">
                                 <div class="campo">
                                     <label for=""> Data e horário de início do evento: </label>
-                                    <input type="datetime-local" id="meeting-time" name="meeting-time" class=""
+                                    <input type="datetime-local" id="meeting-time" name="data_inicio" class=""
                                         placeholder="DD/MM/AAAAA" required>
                                 </div>
                                 <div class="campo">
                                     <label for=""> Data e horário de término do evento: </label>
-                                    <input type="datetime-local" id="meeting-time" name="meeting-time" class=""
+                                    <input type="datetime-local" id="meeting-time" name="data_termino" class=""
                                         placeholder="DD/MM/AAAAA" required>
                                 </div>
                                 <div class="campo">
+                                    <label for="empresa"> Nome do Evento: </label>
+                                    <input type="text" name="nome_evento" id="empresa" class="" placeholder="Empresa" required>
+                                </div>
+                                <div class="campo">
                                     <label for=""> Quantidades de pessoas previstas: </label>
-                                    <input type="number" id="" class="" placeholder="NN" required>
+                                    <input type="number" name="qtd_pessoas" class="" placeholder="NN" required>
                                 </div>
                             </div>
                             <div class="campo">
                                 <label for=""> Descrição do Evento: </label>
-                                <textarea name="" id="" rows="5" resize="none" required></textarea>
+                                <textarea name="descricao" id="" rows="5" resize="none" required></textarea>
+                            </div>
+                            <div class="campo">
+                                <label for=""> Publico: </label>
+                                <select name="publico" id="">
+                                    <option value="Privado">Privado</option>
+                                    <option value="Publico">Publico</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="midia" id="step4">
                             <div clss="campo">
                                 <label for=""> Midia </label>
-                                <input type="file" id="" class="">
+                                <input type="file" name="foto_evento" id="" class="">
                             </div>
                         </div>
 
@@ -99,10 +110,11 @@
                             <button class="botaoAvancar" value="step2" type="button"> Próximo </button>
 
                             <div class="botao">
-                                <button class="botaoCadastrar" data-target="step4" type="submit">
-                                    Cadastrar
-                                </button>
+                                
                             </div>
+                            <button class="botaoCadastrar" data-target="step4" type="submit">
+                                Cadastrar
+                            </button>
                         </div>
                     </form>
                 </section>
