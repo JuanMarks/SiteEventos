@@ -11,9 +11,6 @@ class Evento(models.Model):
         ('Privado', 'Privado'),
     )
     pessoa = models.ForeignKey(User, on_delete=models.CASCADE)
-    nome_completo = models.CharField(max_length=200)
-    telefone = models.CharField(max_length=100)
-    email = models.EmailField()
     grupo = models.CharField(max_length=20)
     nome_empresa = models.CharField(max_length=50)
     nome_evento = models.CharField(max_length=50)
@@ -21,10 +18,7 @@ class Evento(models.Model):
     data_termino = models.DateField(default=datetime.now(), blank=True)
     img = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True)
     descricao = models.TextField()
-    publico = models.CharField(
-        max_length=20,
-        choices=PUBLICO,
-        )
+    publico = models.CharField(max_length=20, choices=PUBLICO,)
     convidados_qtd = models.IntegerField()
     habilitar_inscrever = models.BooleanField(default=False)
     habilitar_importante = models.BooleanField(default=False)
