@@ -140,3 +140,11 @@ html, body {
     justify-content: space-between;
     margin-top: 8px;
 }
+
+.saida-eventos a {
+    display: flex;
+    justify-content: right;
+    text-decoration: none;
+    font-size: 22px;
+    color: #00257A;
+}

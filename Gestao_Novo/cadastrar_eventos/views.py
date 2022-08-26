@@ -21,11 +21,12 @@ def cadastrar_eventos(request):
         foto_evento = request.FILES['foto_evento']
         user = get_object_or_404(User, pk=request.user.id)
         evento = Evento.objects.create(
-            pessoa=user, 
+            pessoa=user,
+            grupo=grupo, 
             nome_evento=nome_evento, 
             descricao=descricao, 
             publico=publico, 
-            convidados_qtd=qtd_pessoas,
+            convidados_qtd=qtd_convidados,
             img=foto_evento)
         evento.save()
         return redirect('dashboard')

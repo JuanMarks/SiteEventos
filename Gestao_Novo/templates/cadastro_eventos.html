@@ -15,12 +15,13 @@
     <div class="bdy-containerEvento">
         <div class="container">
             <div class="principal-containerEventos">
+                <!--sair-->
+                <div class="saida-eventos">
+                    <a href="{% url 'dashboard' %}"> Fechar </a>
+                </div>
                 <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="Logo do NINNA Hub">
 
                 <section class="painel-progressoEvento">
-                    <div class="step-next active" id="step-usuario">
-                        <a href="#" class="step-usuario"> Pessoal </a>
-                    </div>
                     <div class="step-next" id="step-empresa">
                         <a href="#" class="step-empresa"> Empresa </a>
                     </div>
@@ -34,22 +35,8 @@
 
                 <section class="formularioEven">
                     <form action="{% url 'cadastrar_eventos' %}" method="post" enctype="multipart/form-data">
-                        <div class="pessoa" id="step1">
-                            <div class="campo">
-                                <label for="nome"> Nome Completo </label>
-                                <input type="text" name="nome_completo" id="nome" class="" required placeholder="Seu Nome">
-                            </div>
-                            <div class="campo">
-                                <label for="telefone"> Telefone </label>
-                                <input type="tel" name="telefone" id="telefone" class="" required placeholder="Seu Telefone">
-                            </div>
-                            <div class="campo">
-                                <label for="email"> Email </label>
-                                <input type="email" name="email" id="email" class="" required placeholder="seuemail@email.com">
-                            </div>
-                        </div>
-
-                        <div class="empresa" id="step2">
+                        {% csrf_token %}
+                        <div class="empresa" id="step1">
                             <div class="campo">
                                 <label for="grupo"> Grupo que faço parte: </label>
                                 <select name="grupo" id="grupo">
@@ -64,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class="evento" id="step3">
+                        <div class="evento" id="step2">
                             <div class="datahora">
                                 <div class="campo">
                                     <label for=""> Data e horário de início do evento: </label>
@@ -98,7 +85,7 @@
                             </div>
                         </div>
 
-                        <div class="midia" id="step4">
+                        <div class="midia" id="step3">
                             <div clss="campo">
                                 <label for=""> Midia </label>
                                 <input type="file" name="foto_evento" id="" class="">
@@ -112,7 +99,7 @@
                             <div class="botao">
                                 
                             </div>
-                            <button class="botaoCadastrar" data-target="step4" type="submit">
+                            <button class="botaoCadastrar" data-target="step3" type="submit">
                                 Cadastrar
                             </button>
                         </div>
