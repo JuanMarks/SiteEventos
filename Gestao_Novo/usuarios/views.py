@@ -11,8 +11,6 @@ def cadastro(request):
         nome_completo = request.POST['nome_completo']
         nome_usuario = request.POST['nome_usuario']
         telefone = request.POST['telefone']
-        grupo = request.POST['grupo']
-        nome_empresa = request.POST['nome_empresa']
         email = request.POST['email']
         senha = request.POST['password']
         senha2 = request.POST['password2']
@@ -32,7 +30,6 @@ def cadastro(request):
         if User.objects.filter(email=email).exists():
             print('usuario ja cadastrado')
             return redirect('cadastro')
-        print(nome_empresa, nome_completo)
         
         usuario1 = User.objects.create_user(username=nome_usuario, first_name='USR', email=email, password=senha) 
         usuario1.save()
@@ -40,8 +37,6 @@ def cadastro(request):
             nome_completo=nome_completo, 
             nome_usuario=nome_usuario, 
             telefone=telefone, 
-            grupo=grupo, 
-            nome_empresa=nome_empresa,
             email=email,)
         usuario.save()
         return redirect('login')
