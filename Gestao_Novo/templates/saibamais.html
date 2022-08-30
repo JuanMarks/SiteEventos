@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for evento in eventos %}
+        <p>{{evento.nome_evento}}</p>
+        <p>{{evento.data_inicio}}</p>
+        <p>{{evento.data_termino}}</p>
+        <p>{{evento.descricao}}</p>
+    {% endfor %}
+
+    {% for inscrito in inscritos %}
+        <p>{{inscrito.inscrito}}</p>
+    {% endfor %}
+</body>
+</html>

@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
-from cadastrar_eventos.models import Evento
-from .models import Usuarios
+from cadastrar_eventos.models import Evento, Inscrito_Evento
+from .models import Usuarios, Empresa
 
 # Create your views here.
 
@@ -45,8 +45,10 @@ def cadastro(request):
 
 def cadastro_empresa(request):
     if request.method == 'POST':
+        nome_empresa = request.POST['nome_empresa']
         nome = request.POST['nome']
         email = request.POST['email']
+        telefone = request.POST['telefone']
         senha = request.POST['password']
 
         if not nome.strip():
@@ -63,6 +65,8 @@ def cadastro_empresa(request):
 
         usuario1 = User.objects.create_user(username=nome, first_name='ADM', email=email, password=senha) 
         usuario1.save()
+        empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
+        empresa.save()
         return redirect('login')
     else:
         return render(request, 'cadastro_empresa.html')
@@ -105,9 +109,10 @@ def logout(request):
 
 def saibamais(request, id):
     evento = Evento.objects.filter(id=id)
-    
+    inscrito = Inscrito_Evento.objects.filter(evento=evento)
     dados = {
         'eventos' : evento,
+        'inscritos': inscrito
     }
 
     return render(request, 'saibamais.html', dados)
