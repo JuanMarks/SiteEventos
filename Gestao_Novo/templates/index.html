@@ -76,7 +76,7 @@
                     <p class="card-title">Evento: {{evento.publico}}</p>
                     <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
                     <a href="#" class="btn btn-primary">Saiba mais</a>
-                    {% if evento.habilitar_inscrever == True %}
+                    {% if evento.publico == 'Publico' %}
                     <a href="#" class="btn btn-primary">Inscrever-se</a>
                     {% endif %}
                 </div>
