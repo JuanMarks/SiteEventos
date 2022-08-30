@@ -1,0 +1,24 @@
+{% load static %}
+<header class="wrapper-hero">
+    <div class="menu">
+        <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt="">
+        <nav class="navegacao">
+            {% if user.is_authenticated %}
+                {% if user.first_name == 'ADM' %}
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'dashboard' %}">Meus Eventos</a>
+                    <a href="{% url 'cadastrar_eventos' %}">Criar Eventos</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                    <a href="{% url 'dashboard' %}">Meus Eventos</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="#">Sobre</a>
+                <a href="#">Contato</a>
+            {% endif %}
+        </nav>
+    </div>
+    <h1 class="hero-title">Gestão de Eventos</h1>      
+</header>

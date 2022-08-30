@@ -12,5 +12,6 @@ class Usuarios(models.Model):
 
 class Empresa(models.Model):
     nome_completo = models.CharField(max_length=200)
+    nome_empresa = models.CharField(max_length=30)
     telefone = models.CharField(max_length=100)
     email = models.EmailField()

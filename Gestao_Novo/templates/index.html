@@ -1,42 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
-</head>
-<body>
-    <header class="wrapper-hero">
-        <div class="menu">
-            <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt="">
-            <nav class="navegacao">
-                {% if user.is_authenticated %}
-                    {% if user.first_name == 'ADM' %}
-                        <a href="{% url 'logout' %}">Logout</a>
-                        <a href="{% url 'dashboard' %}">Meus Eventos</a>
-                        <a href="{% url 'cadastrar_eventos' %}">Criar Eventos</a>
-                    {% else %}
-                        <a href="{% url 'logout' %}">Logout</a>
-                        <a href="{% url 'dashboard' %}">Meus Eventos</a>
-                    {% endif %}
-                {% else %}
-                    <a href="{% url 'login' %}">Login</a>
-                    <a href="#">Sobre</a>
-                    <a href="#">Contato</a>
-                {% endif %}
-            </nav>
-        </div>
-
-        <h1 class="hero-title">Gestão de Eventos</h1>
+{% block content %}
+        
+{% include 'menu.html' %}
 
         
-    </header>
     <main class="wrapper-container">
         <section class="wrapper-carousel">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -112,7 +80,4 @@
             Todos os direitos reservados &copy; 2022
         </div>
     </footer>
-
-    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-</body>
-</html>
+{% endblock %}
