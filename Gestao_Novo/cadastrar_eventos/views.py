@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404,redirect
-from .models import Evento
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
+from .models import Evento, Inscrito_Evento
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -35,4 +35,15 @@ def cadastrar_eventos(request):
 
 def editar_eventos(request):
     pass
+
+def saibamais(request, id):
+    evento = Evento.objects.filter(id=id)
+    evento_id = get_object_or_404(Evento, id=id)
+    inscrito = get_list_or_404(Inscrito_Evento, evento=evento_id)
+    dados = {
+        'eventos' : evento,
+        'inscritos': inscrito
+    }
+
+    return render(request, 'saibamais.html', dados)
 
