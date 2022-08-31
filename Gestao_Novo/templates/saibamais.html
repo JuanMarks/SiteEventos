@@ -9,18 +9,6 @@
     <link rel="stylesheet" href="./css/saibaMais.css">
     <title>Document</title>
 </head>
-<<<<<<< HEAD
-=======
-<body>
-    {% for evento in eventos %}
-        <p>nome do evento : {{evento.nome_evento}}</p>
-        <p>data de inicio : {{evento.data_inicio}}</p>
-        <p>{{evento.data_termino}}</p>
-        <p>{{evento.descricao}}</p>
-    {% endfor %}
->>>>>>> 7e85d1dfdcea5509a2f4f86d6784a71312e7e934
-
-<body>
     <main>
         <!--topo-->
         <div class="topo_saiba-mais">
@@ -32,10 +20,11 @@
             <img src="./Logo_NINNA_Hub/Palestra_ibc.jpg" alt="palestra">
 
             <!--nome-do-evento-->
-            <h1> Nome do Evento </h1>
+            {% for evento in eventos %}
+            <h1> {{evento.nome_evento}} </h1>
 
             <!---textos-->
-            {% for evento in eventos %}
+            
             <div class="empresa_saiba-mais">
                 <p> Empresa Representante: {{evento.nome_empresa}} </p>
             </div>
@@ -47,10 +36,12 @@
             <!--descrição-do-evento-->
             <div class="descricao_saiba-mais">
                 <h5> Descrição do evento: </h5>
-                <p>
-                    {{evento.descricao}}
-                </p>
+                <p>{{evento.descricao}}</p>
+                {% for inscrito in inscritos %}
+                    <p>{{inscrito.inscrito}}</p>
+                {% endfor%}
             </div>
+            {% endfor %}
         </section>
 
         <div class="sair_saiba-mais">
