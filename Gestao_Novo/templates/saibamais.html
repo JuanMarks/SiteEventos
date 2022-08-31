@@ -1,22 +1,59 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/saibaMais.css">
     <title>Document</title>
 </head>
-<body>
-    {% for evento in eventos %}
-        <p>{{evento.nome_evento}}</p>
-        <p>{{evento.data_inicio}}</p>
-        <p>{{evento.data_termino}}</p>
-        <p>{{evento.descricao}}</p>
-    {% endfor %}
 
-    {% for inscrito in inscritos %}
-        <p>{{inscrito.inscrito}}</p>
-    {% endfor %}
+<body>
+    <main>
+        <!--topo-->
+        <div class="topo_saiba-mais">
+            <img src="./Logo_NINNA_Hub/LOGOTIPO NINNA HUB BRANCO (1).png" alt="logo do NINNA-Hub">
+        </div>
+
+        <section class="conteudo_saiba-mais">
+            <!--imagem-->
+            <img src="./Logo_NINNA_Hub/Palestra_ibc.jpg" alt="palestra">
+
+            <!--nome-do-evento-->
+            <h1> Nome do Evento </h1>
+
+            <!---textos-->
+            {% for evento in eventos %}
+            <div class="empresa_saiba-mais">
+                <p> Empresa Representante: {{evento.nome_empresa}} </p>
+            </div>
+            <div class="ph_saiba-mais">
+                <p> Quantidade de pessoas programadas: {{evento.convidados_qtd}} </p>
+                <p> Horário previsto para o início: {{evento.data_inicio}} </p>
+            </div>
+
+            <!--descrição-do-evento-->
+            <div class="descricao_saiba-mais">
+                <h5> Descrição do evento: </h5>
+                <p>
+                    {{evento.descricao}}
+                </p>
+            </div>
+        </section>
+
+        <div class="sair_saiba-mais">
+            <button class="">
+                <a href="#"> Sair </a>
+            </button>
+        </div>
+    </main>
+
+    <footer class="rodape_saiba-mais">
+        <p class=""> &copy; Todos os direitos reservados a NINNA Hub - 2022 </p>
+    </footer>
+
 </body>
+
 </html>
