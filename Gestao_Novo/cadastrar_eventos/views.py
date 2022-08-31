@@ -45,5 +45,5 @@ def saibamais(request, id):
         'inscritos': inscrito
     }
 
-    return render(request, 'saibaMais.html', dados)
+    return render(request, 'saibamais.html', dados)
 
