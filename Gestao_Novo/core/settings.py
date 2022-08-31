@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'cadastrar_eventos',
     'usuarios',
+    'enviar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
