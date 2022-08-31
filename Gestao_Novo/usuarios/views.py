@@ -107,12 +107,3 @@ def logout(request):
     auth.logout(request)
     return redirect('index')
 
-def saibamais(request, id):
-    evento = Evento.objects.filter(id=id)
-    inscrito = Inscrito_Evento.objects.filter(evento=evento)
-    dados = {
-        'eventos' : evento,
-        'inscritos': inscrito
-    }
-
-    return render(request, 'saibamais.html', dados)
