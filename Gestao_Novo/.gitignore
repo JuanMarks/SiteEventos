@@ -1,5 +1,9 @@
 # created by virtualenv automatically
 /ninna
 /cadastrar_eventos/__pycache__
+/cadastrar_eventos/migrations/__pycache__
 /core/__pycache__
 /usuarios/__pycache__
+/usuarios/migrations/__pycache__
+/enviar/__pycache__
+/enviar/migrations/__pycache__
