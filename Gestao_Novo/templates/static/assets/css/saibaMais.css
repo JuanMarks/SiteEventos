@@ -1,0 +1,121 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: roboto;
+}
+
+html {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(https://images-ext-1.discordapp.net/external/1j2DoPe8RUQWUxgrroQV0EtkB8KeXBHQxV1SWy-eUTI/https/ninnahub.com.br/wp-content/uploads/2021/11/section1-bg.png?width=1001&height=468) center center / cover no-repeat;
+}
+
+.topo_saiba-mais {
+    display: flex;
+    justify-content: space-around;
+    background-color: #00257A;
+}
+
+.topo_saiba-mais img {
+    height: 70px;
+    width: 150px;
+    padding: 5px;
+}
+
+.conteudo_saiba-mais img {
+    margin-left: 5%;
+    width: 90%;
+    height: 300px;
+}
+
+.conteudo_saiba-mais h1 {
+    color: #fff;
+    font-size: 45px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.empresa_saiba-mais {
+    margin-left: 12.2%;
+    margin-top: 10px;
+    padding: 5px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.ph_saiba-mais {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    padding: 5px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.descricao_saiba-mais {
+    display: flex;
+    flex-direction: column;
+    margin: 4%;
+    color: #fff;
+}
+
+.descricao_saiba-mais h5 {
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.descricao_saiba-mais p {
+    text-align: justify;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.sair_saiba-mais {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.sair_saiba-mais button {
+    background-color: #00257A;
+    border: 1px solid #00257A;
+    border-radius: 30px;
+    width: 150px;
+    padding: 10px;
+}
+
+.sair_saiba-mais a {
+    text-decoration: none;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    padding: 5px;
+}
+
+.rodape_saiba-mais {
+    background-color: #00257A;
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+}
+
+
+
+
+
+@media screen and (max-width: 400px) {
+    .conteudo_saiba-mais img {
+        width: 90%;
+        height: 200px;
+    }
+
+    .descricao_saiba-mais p {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        font-size: 18px;
+    }
+}
