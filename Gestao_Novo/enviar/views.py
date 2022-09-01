@@ -13,7 +13,6 @@ def mail(request):
 def enviar(request):
     destinatario = []
     if request.method == "POST":
-        remetente = request.POST['remetente']
         if request.POST['destinatario1']:
             verifica = True
             n = 1
@@ -33,7 +32,7 @@ def enviar(request):
 
         htmlcontent = render_to_string('envio.html', {'mensagem': mensagem})
         convertido = strip_tags(htmlcontent)
-        emailenviado = EmailMultiAlternatives(assunto, convertido, remetente, destinatario)
+        emailenviado = EmailMultiAlternatives(assunto, convertido, 'ouvidoriaadocicafornasa@gmail.com', destinatario)
         emailenviado.attach_alternative(htmlcontent, 'text/html')
         emailenviado.send()
         # send_mail(assunto, mensagem, remetente, destinatario)
