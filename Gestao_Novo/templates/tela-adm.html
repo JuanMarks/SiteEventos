@@ -39,9 +39,9 @@
                     <div class="card-evento">
                         <p class="card-evento__nome"> {{evento.nome_evento}} </p>
                         <div class="card-evento__btn">
-                            <button><a href="saibamais/{{evento.id}}"> Saiba Mais </a></button>
-                            <button><a href="editar_evento/{{evento.id}}"> Editar </a></button>
-                            <button class="btn btn-danger"><a href="apagar_evento/{{evento.id}}">Excluir</a></button>
+                            <a class="btn btn-success" href="saibamais/{{evento.id}}"> Saiba Mais </a>
+                            <a class="btn btn-info" href="editar_evento/{{evento.id}}"> Editar </a>
+                            <a class="btn btn-danger" href="apagar_evento/{{evento.id}}"> Excluir</a>
                         </div>
                     </div>
                     {% endfor %}
