@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'widget_tweaks',
     'cadastrar_eventos',
     'usuarios',
     'enviar',

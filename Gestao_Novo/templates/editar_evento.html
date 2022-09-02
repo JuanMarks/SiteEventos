@@ -1,0 +1,25 @@
+
+{% load static %}
+{% load widget_tweaks %}
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+
+
+<section class="col-8">
+    
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+        <div class="form-group">
+            <label for="{{field.id_for_label}}">{{field.label}}</label>
+            {{field|add_class:'form-control'}}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Atualizar" class="btn btn-success">
+    </form>
+    
+</section>

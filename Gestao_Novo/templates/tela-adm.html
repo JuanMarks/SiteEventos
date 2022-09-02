@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ADM </title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/adm.css' %}">
+</head>
+<body>
+    <main>
+        <div class="content">
+            <div class="content__perfil">
+                <img src="{% static 'assets/img/nem fudendo capitao.png.opdownload' %}" class="imagem-vaniele" alt="Vaniele brigando com o Filipe e o Kaynan so olhando!! ;-;">
+                <p class="content__perfil--nome">{{user.username}}</p>
+                <nav class="content__perfil--menu">
+                    <a href="{% url 'index' %}"> Home </a>
+                    <a href=""> Eventos </a>
+                    <a href=""> Gráficos </a>
+                    <a href=""> Relatorios </a>
+                    <a href="{% url 'email' %}">Enviar Email</a>
+                </nav>
+            </div>
+
+            <div class="content__mostragem">
+                <div class="content__mostragem--saida">
+                    <a href="#" class="x"> x </a>
+                </div>
+
+                <div class="logo__ninna">
+                    <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="Imagem do ninna">
+                </div>
+                
+                <div class="content__mostragem--eventos">
+                    {% for evento in eventos %}
+                    <div class="card-evento">
+                        <p class="card-evento__nome"> {{evento.nome_evento}} </p>
+                        <div class="card-evento__btn">
+                            <button><a href="saibamais/{{evento.id}}"> Saiba Mais </a></button>
+                            <button><a href="editar_evento/{{evento.id}}"> Editar </a></button>
+                            <button class="btn btn-danger"><a href="apagar_evento/{{evento.id}}">Excluir</a></button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+        </div>
+    </main>
+</body>
+</html>

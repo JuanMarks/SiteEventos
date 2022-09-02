@@ -42,7 +42,7 @@
                     <h5> Descrição do evento: </h5>
                     <p>{{evento.descricao}}</p>
                 </div>
-
+                {% if inscritos %}
                 <div class="empresa_saiba-mais">
                     <p> Inscritos no evento: 
                         {% for inscrito in inscritos %}
@@ -50,6 +50,8 @@
                         {% endfor%}
                     </p>
                 </div>
+                {% else %}
+                {% endif %}
             {% endfor %}
         </section>
 

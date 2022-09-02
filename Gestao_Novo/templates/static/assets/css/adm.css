@@ -1,0 +1,113 @@
+.content {
+    display: flex;
+}
+
+.content__perfil {
+    background: #00257A;
+    height: 100vh;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.content__perfil--nome {
+    font-size: 20px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.content__perfil--menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.content__perfil--menu a {
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 4px;
+    padding: 8px;
+}
+
+.imagem-vaniele {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.content__mostragem {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.content__mostragem--saida {
+    display: flex;
+    justify-content: end;
+    text-transform: uppercase;
+    margin-right: 2%;
+    padding: 4px;
+}
+
+.content__mostragem--saida a {
+    color: #00257A;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.content__mostragem--saida a:hover {
+    font-size: 20px;
+    -webkit-text-stroke: 2px #00257A; 
+    transition-timing-function: ease-in-out;
+}
+
+.logo__ninna {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo__ninna img {
+    margin: 15px;
+    height: 100px;
+    width: 200px;
+}
+
+.content__mostragem--eventos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0;
+}
+
+.card-evento {
+    border: 1px solid rgba(0, 0, 0, .3);
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-evento__nome {
+    padding-left: 10px;
+}
+
+.card-evento__btn button {
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin: 2px;
+    border-radius: 5px;
+    background: #00257A;
+    color: #fff;
+    font-weight: 700;
+}

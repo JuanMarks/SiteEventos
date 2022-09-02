@@ -1,5 +1,5 @@
 from django.urls import path
-
+from cadastrar_eventos import views as views_eventos
 from . import views
 
 urlpatterns = [
@@ -8,6 +8,8 @@ urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard'),
     path('logout', views.logout, name='logout'),
     path('cadastro_empresa', views.cadastro_empresa, name='cadastro_empresa'),
-    
-    
+    path('tela_adm', views.tela_adm, name='tela_adm'),
+    path('editar_evento/<int:id>', views.editar_evento, name='editar_evento'),
+    path('apagar_evento/<int:id>', views.apagar_evento, name='apagar_evento'),
+    path('saibamais/<int:id>', views_eventos.saibamais, name='saibamais'),
 ]

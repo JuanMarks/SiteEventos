@@ -33,13 +33,14 @@ def cadastrar_eventos(request):
     else:
         return render(request, 'cadastro_eventos.html')
 
-def editar_eventos(request):
-    pass
-
 def saibamais(request, id):
     evento = Evento.objects.filter(id=id)
     evento_id = get_object_or_404(Evento, id=id)
-    inscrito = get_list_or_404(Inscrito_Evento, evento=evento_id)
+    inscrito = Inscrito_Evento.objects.filter(evento=evento_id)
+    
+    if len(inscrito) > 1:
+        inscrito = get_list_or_404(Inscrito_Evento, evento=evento_id)
+    
     dados = {
         'eventos' : evento,
         'inscritos': inscrito

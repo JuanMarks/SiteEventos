@@ -4,17 +4,28 @@
         <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt="">
         <nav class="navegacao">
             {% if user.is_authenticated %}
+
+                {% if user.first_name == 'ADM-MASTER'%}
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'dashboard' %}">Meus Eventos</a>
+                    <a href="{% url 'cadastrar_eventos' %}">Criar Eventos</a>
+                    <a href="{% url 'tela_adm' %}">Administração</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% endif %}
+
                 {% if user.first_name == 'ADM' %}
                     <a href="{% url 'index' %}">Home</a>
                     <a href="{% url 'dashboard' %}">Meus Eventos</a>
                     <a href="{% url 'cadastrar_eventos' %}">Criar Eventos</a>
-                    <a href="{% url 'email' %}">Enviar Email</a>
                     <a href="{% url 'logout' %}">Logout</a>
-                {% else %}
+                {% endif %}
+
+                {% if user.first_name == 'USR' %}
                     <a href="{% url 'index' %}">Home</a>
                     <a href="{% url 'logout' %}">Logout</a>
                     <a href="{% url 'dashboard' %}">Meus Eventos</a>
                 {% endif %}
+                
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
                 <a href="#">Sobre</a>
