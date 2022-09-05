@@ -25,7 +25,8 @@ def cadastrar_eventos(request):
             grupo=grupo, 
             nome_evento=nome_evento, 
             descricao=descricao, 
-            publico=publico, 
+            publico=publico,
+            publicar='Não Publicado',
             convidados_qtd=qtd_convidados,
             img=foto_evento)
         evento.save()

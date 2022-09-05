@@ -2,7 +2,8 @@
 {% load static %}
 {% block content %}
 {% include 'menu.html' %}
-    
+
+<h1 class="">Solicitação de Eventos</h1> 
     <main class="wrapper-container">
 
         <section class="eventos">
@@ -13,6 +14,7 @@
                     <h5 class="card-title">{{evento.nome_evento}}</h5>
                     <p class="card-title">Evento: {{evento.publico}}</p>
                     <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
+                    <p class="card-title">Convidados: {{evento.publicar}}</p>
                     <a href="#" class="btn btn-primary">Saiba mais</a>
                     {% if evento.habilitar_inscrever == True %}
                     <a href="#" class="btn btn-primary">Inscrever-se</a>

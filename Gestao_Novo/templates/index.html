@@ -2,8 +2,16 @@
 {% load static %}
 {% block content %}
         
-{% include 'menu.html' %}
 
+<header class="wrapper-hero">
+  <div class="menu">
+    <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt=""> 
+    
+     
+    {% include 'menu.html' %}
+  </div>
+  <h1 class="hero-title">Gestão de Eventos</h1> 
+</header>
         
     <main class="wrapper-container">
         <section class="wrapper-carousel">
@@ -37,18 +45,20 @@
 
         <section class="eventos">
             {% for evento in eventos %}
-            <div class="card" style="width: 18rem;">
-                <img src="{{evento.img.url}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{evento.nome_evento}}</h5>
-                    <p class="card-title">Evento: {{evento.publico}}</p>
-                    <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
-                    <a href="saibamais/{{evento.id}}" class="btn btn-primary">Saiba mais</a>
-                    {% if evento.publico == 'Aberto' %}
-                    <a href="#" class="btn btn-primary">Inscrever-se</a>
-                    {% endif %}
-                </div>
-            </div>
+              {% if evento.publicar == 'Publicado'%}
+              <div class="card" style="width: 18rem;">
+                  <img src="{{evento.img.url}}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                      <h5 class="card-title">{{evento.nome_evento}}</h5>
+                      <p class="card-title">Evento: {{evento.publico}}</p>
+                      <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
+                      <a href="saibamais/{{evento.id}}" class="btn btn-primary">Saiba mais</a>
+                      {% if evento.publico == 'Aberto' %}
+                      <a href="#" class="btn btn-primary">Inscrever-se</a>
+                      {% endif %}
+                  </div>
+              </div>
+              {% endif %}
             {% endfor %}
         </section>
         

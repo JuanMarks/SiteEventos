@@ -5,10 +5,17 @@ from datetime import datetime
 # Create your models here.
 
 class Evento(models.Model):
+
     PUBLICO = (
         ('Aberto', 'Aberto'),
         ('Privado', 'Privado'),
     )
+
+    PUBLICAR = (
+        ('Não Publicado', 'Não Publicado'),
+        ('Publicado', 'Publicado')
+    )
+
     pessoa = models.ForeignKey(User, on_delete=models.CASCADE)
     grupo = models.CharField(max_length=20)
     nome_empresa = models.CharField(max_length=50)
@@ -19,6 +26,7 @@ class Evento(models.Model):
     descricao = models.TextField()
     publico = models.CharField(max_length=20, choices=PUBLICO,)
     convidados_qtd = models.IntegerField()
+    publicar = models.CharField(max_length=15, choices=PUBLICAR)
     habilitar_inscrever = models.BooleanField(default=False)
     habilitar_importante = models.BooleanField(default=False)
     def __str__(self):
