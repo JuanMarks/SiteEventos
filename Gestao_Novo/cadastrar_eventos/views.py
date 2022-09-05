@@ -14,6 +14,7 @@ def index(request):
 def cadastrar_eventos(request):
     if request.method == 'POST':
         grupo = request.POST['grupo']
+        nome_empresa = request.POST['nome_empresa']
         nome_evento = request.POST['nome_evento']
         descricao = request.POST['descricao']
         publico = request.POST['publico']
@@ -23,6 +24,7 @@ def cadastrar_eventos(request):
         evento = Evento.objects.create(
             pessoa=user,
             grupo=grupo, 
+            nome_empresa=nome_empresa,
             nome_evento=nome_evento, 
             descricao=descricao, 
             publico=publico,

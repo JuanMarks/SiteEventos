@@ -46,7 +46,7 @@
         <section class="eventos">
             {% for evento in eventos %}
               {% if evento.publicar == 'Publicado'%}
-              <div class="card" style="width: 18rem;">
+              <div class="card" style="width: 25rem;">
                   <img src="{{evento.img.url}}" class="card-img-top" alt="...">
                   <div class="card-body">
                       <h5 class="card-title">{{evento.nome_evento}}</h5>

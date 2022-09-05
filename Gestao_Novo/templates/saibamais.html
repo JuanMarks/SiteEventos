@@ -8,20 +8,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'assets/css/saibaMais.css' %}">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
+    <title>NINNA || SAIBA MAIS</title>
 </head>
 
 <body>
-    <main>
-        <!--topo-->
-        <div class="topo_saiba-mais">
-            <img src="{% static 'assets/img/LOGOTIPO NINNA HUB BRANCO (1).png' %}" alt="logo do NINNA-Hub">
+   
+        <div class="menu">
+          <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt=""> 
+          
+           
+          {% include 'menu.html' %}
         </div>
+      
+    <main>
+        
 
         <section class="conteudo_saiba-mais">
             <!--imagem-->
             {% for evento in eventos %}
-                <img src="{{evento.img.url}}" alt="palestra">
+                <img style="margin-top: 50px; width: 90%;" src="{{evento.img.url}}" alt="palestra">
 
                 <!--nome-do-evento-->
                 <h1> {{evento.nome_evento}} </h1>
