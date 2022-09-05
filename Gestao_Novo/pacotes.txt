@@ -1,8 +1,10 @@
 asgiref==3.5.2
 binary==1.0.0
-decouple==0.0.7
 Django==4.1
 Pillow==9.2.0
 psycopg2==2.9.3
 sqlparse==0.4.2
 tzdata==2022.1
+django-widget-tweaks==1.4.12
+python-decouple==3.6
+pylint==2.15.0
