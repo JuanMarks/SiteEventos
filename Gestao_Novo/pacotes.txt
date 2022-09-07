@@ -8,3 +8,4 @@ tzdata==2022.1
 django-widget-tweaks==1.4.12
 python-decouple==3.6
 pylint==2.15.0
+django-xhtml2pdf==0.0.4

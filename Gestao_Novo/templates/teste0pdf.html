@@ -1,0 +1,40 @@
+{% load static %}
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>relatorio em pdf</title>
+        {% comment %} <link rel="stylesheet" href="{% static 'assets/css/relatoriofinal.css' %}"> {% endcomment %}
+        <link rel="stylesheet" href="templates/static/assets/css/css.css">
+        <style></style>
+    </head>
+    <body>
+        <div class="container"">    
+            <h2 class="relatorio">Relatorio</h2>    
+            <h2>nome evento : {{eventos.nome_evento}}</h2>
+            <h2>descriçao do evento : {{eventos.descricao}}</h2>
+            <h2>tipo : {{eventos.publico}}</h2>
+            <h2>inicio : {{eventos.data_inicio}}</h2>
+            <h2>termino : {{eventos.data_termino}}</h2>
+            <h2>grupo : {{ eventos.grupo }}</h2>
+            <h2>total de inscritos no evento : {{ as }}</h2>
+            <!-- <img src="templates/static/users/2022/09{{eventos.img}}" alt=""> -->
+            <img src="{{eventos.img}}" alt="">
+            {% if inscritos %}
+                <table class="tabela" border='1'>
+                    <tr>
+                    <th>NOME</th>
+                    <th>SOBRENOME</th>
+                    </tr>
+                        {% for inscrito in inscritos %}
+                        <tr>
+                        <td>{{inscrito.inscrito}}</td>
+                        <td>SOBRENOME</td>
+                        </tr>
+                        {% endfor %}
+                </table>
+            {% else %}
+            {% endif %}
+            </div>
+        </div>
+    </body>
+</html>

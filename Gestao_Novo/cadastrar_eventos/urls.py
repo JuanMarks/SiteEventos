@@ -1,9 +1,13 @@
 from django import views
 from django.urls import path
 from . import views
+from .views import render_pdf_view ,CustomerListView, customer_render_pdf_view
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('cadastrar_eventos', views.cadastrar_eventos, name='cadastrar_eventos'),
     path('saibamais/<int:id>', views.saibamais, name='saibamais'),
+    path('teste/<int:id>', render_pdf_view, name='teste'),
+    path('teste2', CustomerListView.as_view(), name='teste2'),
+    path('pdf/<id>/', customer_render_pdf_view, name='teste3')
 ]

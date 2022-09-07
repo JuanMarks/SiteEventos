@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="75a0e7a8-5c84-48c8-bd18-0baa12990e65" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/core/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/activate" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/activate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/activate.bat" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/activate.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/activate.fish" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/activate.nu" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/activate.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/activate.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/activate_this.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/deactivate.bat" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/deactivate.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/deactivate.nu" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/django-admin.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/django-admin.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/pip-3.10.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/pip.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/pip.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/pip3.10.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/pip3.10.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/pip3.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/pip3.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/pydoc.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/python.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/python.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/pythonw.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/pythonw.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/sqlformat.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/Scripts/sqlformat.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/wheel-3.10.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/wheel.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/wheel3.10.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/Scripts/wheel3.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ninna/pyvenv.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/ninna/pyvenv.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pacotes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pacotes.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2EHhnwoMBi5Wj4SI4oPWjWIk36l" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/joels/Documents/DJANGO/PROJETO_NINNA/SiteEventos/Gestao_Novo"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="75a0e7a8-5c84-48c8-bd18-0baa12990e65" name="Changes" comment="" />
+      <created>1662258588810</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1662258588810</updated>
+    </task>
+    <servers />
+  </component>
+</project>
