@@ -5,17 +5,24 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
 </head>
 
-
+<div class="menu">
+    <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt=""> 
+    
+     
+    {% include 'menu.html' %}
+  </div>
 
 <section class="col-8">
     
-    <form action="" method="post">
+    <form style="margin-left: 20px;" action="" method="post">
         {% csrf_token %}
         {% for field in form.visible_fields %}
         <div class="form-group">
-            <label for="{{field.id_for_label}}">{{field.label}}</label>
+            <label style="font-size: 20px; margin-top: 20px;" for="{{field.id_for_label}}">{{field.label}}</label>
             {{field|add_class:'form-control'}}
         </div>
         {% endfor %}
