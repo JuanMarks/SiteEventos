@@ -28,7 +28,7 @@
         <section class="conteudo_saiba-mais">
             <!--imagem-->
             {% for evento in eventos %}
-                <img style="margin-top: 50px; width: 90%;" src="{{evento.img.url}}" alt="palestra">
+                <img style="margin-top: 50px; width: 90%; object-fit: contain;" src="{{evento.img.url}}" alt="palestra">
 
                 <!--nome-do-evento-->
                 <h1> {{evento.nome_evento}} </h1>

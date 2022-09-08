@@ -37,7 +37,8 @@
                 <div class="content__mostragem--eventos">
                     {% for evento in eventos %}
                     <div class="card-evento">
-                        <p class="card-evento__nome"> {{evento.nome_evento}} </p>
+                        <p class="card-evento__nome"> {{evento.nome_evento}} ({{evento.pessoa}}) </p>
+                        
                         <div class="card-evento__btn">
                             <a class="btn btn-success" href="saibamais/{{evento.id}}"> Saiba Mais </a>
                             <a class="btn btn-info" href="editar_evento/{{evento.id}}"> Editar </a>
