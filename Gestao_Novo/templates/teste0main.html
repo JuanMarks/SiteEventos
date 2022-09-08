@@ -1,0 +1,13 @@
+{% extends 'teste0.html' %}
+{% block title %}Relatorio evento {% endblock title %}
+
+
+{% block content %}
+    {% for evento in object_list%}
+        {{evento.nome_evento}}
+        <a href="{% url 'teste3' evento.id%}"><button class="btn btn-primary">PDF</button></a>
+        <a href="{% url 'teste' evento.id%}"><button class="btn btn-danger">VISUALIZAR</button></a>
+        <br>
+        <hr>
+    {% endfor %}
+{% endblock content %}
