@@ -7,7 +7,6 @@
 
                 {% if user.first_name == 'ADM-MASTER'%}
                     <a href="{% url 'index' %}">Home</a>
-                    <a href="{% url 'dashboard' %}">Meus Eventos</a>
                     <a href="{% url 'cadastrar_eventos' %}">Criar Evento</a>
                     <a href="{% url 'tela_adm' %}">Administração</a>
                     <a href="{% url 'logout' %}">Logout</a>

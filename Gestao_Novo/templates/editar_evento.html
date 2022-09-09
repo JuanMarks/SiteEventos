@@ -2,6 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 <head>
+    <title>NINNA || EDITAR </title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -16,17 +17,44 @@
     {% include 'menu.html' %}
   </div>
 
-<section class="col-8">
+<section class="col-10">
     
-    <form style="margin-left: 20px;" action="" method="post">
+    <form style="margin-left: 270px; text-align: center;" action="" method="post">
         {% csrf_token %}
         {% for field in form.visible_fields %}
-        <div class="form-group">
-            <label style="font-size: 20px; margin-top: 20px;" for="{{field.id_for_label}}">{{field.label}}</label>
-            {{field|add_class:'form-control'}}
-        </div>
+            <div class="form-group">
+                <label style="font-size: 25px; margin-top: 30px;" for="{{field.id_for_label}}">{{field.label}}</label>
+                {{field|add_class:'form-control'}}
+            </div>
         {% endfor %}
         <input type="submit" value="Atualizar" class="btn btn-success">
     </form>
     
 </section>
+
+<footer class="wrapper-footer">
+    <div class="wrapper-footer__info">
+        <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">
+        <div class="wrapper-footer__info--geral">
+            <ul class="info--localizacao__list">
+                <li class="info--localizacao__item">
+                    Av. Dom Manuel, 1020 - Centro, Fortaleza - CE, 60060-090
+                </li>
+                <li class="info--localizacao__item">
+                    (85) 3211-4201
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="wrapper-footer__info--sociais">
+            <ul class="info--sociais__list">
+                <li class="info--sociais__item">Instagram</li>
+                <li class="info--sociais__item">Youtube</li>
+                <li class="info--sociais__item">LinkedIn</li>
+            </ul>
+        </div> -->
+    </div>
+
+    <div class="wrapper-footer__copyright">
+        Todos os direitos reservados &copy; 2022
+    </div>
+</footer>
