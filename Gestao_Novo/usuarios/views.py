@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from cadastrar_eventos.models import Evento, Inscrito_Evento
@@ -32,7 +32,9 @@ def cadastro(request):
             print('usuario ja cadastrado')
             return redirect('cadastro')
         
-        usuario1 = User.objects.create_user(username=nome_usuario, first_name='USR', email=email, password=senha) 
+        usuario1 = User.objects.create_user(username=nome_usuario, email=email, password=senha) 
+        grupo = get_object_or_404(Group, name='Usuarios Comuns')
+        usuario1.groups.add(grupo)
         usuario1.save()
         usuario = Usuarios.objects.create(
             nome_completo=nome_completo, 
@@ -64,7 +66,9 @@ def cadastro_empresa(request):
             print('usuario ja cadastrado')
             return redirect('cadastro_empresa')
 
-        usuario1 = User.objects.create_user(username=nome, first_name='ADM', email=email, password=senha) 
+        usuario1 = User.objects.create_user(username=nome, email=email, password=senha) 
+        grupo = get_object_or_404(Group, name='Empresa')
+        usuario1.groups.add(grupo)
         usuario1.save()
         empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
         empresa.save()
