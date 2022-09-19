@@ -49,10 +49,12 @@ def cadastro(request):
 def cadastro_empresa(request):
     if request.method == 'POST':
         nome_empresa = request.POST['nome_empresa']
+        categoria = request.POST['categoria']
         nome = request.POST['nome']
         email = request.POST['email']
         telefone = request.POST['telefone']
         senha = request.POST['password']
+        senha_admin = request.POST['password-admin']
 
         if not nome.strip():
             print("O campo nome nao pode ficar em branco")
@@ -66,12 +68,18 @@ def cadastro_empresa(request):
             print('usuario ja cadastrado')
             return redirect('cadastro_empresa')
 
+        if senha_admin == "123456":
+            if categoria == 'ADM':
+                grupo = get_object_or_404(Group, name='ADM')
+        else:
+            grupo = get_object_or_404(Group, name='Empresa')
+            empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
+            empresa.save()
+        
         usuario1 = User.objects.create_user(username=nome, email=email, password=senha) 
-        grupo = get_object_or_404(Group, name='Empresa')
         usuario1.groups.add(grupo)
         usuario1.save()
-        empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
-        empresa.save()
+        
         return redirect('login')
     else:
         return render(request, 'cadastro_empresa.html')

@@ -7,18 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Usuario</title>
 
+    <link rel="stylesheet" href="{% static 'assets/css/cadastroUsuario1.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+    
 
 </head>
 <body>
     <div class="wrapper-login">
         <form action="{% url 'cadastro_empresa' %}" class="wrapper-login__form" method="post">
+            <div class="saida-eventos">
+                <a href="{% url 'login' %}"> Fechar </a>
+            </div>
             {% csrf_token %}
             <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
             <h1>Cadastro</h1>
             <div class="wrapper-login__form--user">
-                <label for="user">Nome da Empresa</label>
+                <label for="user">Categoria</label>
+                <select style="padding: 12px;" name="categoria" id="">
+                    <option value="ADM">Administração</option>
+                    <option value="Empresa">Empresa</option>
+                </select>
+            </div>
+            <div class="wrapper-login__form--password">
+                <label for="password">Senha de ADM</label>
+                <input type="password" placeholder="preencha esse campo apenas se tiver a senha de Administração" name="password-admin" class="form-input input-password" id="password">
+            </div>
+            <div class="wrapper-login__form--user">
+                <label for="user">Nome da Empresa ou Nome de ADM</label>
                 <input type="text" name="nome_empresa" class="form-input input-user" id="user">
             </div>
 

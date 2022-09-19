@@ -17,7 +17,7 @@
             {% csrf_token %}
             <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
             <div class="wrapper-login__form--user">
-                <label for="user">Usuário</label>
+                <label for="user">Email</label>
                 <input type="text" name="username" class="form-input input-user" id="user">
             </div>
 
@@ -27,9 +27,8 @@
             </div>
 
             <div class="wrapper-login__form--password--request">
-                <a href="#">Esqueci a senha</a>
-                <a href="{% url 'cadastro' %}">É novo por aqui? Criar conta</a>
-                <a href="{% url 'cadastro_empresa' %}">é uma empresa clique aqui? Criar conta</a>
+                <a style="margin-right: 50px;" href="{% url 'cadastro' %}">É novo por aqui? Criar conta</a>
+                <a href="{% url 'cadastro_empresa' %}">é uma empresa? clique aqui Criar conta</a>
             </div>
 
             <div class="wrapper-login__form--button">
