@@ -8,6 +8,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
 </head>
 
 <div class="menu">
@@ -23,11 +24,11 @@
         {% csrf_token %}
         {% for field in form.visible_fields %}
             <div class="form-group">
-                <label style="font-size: 25px; margin-top: 30px;" for="{{field.id_for_label}}">{{field.label}}</label>
+                <label style="font-size: 25px; margin-top: 30px; color: white;" for="{{field.id_for_label}}">{{field.label}}</label>
                 {{field|add_class:'form-control'}}
             </div>
         {% endfor %}
-        <input type="submit" value="Atualizar" class="btn btn-success">
+        <input style="margin-bottom: 20px; padding: 15px;" type="submit" value="Atualizar" class="btn btn-success">
     </form>
     
 </section>

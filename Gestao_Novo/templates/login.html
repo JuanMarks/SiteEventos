@@ -18,21 +18,21 @@
             <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
             <div class="wrapper-login__form--user">
                 <label for="user">Email</label>
-                <input type="text" name="username" class="form-input input-user" id="user">
+                <input style="border-radius: 10px;" type="text" name="username" class="form-input input-user" id="user">
             </div>
 
             <div class="wrapper-login__form--password">
                 <label for="password">Senha</label>
-                <input type="password" name="senha" class="form-input input-password" id="password">
+                <input style="border-radius: 10px;" type="password" name="senha" class="form-input input-password" id="password">
             </div>
 
             <div class="wrapper-login__form--password--request">
                 <a style="margin-right: 50px;" href="{% url 'cadastro' %}">É novo por aqui? Criar conta</a>
-                <a href="{% url 'cadastro_empresa' %}">é uma empresa? clique aqui Criar conta</a>
+                <a href="{% url 'cadastro_empresa' %}">é uma Empresa ou Admin? clique aqui Criar conta</a>
             </div>
 
             <div class="wrapper-login__form--button">
-                <button type="submit" class="form-submit">Entrar</button>
+                <button style="border-radius: 10px;" type="submit" class="form-submit">Entrar</button>
             </div>
         </form>
     </div>
