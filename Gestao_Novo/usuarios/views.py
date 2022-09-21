@@ -101,7 +101,7 @@ def login(request):
                 auth.login(request, user)
                 print("login realizado com sucesso")
                 print(nome)
-                return redirect('dashboard')
+                return redirect('index')
     return render(request, 'login.html')
 
 def dashboard(request):
