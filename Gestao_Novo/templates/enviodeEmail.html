@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envio de E-mail</title>
+
+  <link rel="stylesheet" href="{% static 'assets/css/enviodeEmail.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1><img src="{% static 'assets/img/NINNA AZUL (1).png' %}" width="200px" style="margin-top: 20px;"></h1>
+    <div class="container__button">
+      <button class="hover" id="btn__manual">Enviar(manualmente)</button>
+      <input type="radio" name="btn" value="manual" id="manual" style="display: none;">
+
+      <button class="hover escolhido" id="btn__todos">Enviar via banco</button>
+      <input type="radio" name="btn" value="todos" id="todos" checked style="display:none;">
+    </div>
+    <div class="container__manual none" id="container__manual">
+      <form action="{% url 'enviar' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="destinatario">Destinatário:</label>
+        <input type="text" name="destinatario" id="destinatario">
+
+        <label for="assunto">Assunto:</label>
+        <input type="text" name="assunto" id="assunto">
+
+        <label for="assunto">Imagem: <small>Google Photos (link)</small></label>
+        <input type="text" name="imagem" id="imagem">
+
+        <label for="mensagem">Mensagem:</label>
+        <textarea name="mensagem"></textarea>
+
+        <input type="file" name="excel" id="">
+        <button class="button-envio">Enviar</button>
+      </form>
+      <a href="{% url 'download_file' filename='Nomes.xlsx' %}">Download Arquivo</a>
+    </div>
+    <div class="container__envio-bd m-scroll" id="container__todos">
+      <form class="container__form-bd" action="{% url 'enviar_todos' %}" method="POST">
+        {% csrf_token %}
+        <table class="container__table-bd">
+          <thead>
+            <tr>
+              <th>Selecionar Membros</th>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>
+                <div id="grupo" style="display: flex; flex-direction: column;">
+                  <a href="{% url 'email' 'adm' %}" style="text-decoration: none; color: #fff;">ADM</a>
+                  <a href="{% url 'email' 'mantenedor' %}" style="text-decoration: none; color: #fff;">MANTENEDOR</a>
+                  <a href="{% url 'email' 'usr' %}" style="text-decoration: none; color: #fff;">USR</a>
+                  <a href="{% url 'email' 'all' %}" style="text-decoration: none; color: #fff;">TODOS</a>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for usuario in usuario %}
+            <tr>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
+              <td>{{usuario.nome}}</td>
+              <td>{{usuario.e_mail}}</td>
+              <td>{{usuario.grupo}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <label for="assunto">Assunto:</label>
+        <input type="text" name="assunto" id="assunto">
+
+        <label for="assunto">Imagem: <small>Google Photos (link)</small></label>
+        <input type="text" name="imagem" id="imagem">
+
+        <label for="mensagem">Mensagem</label>
+        <textarea name="mensagem"></textarea>
+
+        <button class="button-envio">Enviar</button>
+      </form>
+    </div>
+  </div>
+  <script src="{% static 'assets/js/envioEmail.js' %}"></script>
+</body>
+</html>

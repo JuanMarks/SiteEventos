@@ -4,6 +4,7 @@ from django.contrib import auth
 from cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
 from cadastrar_eventos.forms import Editar_Evento
+from enviar.models import Usuario
 
 # Create your views here.
 
@@ -42,6 +43,11 @@ def cadastro(request):
             telefone=telefone, 
             email=email,)
         usuario.save()
+        usuario_bd = Usuario.objects.create(
+            nome=nome_completo,
+            e_mail=email,
+        )
+        usuario_bd.save()
         return redirect('login')
     else:
         return render(request, 'cadastro.html')

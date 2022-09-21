@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documento</title>
-    <style>
+    {% comment %} <style>
         *{
             padding: 0px;
             margin: 0px;
@@ -33,7 +33,7 @@
             width: 6vw;
             height: auto;
         }
-    </style>
+    </style> {% endcomment %}
 </head>
 <body>
     <div class="cabecalho">
@@ -41,12 +41,16 @@
     </div>
     <div class="conteudo">
         <div class="dados">
-            <h1> Convite para o Evento </h1>
-            <p>
-                <h3> Olá {{nome}} <br> </h3>
+            <p><strong>De:</strong> {{usuario}}</p>
+            <p><strong>Enviado:</strong> {{enviado}}</p>
+            <p><strong>Assunto:</strong> {{assunto}}</p>
+            <p>Prezado(a) {{nome}}</p>
+            {% for mensagem in mensagem %}
                 {{mensagem}}
-            </p>
-            <h2>Contamos com a sua presença</h2>
+                <br>
+                <br>
+            {% endfor %}
+            <img src="{{imagem}}" alt="">
         </div>
     </div>
     <div class="rodape">
