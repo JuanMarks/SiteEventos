@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
+from rest_framework import viewsets, filters
+from .serializers import EventoSerializer, Inscrito_EventoSerializer
 
 # Create your views here.
 
@@ -131,3 +133,14 @@ def render_pdf_view(request, id):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>',context)
     return response
+
+class EventoViewSet(viewsets.ModelViewSet):
+    queryset = Evento.objects.all()
+    serializer_class = EventoSerializer
+    ordering_fields = ['nome_evento',]
+    search_fields = ['nome_evento',]
+
+class InscritoViewSet(viewsets.ModelViewSet):
+    queryset = Inscrito_Evento.objects.all()
+    serializer_class = Inscrito_EventoSerializer
+    ordering_fields = ['evento',]
