@@ -91,15 +91,13 @@ def login(request):
         if email == "" or senha == "":
             print('Os campos email e senha nao podem ficar em branco')
             return redirect('index')
-        #print(email, senha)
+        
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
-            # senha = User.objects.filter(password=senha).values_list('password', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
             if user is not None:
                 auth.login(request, user)
                 print("login realizado com sucesso")
-                print(nome)
                 return redirect('index')
     return render(request, 'login.html')
 
@@ -127,4 +125,5 @@ def tela_adm(request):
     }
 
     return render(request, 'tela-adm.html', dados)
+
 

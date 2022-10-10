@@ -82,6 +82,12 @@ def apagar_evento(request, id):
     evento.delete()
     return redirect('tela_adm')
 
+def inscrever_evento(request, id):
+    inscrito = get_object_or_404(User, pk=request.user.id)
+    evento = get_object_or_404(Evento, pk=id)
+    inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito)
+    return redirect('index')
+
 class CustomerListView(ListView):
     model = Evento
     template_name = 'teste0main.html'
