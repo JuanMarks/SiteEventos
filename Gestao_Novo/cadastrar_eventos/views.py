@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from .models import Evento, Inscrito_Evento
+from .forms import Editar_Evento
 from django.contrib.auth.models import User
 from django.views.generic import ListView, View
 from django.conf import settings
@@ -62,6 +63,24 @@ def saibamais(request, id):
     }
 
     return render(request, 'saibamais.html', dados)
+
+def editar_evento(request, id):
+    evento = get_object_or_404(Evento, pk=id)
+    form = Editar_Evento(instance=evento)
+    if request.method == 'POST':
+        form = Editar_Evento(request.POST, instance=evento)
+        if form.is_valid():
+            evento.save()
+            return redirect('tela_adm')
+        else:
+            return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
+    else:
+        return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
+
+def apagar_evento(request, id):
+    evento = get_object_or_404(Evento, pk=id)
+    evento.delete()
+    return redirect('tela_adm')
 
 class CustomerListView(ListView):
     model = Evento

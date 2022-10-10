@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
-from cadastrar_eventos.forms import Editar_Evento
 
 # Create your views here.
 
@@ -129,20 +128,3 @@ def tela_adm(request):
 
     return render(request, 'tela-adm.html', dados)
 
-def editar_evento(request, id):
-    evento = get_object_or_404(Evento, pk=id)
-    form = Editar_Evento(instance=evento)
-    if request.method == 'POST':
-        form = Editar_Evento(request.POST, instance=evento)
-        if form.is_valid():
-            evento.save()
-            return redirect('tela_adm')
-        else:
-            return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
-    else:
-        return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
-
-def apagar_evento(request, id):
-    evento = get_object_or_404(Evento, pk=id)
-    evento.delete()
-    return redirect('tela_adm')
