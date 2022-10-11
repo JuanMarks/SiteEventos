@@ -50,10 +50,23 @@
               <th>E-mail</th>
               <th>
                 <div id="grupo" style="display: flex; flex-direction: column;">
-                  <a href="{% url 'email' 'adm' %}" style="text-decoration: none; color: #fff;">ADM</a>
-                  <a href="{% url 'email' 'mantenedor' %}" style="text-decoration: none; color: #fff;">MANTENEDOR</a>
-                  <a href="{% url 'email' 'usr' %}" style="text-decoration: none; color: #fff;">USR</a>
-                  <a href="{% url 'email' 'all' %}" style="text-decoration: none; color: #fff;">TODOS</a>
+                  <select id="link" onchange="location.href=this.value">
+                    <option>
+                      {{grupo}}
+                    </option>
+                    <option value="{% url 'email' 'all' %}">
+                      TODOS
+                    </option>
+                    <option value="{% url 'email' 'adm' %}">
+                      ADM
+                    </option>
+                    <option value="{% url 'email' 'mantenedor' %}">
+                      MANTENEDOR
+                    </option>
+                    <option value="{% url 'email' 'usr' %}">
+                        USR
+                    </option>
+                  </select>
                 </div>
               </th>
             </tr>
@@ -83,5 +96,19 @@
     </div>
   </div>
   <script src="{% static 'assets/js/envioEmail.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <script>
+  $(document).ready(function(){
+
+      $('#link').on('change', function () {
+          var url = $(this).val(); 
+          if (url) { 
+              window.open(url, '_blank');
+            }
+            return false;
+          });
+      });
+  </script>
 </body>
 </html>

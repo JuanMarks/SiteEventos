@@ -3,29 +3,31 @@ import os
 from django.contrib.auth.models import User
 from datetime import date, datetime
 from django.shortcuts import render,HttpResponse, get_object_or_404, get_list_or_404
-from django.core.mail import send_mail
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 from .models import Usuario
 import pyexcel as p
 from arquivo_excel.models import Arquivo_excel
-from abstrair.funcoes import diretorio_excel,pegar_dados
+from abstrair.funcoes import *
 # Create your views here.
 
 def mail(request, grupo):
     grupo = grupo.upper()
     if grupo != "ALL":
-        print(grupo)
         data_user = Usuario.objects.all().filter(grupo=grupo)
+        gp = comparar_grupos(grupo)
         usuario = {
             "usuario": data_user,
+            "grupo": gp,
         }
     else:
         data_user = Usuario.objects.all()
+        gp = comparar_grupos(grupo)
         usuario = {
             "usuario": data_user,
+            "grupo": gp, 
         }
     return render(request, 'enviodeEmail.html', usuario)
 
@@ -144,3 +146,8 @@ def download_file(request, filename=''):
         return response
     else:
         return render(request, 'file.html')
+    
+def recuperar_senha(request):
+    if request.method == 'POST':
+        email_r = request.POST['email_recuperacao']
+        
