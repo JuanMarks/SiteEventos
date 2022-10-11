@@ -3,8 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
+<<<<<<< HEAD
 from cadastrar_eventos.forms import Editar_Evento
 from enviar.models import Usuario
+=======
+>>>>>>> 3086b1e4d3f5d3f4bc91d6f78f80cc63072bcde9
 
 # Create your views here.
 
@@ -98,16 +101,14 @@ def login(request):
         if email == "" or senha == "":
             print('Os campos email e senha nao podem ficar em branco')
             return redirect('index')
-        #print(email, senha)
+        
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
-            # senha = User.objects.filter(password=senha).values_list('password', flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
             if user is not None:
                 auth.login(request, user)
                 print("login realizado com sucesso")
-                print(nome)
-                return redirect('dashboard')
+                return redirect('index')
     return render(request, 'login.html')
 
 def dashboard(request):
@@ -135,20 +136,4 @@ def tela_adm(request):
 
     return render(request, 'tela-adm.html', dados)
 
-def editar_evento(request, id):
-    evento = get_object_or_404(Evento, pk=id)
-    form = Editar_Evento(instance=evento)
-    if request.method == 'POST':
-        form = Editar_Evento(request.POST, instance=evento)
-        if form.is_valid():
-            evento.save()
-            return redirect('tela_adm')
-        else:
-            return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
-    else:
-        return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
 
-def apagar_evento(request, id):
-    evento = get_object_or_404(Evento, pk=id)
-    evento.delete()
-    return redirect('tela_adm')

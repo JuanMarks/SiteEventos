@@ -20,11 +20,11 @@
 
 <section class="col-10">
     
-    <form style="margin-left: 270px; text-align: center;" action="" method="post">
+    <form style="margin: 50px 0px 50px 270px; text-align: center; background-color: #fdfdfd; border-radius: 20px; padding: 30px;" action="" method="post">
         {% csrf_token %}
         {% for field in form.visible_fields %}
             <div class="form-group">
-                <label style="font-size: 25px; margin-top: 30px; color: white;" for="{{field.id_for_label}}">{{field.label}}</label>
+                <label style="font-size: 25px; margin-top: 30px;" for="{{field.id_for_label}}">{{field.label}}</label>
                 {{field|add_class:'form-control'}}
             </div>
         {% endfor %}

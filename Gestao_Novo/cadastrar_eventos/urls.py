@@ -9,5 +9,6 @@ urlpatterns = [
     path('saibamais/<int:id>', views.saibamais, name='saibamais'),
     path('teste/<int:id>', render_pdf_view, name='teste'),
     path('teste2', CustomerListView.as_view(), name='teste2'),
-    path('pdf/<id>/', customer_render_pdf_view, name='teste3')
+    path('pdf/<id>/', customer_render_pdf_view, name='teste3'),
+    path('inscrever/<int:id>', views.inscrever_evento, name='inscrever')
 ]

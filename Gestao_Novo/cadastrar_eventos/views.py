@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from .models import Evento, Inscrito_Evento
+from .forms import Editar_Evento
 from django.contrib.auth.models import User
 from django.views.generic import ListView, View
 from django.conf import settings
@@ -7,6 +8,8 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
+from rest_framework import viewsets, filters
+from .serializers import EventoSerializer, Inscrito_EventoSerializer
 
 # Create your views here.
 
@@ -60,6 +63,30 @@ def saibamais(request, id):
     }
 
     return render(request, 'saibamais.html', dados)
+
+def editar_evento(request, id):
+    evento = get_object_or_404(Evento, pk=id)
+    form = Editar_Evento(instance=evento)
+    if request.method == 'POST':
+        form = Editar_Evento(request.POST, instance=evento)
+        if form.is_valid():
+            evento.save()
+            return redirect('tela_adm')
+        else:
+            return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
+    else:
+        return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
+
+def apagar_evento(request, id):
+    evento = get_object_or_404(Evento, pk=id)
+    evento.delete()
+    return redirect('tela_adm')
+
+def inscrever_evento(request, id):
+    inscrito = get_object_or_404(User, pk=request.user.id)
+    evento = get_object_or_404(Evento, pk=id)
+    inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito)
+    return redirect('index')
 
 class CustomerListView(ListView):
     model = Evento
@@ -131,3 +158,14 @@ def render_pdf_view(request, id):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>',context)
     return response
+
+class EventoViewSet(viewsets.ModelViewSet):
+    queryset = Evento.objects.all()
+    serializer_class = EventoSerializer
+    ordering_fields = ['nome_evento',]
+    search_fields = ['nome_evento',]
+
+class InscritoViewSet(viewsets.ModelViewSet):
+    queryset = Inscrito_Evento.objects.all()
+    serializer_class = Inscrito_EventoSerializer
+    ordering_fields = ['evento',]
