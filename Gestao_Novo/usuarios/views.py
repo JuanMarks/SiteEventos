@@ -3,11 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
-<<<<<<< HEAD
 from cadastrar_eventos.forms import Editar_Evento
 from enviar.models import Usuario
-=======
->>>>>>> 3086b1e4d3f5d3f4bc91d6f78f80cc63072bcde9
+
 
 # Create your views here.
 
