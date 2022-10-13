@@ -5,8 +5,33 @@ from cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
 from cadastrar_eventos.forms import Editar_Evento
 from enviar.models import Usuario
+<<<<<<< HEAD
+=======
+
+>>>>>>> 60e4fc74a931e730b446bb07c80a5b2023452de9
 
 # Create your views here.
+def criar_grupos():
+    groups = ['Usuarios Comuns', 'Empresa', 'ADM']
+    [Group.objects.get_or_create(name=group) for group in groups]
+
+def verificacao(dict):
+    for chave, valor in dict:
+        if not valor.strip():
+            print("O campo nome nao pode ficar em branco")
+            return redirect('cadastro_empresa')
+                
+        if not valor.strip():
+            print("O campo email nao pode ficar em branco")
+            return redirect('cadastro_empresa')
+                
+        if senha != senha2:
+            print('As senhas nao estao iguais')
+            return redirect('cadastro_empresa')
+                
+        if User.objects.filter(email=email).exists():
+            print('usuario ja cadastrado')
+            return redirect('cadastro_empresa')
 
 def cadastro(request):
     if request.method == 'POST':
@@ -16,25 +41,11 @@ def cadastro(request):
         email = request.POST['email']
         senha = request.POST['password']
         senha2 = request.POST['password2']
-
-        if not nome_usuario.strip():
-            print("O campo nome nao pode ficar em branco")
-            return redirect('cadastro')
+        criar_grupos()
+        verificacao(request.POST)
         
-        if not email.strip():
-            print("O campo email nao pode ficar em branco")
-            return redirect('cadastro')
-        
-        if senha != senha2:
-            print('As senhas nao estao iguais')
-            return redirect('cadastro')
-        
-        if User.objects.filter(email=email).exists():
-            print('usuario ja cadastrado')
-            return redirect('cadastro')
-        
-        usuario1 = User.objects.create_user(username=nome_usuario, email=email, password=senha) 
-        grupo = get_object_or_404(Group, name='Usuarios Comuns')
+        usuario1 = User.objects.create_user(username=nome_usuario, email=email, password=senha)
+        grupo = Group.objects.get(name='Usuarios Comuns')
         usuario1.groups.add(grupo)
         usuario1.save()
         usuario = Usuarios.objects.create(
@@ -61,6 +72,8 @@ def cadastro_empresa(request):
         telefone = request.POST['telefone']
         senha = request.POST['password']
         senha_admin = request.POST['password-admin']
+        criar_grupos()
+        verificacao(nome_usuario,email,senha,senha2)
 
         if not nome.strip():
             print("O campo nome nao pode ficar em branco")
@@ -76,9 +89,9 @@ def cadastro_empresa(request):
 
         if senha_admin == "123456":
             if categoria == 'ADM':
-                grupo = get_object_or_404(Group, name='ADM')
+                grupo = Group.objects.get(name='ADM')
         else:
-            grupo = get_object_or_404(Group, name='Empresa')
+            grupo = Group.objects.get(name='Empresa')
             empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
             empresa.save()
         
