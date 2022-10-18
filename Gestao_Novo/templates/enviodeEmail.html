@@ -8,6 +8,18 @@
   <title>Envio de E-mail</title>
 
   <link rel="stylesheet" href="{% static 'assets/css/enviodeEmail.css' %}">
+  <script src="https://s.codigofonte.com.br/wp-content/js/codigofonte-bar.js"></script>
+  <script>
+    function checkAll(o){
+      var boxes = document.getElementsByTagName("input");
+      for (var x=0;x<boxes.length;x++){
+        var obj = boxes[x];
+        if (obj.type == "checkbox"){
+          if (obj.name!="chkAll") obj.checked = o.checked;
+        }
+      }
+    }
+    </script>
 </head>
 <body>
   <div class="container">
@@ -45,7 +57,7 @@
         <table class="container__table-bd">
           <thead>
             <tr>
-              <th>Selecionar Membros</th>
+              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="chkAll" onclick="checkAll(this)"></th>
               <th>Nome</th>
               <th>E-mail</th>
               <th>

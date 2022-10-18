@@ -5,7 +5,10 @@ from cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
 from cadastrar_eventos.forms import Editar_Evento
 from enviar.models import Usuario
+<<<<<<< HEAD
+=======
 
+>>>>>>> 60e4fc74a931e730b446bb07c80a5b2023452de9
 
 # Create your views here.
 def criar_grupos():
