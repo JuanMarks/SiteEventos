@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+import sys
 from decouple import config
 # import django_heroku
 #from decouple import config
@@ -149,3 +151,6 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # django_heroku.settings(locals())
+
+# PROJECT_ROOT = os.path.dirname(__file__)
+# sys.path.insert(1, os.path.join(PROJECT_ROOT, '../polls'))
