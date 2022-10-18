@@ -1,33 +1,26 @@
 from django.contrib.auth.models import User, Group
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import auth
+<<<<<<< HEAD:Gestao_Novo/apps/usuarios/views.py
 from apps.cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
 from apps.cadastrar_eventos.forms import Editar_Evento
 from apps.enviar.models import Usuario
+=======
+from cadastrar_eventos.models import Evento
+from .models import Usuarios, Empresa
+from enviar.models import Usuario
 
-# Create your views here.
+# Create your views here
+def criar_user(username, email, password, grupo):
+    usuario = User.objects.create_user(username=username, email=email, password=password)
+    usuario.groups.add(grupo)
+    usuario.save()
+>>>>>>> 3dd83044b2980ce09b7412335479a7d924ffb681:Gestao_Novo/usuarios/views.py
+
 def criar_grupos():
     groups = ['Usuarios Comuns', 'Empresa', 'ADM']
     [Group.objects.get_or_create(name=group) for group in groups]
-
-def verificacao(dict):
-    for chave, valor in dict:
-        if not valor.strip():
-            print("O campo nome nao pode ficar em branco")
-            return redirect('cadastro_empresa')
-                
-        if not valor.strip():
-            print("O campo email nao pode ficar em branco")
-            return redirect('cadastro_empresa')
-                
-        if senha != senha2:
-            print('As senhas nao estao iguais')
-            return redirect('cadastro_empresa')
-                
-        if User.objects.filter(email=email).exists():
-            print('usuario ja cadastrado')
-            return redirect('cadastro_empresa')
 
 def cadastro(request):
     if request.method == 'POST':
@@ -38,12 +31,26 @@ def cadastro(request):
         senha = request.POST['password']
         senha2 = request.POST['password2']
         criar_grupos()
-        verificacao(request.POST)
         
-        usuario1 = User.objects.create_user(username=nome_usuario, email=email, password=senha)
+        if not nome_usuario.strip():
+            print("O campo nome nao pode ficar em branco")
+            return redirect('cadastro')
+
+        if not email.strip():
+            print("O campo email nao pode ficar em branco")
+            return redirect('cadastro')
+        
+        if senha != senha2:
+            print('As senhas nao estao iguais')
+            return redirect('cadastro')
+        
+        if User.objects.filter(email=email).exists():
+            print('usuario ja cadastrado')
+            return redirect('cadastro')
+        
         grupo = Group.objects.get(name='Usuarios Comuns')
-        usuario1.groups.add(grupo)
-        usuario1.save()
+        criar_user(nome_usuario, email, senha, grupo)
+        
         usuario = Usuarios.objects.create(
             nome_completo=nome_completo, 
             nome_usuario=nome_usuario, 
@@ -69,18 +76,20 @@ def cadastro_empresa(request):
         senha = request.POST['password']
         senha_admin = request.POST['password-admin']
         criar_grupos()
-        verificacao(nome_usuario,email,senha,senha2)
-
         if not nome.strip():
             print("O campo nome nao pode ficar em branco")
             return redirect('cadastro_empresa')
-        
+
         if not email.strip():
             print("O campo email nao pode ficar em branco")
             return redirect('cadastro_empresa')
         
         if User.objects.filter(email=email).exists():
             print('usuario ja cadastrado')
+            return redirect('cadastro_empresa')
+        
+        if senha == "":
+            print('Senha nao pode ficar em branco')
             return redirect('cadastro_empresa')
 
         if senha_admin == "123456":
@@ -91,10 +100,7 @@ def cadastro_empresa(request):
             empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
             empresa.save()
         
-        usuario1 = User.objects.create_user(username=nome, email=email, password=senha) 
-        usuario1.groups.add(grupo)
-        usuario1.save()
-        
+        criar_user(nome, email, senha, grupo)
         return redirect('login')
     else:
         return render(request, 'cadastro_empresa.html')
