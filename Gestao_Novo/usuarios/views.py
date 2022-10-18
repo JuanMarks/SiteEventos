@@ -6,7 +6,12 @@ from .models import Usuarios, Empresa
 from cadastrar_eventos.forms import Editar_Evento
 from enviar.models import Usuario
 
-# Create your views here.
+# Create your views here
+def criar_user(username, email, password, grupo):
+    usuario = User.objects.create_user(username=username, email=email, password=password)
+    usuario.groups.add(grupo)
+    usuario.save()
+
 def criar_grupos():
     groups = ['Usuarios Comuns', 'Empresa', 'ADM']
     [Group.objects.get_or_create(name=group) for group in groups]
@@ -37,11 +42,9 @@ def cadastro(request):
             print('usuario ja cadastrado')
             return redirect('cadastro')
         
-        
-        usuario1 = User.objects.create_user(username=nome_usuario, email=email, password=senha)
         grupo = Group.objects.get(name='Usuarios Comuns')
-        usuario1.groups.add(grupo)
-        usuario1.save()
+        criar_user(nome_usuario, email, senha, grupo)
+        
         usuario = Usuarios.objects.create(
             nome_completo=nome_completo, 
             nome_usuario=nome_usuario, 
@@ -78,6 +81,10 @@ def cadastro_empresa(request):
         if User.objects.filter(email=email).exists():
             print('usuario ja cadastrado')
             return redirect('cadastro_empresa')
+        
+        if senha == "":
+            print('Senha nao pode ficar em branco')
+            return redirect('cadastro_empresa')
 
         if senha_admin == "123456":
             if categoria == 'ADM':
@@ -87,10 +94,7 @@ def cadastro_empresa(request):
             empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
             empresa.save()
         
-        usuario1 = User.objects.create_user(username=nome, email=email, password=senha) 
-        usuario1.groups.add(grupo)
-        usuario1.save()
-        
+        criar_user(nome, email, senha, grupo)
         return redirect('login')
     else:
         return render(request, 'cadastro_empresa.html')
