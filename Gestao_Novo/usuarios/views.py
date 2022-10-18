@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User, Group
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import auth
-from cadastrar_eventos.models import Evento, Inscrito_Evento
+from cadastrar_eventos.models import Evento
 from .models import Usuarios, Empresa
-from cadastrar_eventos.forms import Editar_Evento
 from enviar.models import Usuario
 
 # Create your views here
