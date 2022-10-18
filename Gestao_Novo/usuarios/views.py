@@ -69,15 +69,15 @@ def cadastro_empresa(request):
         criar_grupos()
         if not nome.strip():
             print("O campo nome nao pode ficar em branco")
-            return redirect('cadastro')
+            return redirect('cadastro_empresa')
 
         if not email.strip():
             print("O campo email nao pode ficar em branco")
-            return redirect('cadastro')
+            return redirect('cadastro_empresa')
         
         if User.objects.filter(email=email).exists():
             print('usuario ja cadastrado')
-            return redirect('cadastro')
+            return redirect('cadastro_empresa')
 
         if senha_admin == "123456":
             if categoria == 'ADM':
