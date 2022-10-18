@@ -1,22 +1,19 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
 from django.contrib import auth
-<<<<<<< HEAD:Gestao_Novo/apps/usuarios/views.py
 from apps.cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
 from apps.cadastrar_eventos.forms import Editar_Evento
 from apps.enviar.models import Usuario
-=======
-from cadastrar_eventos.models import Evento
+from apps.cadastrar_eventos.models import Evento
 from .models import Usuarios, Empresa
-from enviar.models import Usuario
+from apps.enviar.models import Usuario
 
 # Create your views here
 def criar_user(username, email, password, grupo):
     usuario = User.objects.create_user(username=username, email=email, password=password)
     usuario.groups.add(grupo)
     usuario.save()
->>>>>>> 3dd83044b2980ce09b7412335479a7d924ffb681:Gestao_Novo/usuarios/views.py
 
 def criar_grupos():
     groups = ['Usuarios Comuns', 'Empresa', 'ADM']
