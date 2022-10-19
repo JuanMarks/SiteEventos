@@ -1,9 +1,12 @@
 # created by virtualenv automatically
 /ninna
-/cadastrar_eventos/__pycache__
-/cadastrar_eventos/migrations/__pycache__
+apps/cadastrar_eventos/__pycache__
+apps/cadastrar_eventos/migrations/__pycache__
 /core/__pycache__
-/usuarios/__pycache__
-/usuarios/migrations/__pycache__
-/enviar/__pycache__
-/enviar/migrations/__pycache__
+apps/usuarios/__pycache__
+apps/usuarios/migrations/__pycache__
+apps/enviar/__pycache__
+apps/enviar/migrations/__pycache__
+/.idea
+/.vscode
+apps/abstrair/__pycache__
