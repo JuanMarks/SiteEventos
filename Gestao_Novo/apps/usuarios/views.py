@@ -43,6 +43,7 @@ def cadastro(request):
             return redirect('cadastro')
         
         if User.objects.filter(email=email).exists():
+            messages.error(request, 'Usuario ja cadastrado')
             print('usuario ja cadastrado')
             return redirect('cadastro')
         
