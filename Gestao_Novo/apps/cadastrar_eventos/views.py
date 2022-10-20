@@ -15,8 +15,10 @@ from .serializers import EventoSerializer, Inscrito_EventoSerializer
 
 def index(request):
     eventos = Evento.objects.all()
+    #eventos_modals = get_object_or_404(Evento, pk=id)
     dados = {
-        'eventos' : eventos
+        'eventos' : eventos,
+        
     }
     return render(request, 'index.html', dados)
 

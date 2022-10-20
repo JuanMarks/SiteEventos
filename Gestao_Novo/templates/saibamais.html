@@ -1,77 +1,48 @@
-
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'assets/css/saibaMais.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
-    <title>NINNA || SAIBA MAIS</title>
-</head>
-
-<body>
-   
-        <div class="menu">
-          <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt=""> 
-          
-           
-          {% include 'menu.html' %}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          {% for evento in eventos %}
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel"> {{evento.nome_evento}} </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+  
+            <div class="modal-body">
+                <form action="">
+                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </form>
+                <div class="modal_img">
+                    <span><img src="{{evento.img.url}}"></span>
+                </div>
+                
+                <div class="modal_descricao">
+                    <h5> Descrição do evento </h5>
+                    <div class="moda_descricão-itens">
+                        <i class="fa-solid fa-check"></i>
+                        <p><span> Nome da empresa: </span> {{evento.nome_empresa}} </p>
+                    </div>
+                    <div class="moda_descricão-itens">
+                        <i class="fa-solid fa-check"></i>
+                        <p><span> Quantidade de pessoas: </span> {{evento.convidados_qtd}} </p>
+                    </div>
+                    <div class="moda_descricão-itens">
+                        <i class="fa-solid fa-check"></i>
+                        <p><span> Horário de início: </span> {{evento.data_inicio}} </p>
+                    </div>
+                    <div class="modal_sobre">
+                        <i class="fa-solid fa-check"></i>
+                        {{evento.descricao}}
+                    </div>
+                </div>
+          {% endfor %}
+            </div>
+  
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
+                    </a></button>
+                <button type="button" class="btn btn-primary"> Inscreva-se </button>
+            </div>
         </div>
-      
-    <main>
-        
-
-        <section class="conteudo_saiba-mais">
-            <!--imagem-->
-            {% for evento in eventos %}
-                <img style="margin-top: 50px; width: 90%; object-fit: contain;" src="{{evento.img.url}}" alt="palestra">
-
-                <!--nome-do-evento-->
-                <h1> {{evento.nome_evento}} </h1>
-
-                <!---textos-->
-                <div class="empresa_saiba-mais">
-                    <p> Empresa Representante: {{evento.nome_empresa}} </p>
-                    <p> Quantidade de pessoas programadas: {{evento.convidados_qtd}} </p>
-                    <p> Horário previsto para o início: {{evento.data_inicio}} </p>
-                </div>
-
-                <div class="ph_saiba-mais">
-                    
-                </div>
-
-                <!--descrição-do-evento-->
-                <div class="descricao_saiba-mais">
-                    <h5> Descrição do evento: </h5>
-                    <p>{{evento.descricao}}</p>
-                </div>
-                {% if inscritos %}
-                <div class="empresa_saiba-mais">
-                    <p> Inscritos no evento: 
-                        {% for inscrito in inscritos %}
-                        {{inscrito.inscrito}}
-                        {% endfor%}
-                    </p>
-                </div>
-                {% else %}
-                {% endif %}
-            {% endfor %}
-        </section>
-
-        <div class="sair_saiba-mais">
-            <button class="">
-                <a href="{% url 'index' %}"> Sair </a>
-            </button>
-        </div>
-    </main>
-
-    <footer class="rodape_saiba-mais">
-        <p class=""> &copy; Todos os direitos reservados a NINNA Hub - 2022 </p>
-    </footer>
-</body>
-
-</html>
+    </div>
