@@ -23,6 +23,7 @@
             {% csrf_token %}
             <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
             <h1>Cadastro</h1>
+            {% include 'messages/alertas.html' %}
             <div class="wrapper-login__form--user">
                 <label for="user">Categoria</label>
                 <select style="padding: 12px; border-radius: 10px;" name="categoria" id="">

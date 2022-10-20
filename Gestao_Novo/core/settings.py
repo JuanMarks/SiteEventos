@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import sys
 from decouple import config
+from django.contrib.messages import constants as messages
 # import django_heroku
 #from decouple import config
 
@@ -154,3 +155,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 # PROJECT_ROOT = os.path.dirname(__file__)
 # sys.path.insert(1, os.path.join(PROJECT_ROOT, '../polls'))
+
+MESSAGES_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+}

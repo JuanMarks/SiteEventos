@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
-from django.contrib import auth
+from django.contrib import auth, messages
 from apps.cadastrar_eventos.models import Evento, Inscrito_Evento
 from .models import Usuarios, Empresa
 from apps.cadastrar_eventos.forms import Editar_Evento
@@ -38,6 +38,7 @@ def cadastro(request):
             return redirect('cadastro')
         
         if senha != senha2:
+            messages.error(request, 'As senha nao sao iguais')
             print('As senhas nao estao iguais')
             return redirect('cadastro')
         
@@ -59,6 +60,7 @@ def cadastro(request):
             e_mail=email,
         )
         usuario_bd.save()
+        messages.success(request, 'Usuario cadastrado com sucesso')
         return redirect('login')
     else:
         return render(request, 'cadastro.html')
@@ -74,18 +76,22 @@ def cadastro_empresa(request):
         senha_admin = request.POST['password-admin']
         criar_grupos()
         if not nome.strip():
+            messages.error(request, 'O nome nao pode ficar em branco')
             print("O campo nome nao pode ficar em branco")
             return redirect('cadastro_empresa')
 
         if not email.strip():
+            messages.error(request, 'Email nao pode ficar em branco')
             print("O campo email nao pode ficar em branco")
             return redirect('cadastro_empresa')
         
         if User.objects.filter(email=email).exists():
+            messages.error(request, 'Usuario ja cadastrado')
             print('usuario ja cadastrado')
             return redirect('cadastro_empresa')
         
         if senha == "":
+            messages.error(request, 'A senha nao pode ficar em branco')
             print('Senha nao pode ficar em branco')
             return redirect('cadastro_empresa')
 
@@ -98,6 +104,7 @@ def cadastro_empresa(request):
             empresa.save()
         
         criar_user(nome, email, senha, grupo)
+        messages.success(request, 'Usuario cadastrado com sucesso')
         return redirect('login')
     else:
         return render(request, 'cadastro_empresa.html')
