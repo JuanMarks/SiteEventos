@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, get_list_or_40
 from .models import Evento, Inscrito_Evento
 from .forms import Editar_Evento
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, View
 from django.conf import settings
 from django.http import HttpResponse
@@ -22,6 +23,7 @@ def index(request):
     }
     return render(request, 'index.html', dados)
 
+@login_required(login_url='login')
 def cadastrar_eventos(request):
     if request.method == 'POST':
         grupo = request.POST['grupo']
@@ -66,6 +68,7 @@ def saibamais(request, id):
 
     return render(request, 'saibamais.html', dados)
 
+@login_required(login_url='login')
 def editar_evento(request, id):
     evento = get_object_or_404(Evento, pk=id)
     form = Editar_Evento(instance=evento)
@@ -79,16 +82,30 @@ def editar_evento(request, id):
     else:
         return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
 
+@login_required(login_url='login')
 def apagar_evento(request, id):
     evento = get_object_or_404(Evento, pk=id)
     evento.delete()
     return redirect('tela_adm')
 
+@login_required(login_url='login')
 def inscrever_evento(request, id):
     inscrito = get_object_or_404(User, pk=request.user.id)
     evento = get_object_or_404(Evento, pk=id)
+    
     inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito)
+    inscrever.save()
     return redirect('index')
+
+@login_required(login_url='login')
+def tela_adm(request):
+    eventos = Evento.objects.all()
+
+    dados = {
+        'eventos': eventos
+    }
+
+    return render(request, 'tela-adm.html', dados)
 
 class CustomerListView(ListView):
     model = Evento

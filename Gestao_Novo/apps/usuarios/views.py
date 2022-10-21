@@ -144,13 +144,6 @@ def logout(request):
     auth.logout(request)
     return redirect('index')
 
-def tela_adm(request):
-    eventos = Evento.objects.all()
 
-    dados = {
-        'eventos': eventos
-    }
-
-    return render(request, 'tela-adm.html', dados)
 
 
