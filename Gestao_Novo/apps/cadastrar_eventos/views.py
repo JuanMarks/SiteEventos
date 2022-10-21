@@ -16,10 +16,9 @@ from .serializers import EventoSerializer, Inscrito_EventoSerializer
 
 def index(request):
     eventos = Evento.objects.all()
-    #eventos_modals = get_object_or_404(Evento, pk=id)
+
     dados = {
         'eventos' : eventos,
-        
     }
     return render(request, 'index.html', dados)
 
@@ -53,7 +52,10 @@ def cadastrar_eventos(request):
     else:
         return render(request, 'cadastro_eventos.html')
 
-def saibamais(request, id):
+def saibamais(request):
+    if request.method == 'GET':
+        id = request.GET['data-bs-whatever']
+    print(id)
     evento = Evento.objects.filter(id=id)
     evento_id = get_object_or_404(Evento, id=id)
     inscrito = Inscrito_Evento.objects.filter(evento=evento_id)

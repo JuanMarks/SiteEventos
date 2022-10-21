@@ -116,8 +116,9 @@ def login(request):
         senha = request.POST['senha']
 
         if email == "" or senha == "":
+            messages.error(request, 'Os campos email e senha nao podem ficar em branco')
             print('Os campos email e senha nao podem ficar em branco')
-            return redirect('index')
+            return redirect('login')
         
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username', flat=True).get()
@@ -126,6 +127,9 @@ def login(request):
                 auth.login(request, user)
                 print("login realizado com sucesso")
                 return redirect('index')
+        else:
+            messages.error(request, 'Email nao cadastrado')
+            return redirect('login')
     return render(request, 'login.html')
 
 def dashboard(request):
