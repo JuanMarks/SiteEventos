@@ -1,8 +1,9 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+        {% for evento in eventos %}
         <div class="modal-content">
-          {% for evento in eventos %}
+          
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel"> {{evento.nome_evento}} </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -36,13 +37,14 @@
                         {{evento.descricao}}
                     </div>
                 </div>
-          {% endfor %}
+          
             </div>
-  
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
                     </a></button>
                 <button type="button" class="btn btn-primary"> Inscreva-se </button>
             </div>
         </div>
+        {% endfor %}
     </div>
