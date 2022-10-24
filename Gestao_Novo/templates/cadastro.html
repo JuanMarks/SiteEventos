@@ -35,6 +35,7 @@
                 </section>
 
                 <section class="formularioUser">
+                    {% include 'messages/alertas.html' %}
                     <form action="{% url 'cadastro' %}" method="post">
                         {% csrf_token %}
                         <div class="pessoa" id="step1">

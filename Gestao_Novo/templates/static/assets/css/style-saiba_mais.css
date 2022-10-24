@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.modal_logo span img {
+    width: 150px;
+    height: 90px;
+}
+
+.modal_img span img {
+    width: 100%;
+    height: 150px;
+}
+
+.modal_descricao {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal_descricao h5 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.moda_descricão-itens {
+    display: flex;
+    flex-direction: row;
+}
+
+.moda_descricão-itens i,
+.modal_sobre i {
+    color: #00257a;
+    padding: 3px;
+}
+
+.moda_descricão-itens span {
+    font-weight: 500;
+}
+
+.modal_sobre {
+    text-align: justify;
+    margin: 20px;
+    padding: 5px;
+}
+
+.btn-secondary a {
+    text-decoration: none;
+    color: #fff;
+}

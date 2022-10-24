@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NINNA LOGIN</title>
 
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
-
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
 </head>
 <body>
+    
     <div class="wrapper-login">
         <form action="" class="wrapper-login__form" method="post">
             {% csrf_token %}
             <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
+            {% include 'messages/alertas.html' %}
             <div class="wrapper-login__form--user">
                 <label for="user">Email</label>
                 <input style="border-radius: 10px;" type="text" name="username" class="form-input input-user" id="user">
@@ -27,7 +29,7 @@
             </div>
 
             <div class="wrapper-login__form--password--request">
-                <a style="margin-right: 50px;" href="{% url 'cadastro' %}">É novo por aqui? Criar conta</a>
+                <a style="margin-right: 30px;" href="{% url 'cadastro' %}">É novo por aqui? Criar conta</a>
                 <a href="{% url 'cadastro_empresa' %}">é uma Empresa ou Admin? clique aqui Criar conta</a>
             </div>
 
