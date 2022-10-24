@@ -1,15 +1,9 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
-<<<<<<< HEAD:Gestao_Novo/apps/usuarios/views/cadastros.py
-=======
-from django.contrib import auth, messages
-from apps.cadastrar_eventos.models import Evento, Inscrito_Evento
-from .models import Usuarios, Empresa
-from apps.cadastrar_eventos.forms import Editar_Evento
+from django.contrib import messages
+from apps.usuarios.models import Usuarios, Empresa
 from apps.enviar.models import Usuario
-from apps.cadastrar_eventos.models import Evento
-from .models import Usuarios, Empresa
->>>>>>> c8b3501c9fed1770cacff07def747ee0132d1240:Gestao_Novo/apps/usuarios/views.py
+from apps.usuarios.models import Usuarios, Empresa
 from apps.enviar.models import Usuario
 from apps.usuarios.models import Usuarios, Empresa
 
@@ -111,50 +105,4 @@ def cadastro_empresa(request):
         messages.success(request, 'Usuario cadastrado com sucesso')
         return redirect('login')
     else:
-<<<<<<< HEAD:Gestao_Novo/apps/usuarios/views/cadastros.py
         return render(request, 'cadastro_empresa.html')
-=======
-        return render(request, 'cadastro_empresa.html')
-
-def login(request):
-    if request.method == 'POST':
-        email = request.POST['username']
-        senha = request.POST['senha']
-
-        if email == "" or senha == "":
-            messages.error(request, 'Os campos email e senha nao podem ficar em branco')
-            print('Os campos email e senha nao podem ficar em branco')
-            return redirect('login')
-        
-        if User.objects.filter(email=email).exists():
-            nome = User.objects.filter(email=email).values_list('username', flat=True).get()
-            user = auth.authenticate(request, username=nome, password=senha)
-            if user is not None:
-                auth.login(request, user)
-                print("login realizado com sucesso")
-                return redirect('index')
-        else:
-            messages.error(request, 'Email nao cadastrado')
-            return redirect('login')
-    return render(request, 'login.html')
-
-def dashboard(request):
-    if request.user.is_authenticated:
-        id = request.user.id
-        eventos = Evento.objects.filter(pessoa=id)
-
-        dados = {
-            'eventos': eventos
-        }
-        return render(request, 'dashboard.html', dados)
-    else:
-        return redirect('login')
-
-def logout(request):
-    auth.logout(request)
-    return redirect('index')
-
-
-
-
->>>>>>> c8b3501c9fed1770cacff07def747ee0132d1240:Gestao_Novo/apps/usuarios/views.py
