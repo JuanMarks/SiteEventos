@@ -1,15 +1,8 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
-from django.contrib import auth
-from apps.cadastrar_eventos.models import Evento, Inscrito_Evento
-from .models import Usuarios, Empresa
-from apps.cadastrar_eventos.forms import Editar_Evento
 from apps.enviar.models import Usuario
-from apps.cadastrar_eventos.models import Evento
-from .models import Usuarios, Empresa
-from apps.enviar.models import Usuario
+from apps.usuarios.models import Usuarios, Empresa
 
-# Create your views here
 def criar_user(username, email, password, grupo):
     usuario = User.objects.create_user(username=username, email=email, password=password)
     usuario.groups.add(grupo)
@@ -101,48 +94,3 @@ def cadastro_empresa(request):
         return redirect('login')
     else:
         return render(request, 'cadastro_empresa.html')
-
-def login(request):
-    if request.method == 'POST':
-        email = request.POST['username']
-        senha = request.POST['senha']
-
-        if email == "" or senha == "":
-            print('Os campos email e senha nao podem ficar em branco')
-            return redirect('index')
-        
-        if User.objects.filter(email=email).exists():
-            nome = User.objects.filter(email=email).values_list('username', flat=True).get()
-            user = auth.authenticate(request, username=nome, password=senha)
-            if user is not None:
-                auth.login(request, user)
-                print("login realizado com sucesso")
-                return redirect('index')
-    return render(request, 'login.html')
-
-def dashboard(request):
-    if request.user.is_authenticated:
-        id = request.user.id
-        eventos = Evento.objects.filter(pessoa=id)
-
-        dados = {
-            'eventos': eventos
-        }
-        return render(request, 'dashboard.html', dados)
-    else:
-        return redirect('login')
-
-def logout(request):
-    auth.logout(request)
-    return redirect('index')
-
-def tela_adm(request):
-    eventos = Evento.objects.all()
-
-    dados = {
-        'eventos': eventos
-    }
-
-    return render(request, 'tela-adm.html', dados)
-
-

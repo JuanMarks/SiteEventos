@@ -2,7 +2,7 @@ def diretorio_excel(arquivo,post_files):
     for arq in arquivo:
         arq2 = f"{arq.arquivo}"
         arq2_split = arq2.split('/')
-        if arq2_split[4] == f"{post_files}":
+        if arq2_split[5] == f"{post_files}":
             return f"{arq2}"
 
 def pegar_dados(arq_excel):
