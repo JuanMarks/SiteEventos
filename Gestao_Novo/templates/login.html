@@ -28,13 +28,13 @@
                 <input style="border-radius: 10px;" type="password" name="senha" class="form-input input-password" id="password">
             </div>
 
-            <div class="wrapper-login__form--password--request">
-                <a style="margin-right: 30px;" href="{% url 'cadastro' %}">É novo por aqui? Criar conta</a>
-                <a href="{% url 'cadastro_empresa' %}">é uma Empresa ou Admin? clique aqui Criar conta</a>
-            </div>
-
             <div class="wrapper-login__form--button">
                 <button style="border-radius: 10px;" type="submit" class="form-submit">Entrar</button>
+            </div>
+
+            <div class="wrapper-login__form--password--request">
+                <a href="{% url 'cadastro' %}">É novo por aqui? Clique aqui</a>
+                <a href="{% url 'cadastro_empresa' %}">É uma Empresa ou Admin? Clique aqui</a>
             </div>
         </form>
     </div>

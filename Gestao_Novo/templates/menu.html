@@ -10,6 +10,19 @@
                     <a href="{% url 'cadastrar_eventos' %}">Criar Evento</a>
                     <a href="{% url 'tela_adm' %}">Administração</a>
                     <a href="{% url 'logout' %}">Logout</a>
+                    <div class="menu-hambuguer">
+                        <details class="details-menu-adm">
+                            <summary class="img-perfil"><img src="../templates/static/assets/img/pinguim.opdownload"></summary>
+                            <div class="container__links-details">
+                                <div class="links-details">
+                                    <a class="details-options" href="">Criar evento</a>
+                                    <a class="details-options" href="">Eventos cadastrados</a>
+                                    <a class="details-options" href="">Enviar e-mail</a>
+                                </div>
+                                <a id="logout-adm" href="">Sair</a>
+                            </div>
+                        </details>
+                    </div>
                 {% endif %}
 
                 {% if user.groups.all.0.name == 'Empresa' %}

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
+
     <title> Cadastro de Eventos </title>
 </head>
 
@@ -90,8 +93,8 @@
 
                         <div class="midia" id="step3">
                             <div clss="campo">
-                                <label for=""> Midia </label>
-                                <input type="file" name="foto_evento" id="" class="">
+                                <label for="foto-evento">Mídia <i class="fa-solid fa-image"></i></label>
+                                <input type="file" name="foto_evento" id="foto-evento" class="">
                             </div>
                         </div>
 
@@ -100,11 +103,10 @@
                             <button class="botaoAvancar" value="step2" type="button"> Próximo </button>
 
                             <div class="botao">
-                                
+                                <button class="botaoCadastrar" data-target="step3" type="submit">
+                                    Cadastrar
+                                </button>
                             </div>
-                            <button class="botaoCadastrar" data-target="step3" type="submit">
-                                Cadastrar
-                            </button>
                         </div>
                     </form>
                 </section>

@@ -5,12 +5,13 @@
 
 <header class="wrapper-hero">
   <div class="menu">
-    <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt=""> 
-    
+    <a href="{% url 'index' %}">
+      <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
+    </a>
      
     {% include 'menu.html' %}
   </div>
-  <h1 class="hero-title">Gestão de Eventos</h1> 
+  <h1 class="hero-title">Seja Bem Vindo a Sessão de Eventos <br>do Ninna Hub</h1> 
 </header>
         
     <main class="wrapper-container">

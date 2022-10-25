@@ -48,13 +48,16 @@ body {
 
 .wrapper-login__form--password--request {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
 .wrapper-login__form--password--request a {
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 500;
     color: #000;
+    text-align: center;
+    font-size: 13px;
 }
 
 .wrapper-login__form--button {
@@ -67,9 +70,22 @@ body {
     font-weight: 700;
     font-size: 20px;
     border: none;
+    border-radius: 100px;
     outline: none;
     padding: 8px;
     cursor: pointer;
     margin: 20px auto 0;
+    width: 150px;
 }
 
+/* hover wrapper  */
+.wrapper-login__form--password--request > a:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.form-submit:hover {
+    background-color: #7eb627;
+    transition: 0.3s;
+}

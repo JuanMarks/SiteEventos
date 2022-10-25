@@ -87,6 +87,7 @@ html, body {
     margin-bottom: 3px;
     font-size: 18px;
     color: #00257A;
+    font-family: 'Righteous', cursive;
 }
 
 .campo input {
@@ -95,11 +96,13 @@ html, body {
     font-size: 15px;
     height: 42px;
     padding: 1%;  
-    color: #00000032; 
+    color: #000; 
 }
 
 .campo select {
     padding: 10px;
+    border-radius: 10px;
+    border: solid 1px #00000032;
 }
 
 .campo textarea {
@@ -112,9 +115,21 @@ html, body {
 }
 
 .midia {
+    text-align: center;
     padding: 10px;
     font-weight: 700;
     color: #00257A;
+    margin-top: 3%;
+}
+
+.midia input {
+    display: none;
+}
+
+.midia label {
+    border: 1px solid #00257A;
+    padding: 0.7rem 2.5rem;
+    border-radius: 8px;
 }
 
 .botaoCadastrar,
@@ -127,7 +142,8 @@ html, body {
     text-align: center;
     width: 150px;
     padding: 10px;
-    cursor: pointer
+    cursor: pointer;
+    font-family: 'Righteous', cursive;
 }
 
 .botaoCadastrar:hover {
