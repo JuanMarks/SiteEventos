@@ -1,7 +1,7 @@
 from django import views
 from django.urls import path
-from .views import views
-from .views.views import render_pdf_view ,CustomerListView, customer_render_pdf_view
+from apps.cadastrar_eventos import views
+from .views import render_pdf_view ,CustomerListView, customer_render_pdf_view
 
 urlpatterns = [
     path('', views.index, name='index'),

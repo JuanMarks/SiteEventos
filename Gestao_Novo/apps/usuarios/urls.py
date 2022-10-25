@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.cadastrar_eventos.views import views as views_eventos
+from apps.cadastrar_eventos import views as views_eventos
 from . import views
 
 urlpatterns = [
