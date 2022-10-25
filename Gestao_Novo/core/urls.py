@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
-from apps.cadastrar_eventos.views import EventoViewSet, InscritoViewSet
+from apps.cadastrar_eventos.views.views import EventoViewSet, InscritoViewSet
 
 router = routers.DefaultRouter()
 router.register('eventos', EventoViewSet)
