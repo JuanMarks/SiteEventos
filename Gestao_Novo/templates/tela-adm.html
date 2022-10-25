@@ -10,7 +10,12 @@
     
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/adm.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/modalAdm.css' %}">
 
+    <!-- JavaScript -->
+    <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
+    
 </head>
 <body>
     <main>
@@ -42,15 +47,24 @@
                         <p class="card-evento__nome"> {{evento.nome_evento}} ({{evento.pessoa}}) </p>
                         
                         <div class="card-evento__btn">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Gerar relatório
+                            </button>
                             <a class="btn btn-success" href="saibamais/{{evento.id}}"> Saiba Mais </a>
                             <a class="btn btn-info" href="editar_evento/{{evento.id}}"> Editar </a>
                             <a class="btn btn-danger" href="apagar_evento/{{evento.id}}"> Excluir</a>
+                            
                         </div>
                     </div>
                     {% endfor %}
+                    
                 </div>
                 
+                {% include 'modalAdm.html' %}
+                
         </div>
-    </main>
+    </main> 
 </body>
+
 </html>

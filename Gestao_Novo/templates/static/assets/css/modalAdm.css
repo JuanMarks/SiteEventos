@@ -1,0 +1,30 @@
+
+.modal-dialog  {
+  width: 230px;
+  display: flex;
+  align-content: center;
+}
+
+.modal-body {
+  height: 180px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-modal {
+  border: none;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  color: #FFF;
+}
+
+.btn-visualizar {
+  background-color: #00457A;
+}
+
+.btn-pdf {
+  background-color: #FF0000;
+}

@@ -20,6 +20,7 @@
       }
     }
     </script>
+    <script src="https://kit.fontawesome.com/37c71199db.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container">
@@ -28,12 +29,26 @@
       <button class="hover" id="btn__manual">Enviar(manualmente)</button>
       <input type="radio" name="btn" value="manual" id="manual" style="display: none;">
 
-      <button class="hover escolhido" id="btn__todos">Enviar via banco</button>
+      <button class="hover" id="btn__todos">Enviar via Banco</button>
       <input type="radio" name="btn" value="todos" id="todos" checked style="display:none;">
+
+      <button class="hover escolhido" id="btn__evento">Enviar por Evento</button>
+      <input type="radio" name="btn" value="evento" id="evento" checked style="display:none;">
     </div>
     <div class="container__manual none" id="container__manual">
+      <h3 style="margin-left: 150px;">Use uma base Excel ou digite os usuarios manualmente</h3>
       <form action="{% url 'enviar' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <div class="2_colunas" style="display: flex; justify-content: space-between;">
+          <div>
+            <label>Coloque aqui o excel:</label>
+            <input type="file" name="excel" id="">
+          </div>
+          <div>
+            <i class="fa-regular fa-file"></i>&nbsp;<a href="{% url 'download_file' filename='Nomes.xlsx' %}" style="text-decoration: none;">Download Arquivo</a>
+          </div>
+        </div>
+
         <label for="destinatario">Destinatário:</label>
         <input type="text" name="destinatario" id="destinatario">
 
@@ -46,12 +61,10 @@
         <label for="mensagem">Mensagem:</label>
         <textarea name="mensagem"></textarea>
 
-        <input type="file" name="excel" id="">
         <button class="button-envio">Enviar</button>
       </form>
-      <a href="{% url 'download_file' filename='Nomes.xlsx' %}">Download Arquivo</a>
     </div>
-    <div class="container__envio-bd m-scroll" id="container__todos">
+    <div class="container__envio-bd none" id="container__todos">
       <form class="container__form-bd" action="{% url 'enviar_todos' %}" method="POST">
         {% csrf_token %}
         <table class="container__table-bd">
@@ -80,6 +93,43 @@
                     </option>
                   </select>
                 </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for usuario in usuario %}
+            <tr>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
+              <td>{{usuario.nome}}</td>
+              <td>{{usuario.e_mail}}</td>
+              <td>{{usuario.grupo}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <label for="assunto">Assunto:</label>
+        <input type="text" name="assunto" id="assunto">
+
+        <label for="assunto">Imagem: <small>Google Photos (link)</small></label>
+        <input type="text" name="imagem" id="imagem">
+
+        <label for="mensagem">Mensagem</label>
+        <textarea name="mensagem"></textarea>
+
+        <button class="button-envio">Enviar</button>
+      </form>
+    </div>
+    <div class="container__evento m-scroll" id="container__evento">
+      <form class="container__form-bd" action="{% url 'enviar_todos' %}" method="POST">
+        {% csrf_token %}
+        <table class="container__table-bd">
+          <thead>
+            <tr>
+              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="chkAll" onclick="checkAll(this)"></th>
+              <th>Evento</th>
+              <th>Empresa</th>
+              <th>
+                Data
               </th>
             </tr>
           </thead>
