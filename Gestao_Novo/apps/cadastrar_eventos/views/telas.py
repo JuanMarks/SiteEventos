@@ -9,10 +9,7 @@ def index(request):
     }
     return render(request, 'index.html', dados)
 
-def saibamais(request):
-    if request.method == 'GET':
-        id = request.GET['data-bs-whatever']
-    print(id)
+def saibamais(request, id):
     evento = Evento.objects.filter(id=id)
     evento_id = get_object_or_404(Evento, id=id)
     inscrito = Inscrito_Evento.objects.filter(evento=evento_id)

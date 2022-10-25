@@ -15,7 +15,7 @@
 
     <!-- JavaScript -->
     <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
-    <script src="{% static 'bootstrap-5.2.2-dist/js/bootstrap.min.js' %}"></script>
+    
 </head>
 <body>
     <main>
@@ -48,7 +48,9 @@
                         
                         <div class="card-evento__btn">
                             <!-- Button trigger modal -->
-                            
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Gerar relatório
+                            </button>
                             <a class="btn btn-success" href="saibamais/{{evento.id}}"> Saiba Mais </a>
                             <a class="btn btn-info" href="editar_evento/{{evento.id}}"> Editar </a>
                             <a class="btn btn-danger" href="apagar_evento/{{evento.id}}"> Excluir</a>
@@ -58,12 +60,11 @@
                     {% endfor %}
                     
                 </div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Gerar relatório</button>
+                
                 {% include 'modalAdm.html' %}
                 
         </div>
-    </main>
-    
+    </main> 
 </body>
 
 </html>

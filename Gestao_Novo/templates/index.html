@@ -54,7 +54,7 @@
                       <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
                       
                         <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{evento.id}}">
-                          Saiba Mais
+                          <a href="saibamais/{{evento.id}}"> Saiba Mais </a>
                         </button>
                       
                       {% if evento.publico == 'Aberto' %}
@@ -68,7 +68,7 @@
         </section>
         {% include 'saibamais.html' %}
     </main>
-
+    <script src="main.js"></script>
     <footer class="wrapper-footer">
         <div class="wrapper-footer__info">
             <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">
