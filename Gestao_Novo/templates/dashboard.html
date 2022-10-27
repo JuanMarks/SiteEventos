@@ -3,9 +3,12 @@
 {% block content %}
 
 <div class="menu">
-    <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt=""> 
+    <a href="{% url 'index' %}">
+      <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
+    </a>
+     
     {% include 'menu.html' %}
-</div>
+  </div>
 
 <h1 class="" style="margin-top: 30px;">Solicitação de Eventos</h1> 
     <main class="wrapper-container">
