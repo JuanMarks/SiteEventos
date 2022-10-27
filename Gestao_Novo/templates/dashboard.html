@@ -2,35 +2,76 @@
 {% load static %}
 {% block content %}
 
-<div class="menu">
-    <a href="{% url 'index' %}">
-      <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
-    </a>
-     
-    {% include 'menu.html' %}
-  </div>
+    <div class="menu">
+        <a href="{% url 'index' %}">
+          <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
+        </a>
+         
+        {% include 'menu.html' %}
+    </div>
 
-<h1 class="" style="margin-top: 30px;">Solicitação de Eventos</h1> 
-    <main class="wrapper-container">
-
-        <section class="eventos">
+    <main class="principal">
+        <div class="banner__principal">
+            <img src="{% static 'assets/img/section1-bg.png' %}">
+        </div>
+        <h1 class="principal__titulo"> Seus eventos cadastrados </h1>
+        
+        <div class="container__caixa">
             {% for evento in eventos %}
-            <div class="card" style="width: 18rem;">
-                <img src="{{evento.img.url}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    
-                    <h5 class="card-title">{{evento.nome_evento}}</h5>
-                    <p class="card-title">Evento: {{evento.publico}}</p>
-                    <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
-                    <p class="card-title">Status: {{evento.publicar}}</p>
-                    <a href="{% url 'saibamais' evento.id %}" class="btn btn-primary">Saiba mais</a>
-                    
+            <div class="principal__caixa">
+                <div class="principal__artigo">
+                    <img class="artigo__imagem" src="{{evento.img.url}}" alt="imagem do evento cadastrado">
+                    <div class="artigo__caixa">
+                        <h3 class="artigo__titulo">{{evento.nome_evento}}</h3>
+                        <p class="artigo__paragrafo">
+                            <span class="paragrafo--bold"> Empresa reesponsavel: {{evento.nome_empresa}} </span> 
+                        </p>
+                        <div class="artigo__icons">
+                            <div class="icons">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <span class="icons_text"> {{evento.data_inicio}} </span>
+                            </div>
+                            <div class="icons">
+                                <i class="fa-solid fa-clock"></i>
+                                <span class="icons_text"> 00:00 </span>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <!-- Button trigger modal -->
+                        <div class="button--saiba">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModal">
+                                Saiba mais
+                            </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{evento.nome_evento}}</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{evento.descricao}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal"> Fechar </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}
-        </section>
+        </div>
         
     </main>
+    
 
     <footer class="wrapper-footer">
         <div class="wrapper-footer__info">
@@ -58,6 +99,5 @@
             Todos os direitos reservados &copy; 2022
         </div>
     </footer>
-
-    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
-{% endblock%}
+{% endblock %}
+    

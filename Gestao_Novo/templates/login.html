@@ -16,7 +16,7 @@
     <div class="wrapper-login">
         <form action="" class="wrapper-login__form" method="post">
             {% csrf_token %}
-            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
+            <a style="margin-left: 25%;" href="{% url 'index' %}"><img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo"></a>
             {% include 'messages/alertas.html' %}
             <div class="wrapper-login__form--user">
                 <label for="user">Email</label>

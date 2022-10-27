@@ -1,93 +1,63 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Usuario</title>
+
     <link rel="stylesheet" href="{% static 'assets/css/cadastroUsuario1.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
-    <title> Cadastro de Usuário </title>
+    
+
 </head>
-
 <body>
-    <div class="bdy-container">
-        <div class="container">
-            <div class="principal-container">
-                <div class="saida-eventos">
-                    <a href="{% url 'login' %}"> Fechar </a>
-                </div>
-                <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="Logo do NINNA Hub">
-
-                <section class="painel-progresso">
-                    <div class="step-next active" id="step-usuario">
-                        <a href="#" class="step-usuario"> Nome do Usuário </a>
-                    </div>
-                    <div class="step-next" id="step-email">
-                        <a href="#" class="step-email"> Email </a>
-                    </div>
-                    <div class="step-next" id="step-senha">
-                        <a href="#" class="step-senha"> Senha </a>
-                    </div>
-                </section>
-
-                <section class="formularioUser">
-                    {% include 'messages/alertas.html' %}
-                    <form action="{% url 'cadastro' %}" method="post">
-                        {% csrf_token %}
-                        <div class="pessoa" id="step1">
-                            <div class="campo">
-                                <label for="nome"> Nome Completo: </label>
-                                <input type="text" name="nome_completo" id="nome" class="" placeholder="Seu Nome" required>
-                            </div>
-                            <div class="campo">
-                                <label for="nome"> Nome de Usuario: </label>
-                                <input type="text" name="nome_usuario" id="nome" class="" placeholder="Seu Nome" required>
-                            </div>
-                            <div class="campo">
-                                <label for="telefone"> Telefone: </label>
-                                <input type="tel" name="telefone" id="telefone" class="" placeholder="(xx) xxxxx-xxxx" required>
-                            </div>
-                        </div>
-
-                        <div class="email" id="step2">
-                            <div class="campo">
-                                <label for="email"> Email: </label>
-                                <input type="email" name="email" id="email" class="" placeholder="seuemail@email.com" required>
-                            </div>
-                        </div>
-
-                        <div class="senha" id="step3">
-                            <div class="campo">
-                                <label for="senha"> Senha: </label>
-                                <input type="password" name="password" id="senha" class="" required>
-                            </div>
-                            <div class="campo">
-                                <label for="csenha"> Confirmar Senha: </label>
-                                <input type="password" name="password2" id="csenha" class="" required>
-                            </div>
-                        </div>
-
-                        <div class="button">
-                            <button class="botaoAnterior" value="" type="button"> Anterior </button>
-                            <button class="botaoAvancar" value="step2" type="button"> Próximo </button>
-
-                            <div class="botao">
-                                <button class="botaoCadastrar" data-target="step3" type="submit">
-                                    Cadastrar
-                                </button>
-                            </div>
-                            
-                        </div>
-                    </form>
-                </section>
+    <div style="width: 600px;" class="wrapper-login">
+        <form action="{% url 'cadastro' %}" class="wrapper-login__form" method="post">
+            <div class="saida-eventos">
+                <a href="{% url 'login' %}"> Fechar </a>
             </div>
-        </div>
-    </div>
+            {% csrf_token %}
+            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
+            <h1>Cadastro</h1>
+            {% include 'messages/alertas.html' %}
+            <div class="wrapper-login__form--user">
+                <label for="user">Nome Completo</label>
+                <input style="border-radius: 10px;" type="text" name="nome_completo" class="form-input input-user" id="user">
+            </div>
 
-    <script src="{% static 'assets/js/cadastroUsuario1.js' %}"></script>
+            <div class="wrapper-login__form--user">
+                <label for="user">Nome de Usuario</label>
+                <input style="border-radius: 10px;" type="text" name="nome_usuario" class="form-input input-user" id="user">
+            </div>
+
+            <div class="wrapper-login__form--user">
+                <label for="user">Telefone</label>
+                <input style="border-radius: 10px;" type="tel" name="telefone" placeholder="(xx) xxxxx-xxxx" class="form-input input-user" id="user">
+            </div>
+
+            <div class="wrapper-login__form--user">
+                <label for="user">Email</label>
+                <input style="border-radius: 10px;" type="email" name="email"  class="form-input input-user" id="user">
+            </div>
+
+            <div class="wrapper-login__form--password">
+                <label for="password">Senha</label>
+                <input style="border-radius: 10px;" type="password" name="password" class="form-input input-password" id="password">
+            </div>
+
+            <div class="wrapper-login__form--password">
+                <label for="password">Senha</label>
+                <input style="border-radius: 10px;" type="password" name="password2" class="form-input input-password" id="password">
+            </div>
+
+            <div class="wrapper-login__form--button">
+                <button style="border-radius: 10px;" type="submit" class="form-submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+    <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
 </head>
 
 <div class="menu">
-    <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" class="hero-logo" alt=""> 
-    
+    <a href="{% url 'index' %}">
+      <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
+    </a>
      
     {% include 'menu.html' %}
-  </div>
+</div>
 
 <section class="col-10">
     
