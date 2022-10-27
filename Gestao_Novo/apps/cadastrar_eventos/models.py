@@ -28,6 +28,7 @@ class Evento(models.Model):
     publicar = models.CharField(max_length=15, choices=PUBLICAR)
     habilitar_inscrever = models.BooleanField(default=False)
     habilitar_importante = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.nome_evento
 
