@@ -54,7 +54,7 @@
                       <p class="card-title">Evento: {{evento.publico}}</p>
                       <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
                       
-                        <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{evento.id}}">
+                        <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{evento.id}}">
                           Saiba Mais
                         </button>
                       
@@ -70,6 +70,7 @@
         {% include 'saibamais.html' %}
     </main>
     <script src="main.js"></script>
+    <script src="teste.js"></script>
     <footer class="wrapper-footer">
         <div class="wrapper-footer__info">
             <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">

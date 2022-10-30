@@ -3,7 +3,7 @@ $.ajax({
     url: '/apieventos/',
     success: function(response){
         console.log(response);
-        const data = $.parseJSON(response.data);
+        const data = JSON.parse(response)
         console.log(data);
         data.forEach(el=>{
             console.log(el.fields);
