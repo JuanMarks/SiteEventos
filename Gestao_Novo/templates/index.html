@@ -54,7 +54,7 @@
                       <p class="card-title">Evento: {{evento.publico}}</p>
                       <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
                       
-                        <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{evento.id}}">
+                        <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="[data-modal-id='{{ evento.id }}@{{evento.nome_evento}}']" data-bs-whatever="{{evento.id}}">
                           Saiba Mais
                         </button>
                       
@@ -65,9 +65,13 @@
               </div>
               {% endif %}
             {% endfor %}
+            {% for evento in eventos %}
+            {% include 'saibamais.html' %}
+            {% endfor %}
+            
             
         </section>
-        {% include 'saibamais.html' %}
+        
     </main>
     <script src="main.js"></script>
     <script src="teste.js"></script>
