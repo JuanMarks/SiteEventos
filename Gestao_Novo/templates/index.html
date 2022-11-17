@@ -54,7 +54,7 @@
                       <p class="card-title">Evento: {{evento.publico}}</p>
                       <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
                       
-                        <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="[data-modal-id='{{ evento.id }}@{{evento.nome_evento}}']" data-bs-whatever="{{evento.id}}">
+                        <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tste{{evento.id}}" >
                           Saiba Mais
                         </button>
                       
@@ -63,14 +63,58 @@
                       {% endif %}
                   </div>
               </div>
-              {% endif %}
+              
+              
+             
+        <div class="modal fade" id="tste{{evento.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel"> {{evento.nome_evento}} </h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="modal_img">
+                  <span><img src="{{evento.img.url}}"></span>
+                </div>
+              <div class="modal_descricao">
+                <h5> Descrição do evento </h5>
+                  <div class="moda_descricão-itens">
+                    <i class="fa-solid fa-check"></i>
+                    <p><span> Nome da empresa: </span> {{evento.nome_empresa}} </p>
+                  </div>
+              <div class="moda_descricão-itens">
+                <i class="fa-solid fa-check"></i>
+                <p><span> Quantidade de pessoas: </span> {{evento.convidados_qtd}} </p>
+              </div>
+              <div class="moda_descricão-itens">
+                <i class="fa-solid fa-check"></i>
+                <p><span> Horário de início: </span> {{evento.data_inicio}} </p>
+              </div>
+              <div class="modal_sobre">
+                <i class="fa-solid fa-check"></i>
+                {{evento.descricao}}
+              </div>
+        </div>
+      </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
+            </a></button>
+            <button type="button" class="btn btn-primary"> Inscreva-se </button>
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+        {% endif %}
+
             {% endfor %}
-            {% for evento in eventos %}
-            {% include 'saibamais.html' %}
-            {% endfor %}
+
             
             
         </section>
+        
         
     </main>
     <script src="main.js"></script>
