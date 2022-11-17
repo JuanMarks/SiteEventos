@@ -21,9 +21,9 @@ h1, h2 {
 }
 
 .hero-title {
-    font-size: 4rem;
     color: #FFF;
     margin: 170px auto;
+    font-size: 55px;
 }
 
 .wrapper-container {
@@ -31,7 +31,7 @@ h1, h2 {
 }
 
 .hero-logo {
-    width: 100px;
+    width: 130px;
 }
 
 .menu {
@@ -44,14 +44,81 @@ h1, h2 {
 
 .navegacao {
     display: flex;
-    gap: 30px;
+    align-items: center;
+    gap: 60px;
 }
 
 .navegacao a {
     color: #ECEDEE;
     text-decoration: none;
     font-weight: 700;
+    padding: 7px;
+    border-radius: 10px;
 }
+
+.navegacao a:hover {
+    color: #ECEDEE;
+    background-color: #7eb627;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+/* summary perfil-adm */
+
+.details-menu-adm {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    margin-top: 260px;
+    color: #FFF;
+}
+
+.img-perfil > img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: url('../img/pinguim.opdownload') center;
+    background-size: cover;
+    padding: 5%;
+}
+
+.container__links-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #30363d;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 2%;
+    font-size: 15px;
+}
+
+.links-details {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.details-options{
+    border: none;
+}
+
+#logout-adm {
+    background-color: #8993a0;
+    border: none;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    width: 100%;
+}
+
+.links-details a:hover{
+    border-bottom: 0.1px solid #cdcdcd;
+    border-radius: 0;
+    background-color: inherit;
+}
+/* carrousel */
 
 .wrapper-carousel {
     width: 100%;

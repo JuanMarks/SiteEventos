@@ -1,0 +1,178 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* Cabeçalho so para da uma visão de como seria, e como ficaria. */
+.cabecario {
+    background-color: #00257A;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.cabecario__caixa {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cabecario___img {
+    background-color: #2a488d;
+    height: 110px;
+}
+
+.cabecario__caixa .cabecario__imagem {
+    height: 100px;
+}
+
+.cabecario__navegacao .cabecario__lista {
+    display: flex;
+    list-style: none;
+}
+
+.cabecario__navegacao .cabecario__lista .cabecario__item {
+    padding-right: 25px;
+}
+
+.cabecario__lista .cabecario__item .cabecario__link {
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+.cabecario__lista .cabecario__item .cabecario__link:hover {
+    text-decoration: underline;
+}
+
+/* Codigo principal, feito por css sem a utilização do boodstrap */
+
+.banner__principal img {
+    width: 100%;
+    height: 90px;
+}
+
+.principal {
+    padding-top: 30px;
+}
+
+.container__caixa {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.principal .principal__titulo {
+    font-family: Righteous, cursive;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 60px;
+}
+
+.principal__artigo {
+    width: 300px;
+    margin: 20px;
+    border-radius: 15px;
+    box-shadow: 8px 8px 5px #00000032;
+}
+
+.principal__artigo .artigo__imagem {
+    border-radius: 9px 9px 0px 0px;
+    width: 100%;
+    height: 30vh;
+}
+
+.principal__artigo .artigo__caixa {
+    padding: 20px;
+}
+
+.artigo__caixa .artigo__titulo {
+    text-align: center;
+    margin: 10px 0px 15px;
+}
+
+.artigo__caixa .artigo__paragrafo {
+    margin-bottom: 0;
+}
+
+.artigo__caixa .artigo__paragrafo .paragrafo--bold {
+    font-weight: 600;
+}
+
+.artigo__caixa .artigo__icons {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.icons {
+    padding: 2px;
+    font-weight: 600;
+}
+
+.icons i {
+    color: #00257A;
+}
+
+.button--saiba button {
+    background-color: #00257A;
+    border: none;
+    border-radius: 25px;
+    margin-left: 27%;
+    padding: 10px;
+}
+
+/* da mesma forma que o cabeçalho, o rodape tambem e so algo para ilustrar. */
+
+.rodape {
+    width: 100%;
+    background-color: #0E0062;
+    display: flex;
+    justify-content: space-around;
+}
+
+.rodape .rodape__imagem {
+    height: 40vh
+}
+
+.rodape__caixa {
+    padding-top: 4em
+}
+
+.rodape__caixa .rodape__paragrafo {
+    color: white;
+}
+
+/* Media querry */
+
+@media screen and (max-width: 980px) {
+    .cabecario {
+        width: 100%;
+    }
+
+    .cabecario___img {
+        height: 100px;
+        margin: 5px;
+    }
+
+    .cabecario__caixa .cabecario__imagem {
+        height: 100px;
+    }
+
+    .banner__principal img {
+        max-width: 100%;
+    }
+
+    .container__caixa {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

@@ -6,9 +6,6 @@ from apps.cadastrar_eventos import serializers
 from django.core import serializers as sz
 from django.http import JsonResponse
 
-class CustomerListView(ListView):
-    model = Evento
-    template_name = 'teste0main.html'
 
 class EventoViewSet(viewsets.ModelViewSet):
     queryset = Evento.objects.all()

@@ -2,39 +2,72 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <title>relatorio em pdf</title>
-        {% comment %} <link rel="stylesheet" href="{% static 'assets/css/relatoriofinal.css' %}"> {% endcomment %}
-        <link rel="stylesheet" href="templates/static/assets/css/css.css">
-        <style></style>
+        <title>Relatorio // {{eventos.nome_evento}}</title>
+        <link rel="stylesheet" href="templates/static/assets\css\css_relatorios.css">
+
+        <link rel="stylesheet" href="templates/static\assets\css\fontawesome-free-6.2.0-web\fontawesome-free-6.2.0-web/css/fontawesome.min.css">
     </head>
     <body>
-        <div class="container"">    
-            <h2 class="relatorio">Relatorio</h2>    
-            <h2>nome evento : {{eventos.nome_evento}}</h2>
-            <h2>descriçao do evento : {{eventos.descricao}}</h2>
-            <h2>tipo : {{eventos.publico}}</h2>
-            <h2>inicio : {{eventos.data_inicio}}</h2>
-            <h2>termino : {{eventos.data_termino}}</h2>
-            <h2>grupo : {{ eventos.grupo }}</h2>
-            <h2>total de inscritos no evento : {{ as }}</h2>
-            <!-- <img src="templates/static/users/2022/09{{eventos.img}}" alt=""> -->
-            <img src="{{eventos.img}}" alt="">
+        <header>
+            <img src="static/assets/img/teste pra ver se funciona.png" class="logo">
+        </header>
+            <h2 class="relatorio">Relatorio</h2>
+
+            <div class="conteiner">
+                <h4>Nome Evento : {{eventos.nome_evento}}</h4>
+                <h4>Descriçao do Evento : {{eventos.descricao}}</h4>
+                <h4>Tipo : {{eventos.publico}}</h4>
+                    <div class="inicio">
+                        <h4>Inicio : {{eventos.data_inicio}}</h4>
+                        <h4>Termino : {{eventos.data_termino}}</h4>
+                    </div>
+                <h4>Grupo : {{ eventos.grupo }}</h4>
+                <h4>Total de Inscritos no Evento : {{ as }}</h4>
+            </div>
             {% if inscritos %}
-                <table class="tabela" border='1'>
+                <table class="tabela">
                     <tr>
-                    <th>NOME</th>
-                    <th>SOBRENOME</th>
+                        <th>NOME</th>
+                        <th>E-MAIL</th>
                     </tr>
-                        {% for inscrito in inscritos %}
+                    {% for inscrito in inscritos %}
                         <tr>
-                        <td>{{inscrito.inscrito}}</td>
-                        <td>SOBRENOME</td>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
                         </tr>
-                        {% endfor %}
+                        <tr>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
+                        </tr>
+                        <tr>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
+                        </tr>
+                        <tr>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
+                        </tr>
+                        <tr>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
+                        </tr>
+                        <tr>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
+                        </tr>
+                        <tr>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
+                        </tr>
+                        <tr>
+                            <td>{{inscrito.inscrito}}</td>
+                            <td>E-mail???</td>
+                        </tr>
+                    {% endfor %}
                 </table>
             {% else %}
             {% endif %}
-            </div>
+    </div>
         </div>
     </body>
 </html>

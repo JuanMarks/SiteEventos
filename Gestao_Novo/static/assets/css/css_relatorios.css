@@ -1,0 +1,71 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header{
+  background: url(templates/static/assets/img/section1-bg-copia.png) no-repeat;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-cabe {
+    width: 100%;
+    height: 100px;
+}
+
+.logo {
+    width: 15%;
+    margin: 50px;}
+
+.relatorio {
+    font-size: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.conteiner {
+    margin-left: 1px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.conteiner h4 {
+    font-size: 15px;
+    padding: 1px;
+    letter-spacing: 0.1px;
+    word-spacing: 1px;
+}
+
+.inicio {
+    display: flex;
+}
+
+.inicio h4 {
+    padding-right: 10px;
+}
+
+.tabela {
+    width: 50%;
+    border: 1px solid black;
+    margin-left: 50px;
+    margin-top: 40px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.tabela th {
+    border: 1px solid black;
+    padding: 5px;
+    background: rgb(53, 62, 135);
+    color: white;
+}
+
+.tabela td {
+    border: 1px solid black;
+    padding: 5px;
+}

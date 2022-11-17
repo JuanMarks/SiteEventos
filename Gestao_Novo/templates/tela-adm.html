@@ -66,14 +66,14 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <button class="btn-visualizar btn-modal">Visualizar <i class="fa-solid fa-eye"></i></button>
-                              <button class="btn-pdf btn-modal">Baixar <i class="fa-solid fa-file-pdf"></i></button>
+                              <a href="{% url 'teste3' evento.id%}"><button class="btn-visualizar btn-modal">Baixar<i class="fa-solid fa-eye"></i></button></a>
+                              <a target="_blank" href="{% url 'teste' evento.id%}"><button class="btn-pdf btn-modal">Visualizar <i class="fa-solid fa-file-pdf"></i></button></a>
                             </div>
                           </div>
                         </div>
                     </div> 
                     {% endfor %}
-                    
+
                 </div>
                 
                 
