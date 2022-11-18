@@ -47,7 +47,7 @@
         <section class="eventos">
             {% for evento in eventos %}
               {% if evento.publicar == 'Publicado'%}
-              <div class="card" style="width: 25rem;">
+              <div class="card" style="width: 25rem; border-radius: 20px;">
                   <img src="{{evento.img.url}}" class="card-img-top" alt="...">
                   <div class="card-body">
                       <h5 class="card-title">{{evento.nome_evento}}</h5>
@@ -59,7 +59,9 @@
                         </button>
                       
                       {% if evento.publico == 'Aberto' %}
-                      <a href="inscrever/{{evento.id}}" class="btn btn-primary">Inscrever-se</a>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
+                        Inscrever-se
+                      </button>
                       {% endif %}
                   </div>
               </div>
@@ -105,6 +107,34 @@
           </div>
         </div>
         </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="insc{{evento.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Informe os seguintes dados:</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form class="form__inscrever-se" action="inscrever/{{evento.id}}" method="post">
+              {% csrf_token %}
+              <label for="nome">Nome</label>
+              <input id="nome" type="name" name="nome" placeholder="Seu nome">
+              
+              <label for="e-mail">E-mail</label>
+              <input id="e-mail" name="email" type="E-mail" placeholder="Seu e-mail">
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
+                <input class="btn btn-primary" type="submit" value="Inscrever-se">
+              </div>
+            </form>
+            </div>
+            
+          </div>
         </div>
       </div>
         {% endif %}

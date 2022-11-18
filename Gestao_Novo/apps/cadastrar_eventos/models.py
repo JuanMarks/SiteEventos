@@ -35,3 +35,5 @@ class Evento(models.Model):
 class Inscrito_Evento(models.Model):
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     inscrito = models.ForeignKey(User, on_delete=models.CASCADE)
+    nome = models.CharField(max_length=40)
+    email = models.CharField(max_length=50)

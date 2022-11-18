@@ -1,0 +1,27 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.form__inscrever-se {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form__inscrever-se > label{
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.form__inscrever-se > input {
+  border-radius: 7px;
+  height: 40px;
+  font-size: 15px;
+  padding: 1%;
+  margin-bottom: 30px;
+}
+
+#btn-inscrever {
+  background-color: #00257A;
+}
