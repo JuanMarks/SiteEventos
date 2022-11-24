@@ -57,8 +57,20 @@
                         <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tste{{evento.id}}" >
                           Saiba Mais
                         </button>
-                      
+                      {% include 'messages/alertas.html' %}
                       {% if evento.publico == 'Aberto' %}
+                      {% if inscritos %}
+                      {% for inscrito in inscritos %}
+                      {% if user.username == inscrito.inscrito %}
+                      <script src="main.js"></script>
+                      <a href="remover_inscricao/{{evento.id}}"><button type="button" class="btn btn-danger">
+                        Remover Inscrição
+                      </button></a>
+                      {% else %}
+                      {% endif %}
+                      {% endfor %}
+                      {% endif %}
+                      {% else %}
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
                         Inscrever-se
                       </button>
@@ -103,7 +115,9 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
             </a></button>
-            <button type="button" class="btn btn-primary"> Inscreva-se </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
+              Inscrever-se
+            </button>
           </div>
         </div>
         </div>
@@ -147,8 +161,6 @@
         
         
     </main>
-    <script src="main.js"></script>
-    <script src="teste.js"></script>
     <footer class="wrapper-footer">
         <div class="wrapper-footer__info">
             <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">

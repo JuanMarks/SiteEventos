@@ -57,14 +57,26 @@ def apagar_evento(request, id):
 
 @login_required(login_url='login')
 def inscrever_evento(request, id):
+    evento_inscricao = Evento.objects.filter(id=id)
     if request.method == 'POST':
         inscrito = get_object_or_404(User, pk=request.user.id)
         evento = get_object_or_404(Evento, pk=id)
         nome = request.POST['nome']
         email = request.POST['email']
-    
+        
+        lista = []
+        lista.append(inscrito)
+        
         inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito, nome=nome, email=email)
         inscrever.save()
+        evento_inscricao.update(inscritos_evento=lista)
         return redirect('index')
     else:
         return redirect('tela-adm')
+
+def remover_inscricao(request,id):
+    evento_inscricao = Evento.objects.filter(id=id).values_list('inscritos_evento', flat=True).get()
+    user = request.user.username
+    if user in evento_inscricao:
+        evento_inscricao.delete(user)
+    return redirect('index')

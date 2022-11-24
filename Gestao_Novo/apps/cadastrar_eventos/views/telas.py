@@ -1,10 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.contrib.auth.models import User
+from django.contrib import messages
 from ..models import Evento, Inscrito_Evento
 def index(request):
+    user = request.user.username
     eventos = Evento.objects.all()
-
+    inscritos = Inscrito_Evento.objects.all()
+    
     dados = {
+        'inscritos': inscritos,
         'eventos' : eventos,
     }
     return render(request, 'index.html', dados)
