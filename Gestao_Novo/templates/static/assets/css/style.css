@@ -25,6 +25,7 @@ h1, h2 {
     color: #FFF;
     margin: 170px auto;
     font-size: 55px;
+    width: 1000px;
 }
 
 .wrapper-container {
@@ -178,6 +179,18 @@ h1, h2 {
     padding: 4px;
 }
 
+.redes-sociais {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+}
+
+.redes-sociais > i {
+    font-size: 30px;
+}
+
 .wrapper-footer__info {
     display: flex;
     justify-content: space-evenly;
@@ -193,6 +206,7 @@ h1, h2 {
     justify-content: center;
     background: #0E0062;
     padding: 10px 0;
+    font-size: 12px;
 }
 
 /* Icons */

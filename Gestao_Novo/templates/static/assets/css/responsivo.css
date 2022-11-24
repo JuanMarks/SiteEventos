@@ -3,9 +3,56 @@
     
 }
 
-/* Rsponsivo para celular */
+/* Responsividade para celular */
 @media screen and (max-width: 768px) {
-    .eventos {
-        justify-content: center;
+    .hero-logo {
+        width: 110px;
+    }
+    
+    .img-perfil {
+        margin-left: 90px;
+    }
+
+    .hero-title {
+        margin: 80px auto;
+        font-size: 30px;
+        width: 340px;
+    }
+
+   .wrapper-hero {
+        height: 45vh;
+   } 
+
+   .carousel {
+        height: 90%;
+   }
+
+   .carousel-item-img {
+        height: 300px;
+   }
+    .wrapper-carousel {
+        height: 300px;
+    }
+
+   .eventos {
+    justify-content: center;
+    }
+
+    .wrapper-footer__info {
+        flex-direction: column;
+    }
+
+    .wrapper-footer__info img {
+        width: 150px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .redes-sociais {
+        display: flex;
+        justify-content: space-around;
+        width: 250px;
+        
     }
 }
+

@@ -11,7 +11,7 @@
      
     {% include 'menu.html' %}
   </div>
-  <h1 class="hero-title">Seja Bem Vindo a Sessão de Eventos <br>do Ninna Hub</h1> 
+  <h1 class="hero-title">Seja Bem-Vindo a Sessão de Eventos do Ninna Hub</h1> 
 </header>
         
     <main class="wrapper-container">
@@ -42,7 +42,7 @@
               </div>
         </section>
 
-        <h2>Próximos eventos</h2>
+        <h2 class="title__eventos">Próximos eventos</h2>
 
         <section class="eventos">
             {% for evento in eventos %}
@@ -167,20 +167,18 @@
             <div class="wrapper-footer__info--geral">
                 <ul class="info--localizacao__list">
                     <li class="info--localizacao__item">
-                        Av. Dom Manuel, 1020 - Centro, Fortaleza - CE, 60060-090
+                      <i class="fa-solid fa-location-dot" style="padding-right: 5px"></i>Av. Dom Manuel, 1020 - Centro, Fortaleza - CE, 60060-090
                     </li>
                     <li class="info--localizacao__item">
-                        (85) 3211-4201
+                      <i class="fa-solid fa-phone" style="padding-right: 5px"></i>(85) 3211-4201
+                    </li>
+                    <li class="redes-sociais">
+                      <i class="fa-brands fa-linkedin"></i>
+                      <i class="fa-brands fa-facebook"></i>
+                      <i class="fa-brands fa-instagram"></i>
                     </li>
                 </ul>
             </div>
-            <!-- <div class="wrapper-footer__info--sociais">
-                <ul class="info--sociais__list">
-                    <li class="info--sociais__item">Instagram</li>
-                    <li class="info--sociais__item">Youtube</li>
-                    <li class="info--sociais__item">LinkedIn</li>
-                </ul>
-            </div> -->
         </div>
 
         <div class="wrapper-footer__copyright">
