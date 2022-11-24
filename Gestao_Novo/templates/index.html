@@ -59,22 +59,17 @@
                         </button>
                       {% include 'messages/alertas.html' %}
                       {% if evento.publico == 'Aberto' %}
-                      {% if inscritos %}
-                      {% for inscrito in inscritos %}
-                      {% if user.username == inscrito.inscrito %}
-                      <script src="main.js"></script>
+                      {% if user.username in evento.inscritos_evento %}
                       <a href="remover_inscricao/{{evento.id}}"><button type="button" class="btn btn-danger">
                         Remover Inscrição
                       </button></a>
-                      {% else %}
-                      {% endif %}
-                      {% endfor %}
-                      {% endif %}
                       {% else %}
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
                         Inscrever-se
                       </button>
                       {% endif %}
+                      {% endif %}
+                  
                   </div>
               </div>
               
@@ -115,9 +110,15 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
             </a></button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
-              Inscrever-se
-            </button>
+            {% if user.username in evento.inscritos_evento %}
+                <a href="remover_inscricao/{{evento.id}}"><button type="button" class="btn btn-danger">
+                    Remover Inscrição
+                </button></a>
+            {% else %}
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
+                    Inscrever-se
+                </button>
+            {% endif %}
           </div>
         </div>
         </div>

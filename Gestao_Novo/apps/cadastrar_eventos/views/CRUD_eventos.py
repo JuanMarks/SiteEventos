@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from ..forms import Editar_Evento
 from django.contrib.auth.models import User
 from ..models import Evento, Inscrito_Evento
+import psycopg2
 
 @login_required(login_url='login')
 def cadastrar_eventos(request):
@@ -63,8 +64,8 @@ def inscrever_evento(request, id):
         evento = get_object_or_404(Evento, pk=id)
         nome = request.POST['nome']
         email = request.POST['email']
-        
-        lista = []
+        evento_inscrito = Evento.objects.filter(id=id).values_list('inscritos_evento', flat=True).get()
+        lista = [evento_inscrito]
         lista.append(inscrito)
         
         inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito, nome=nome, email=email)
@@ -75,8 +76,10 @@ def inscrever_evento(request, id):
         return redirect('tela-adm')
 
 def remover_inscricao(request,id):
-    evento_inscricao = Evento.objects.filter(id=id).values_list('inscritos_evento', flat=True).get()
-    user = request.user.username
-    if user in evento_inscricao:
-        evento_inscricao.delete(user)
+    usuario = request.user.username
+    con = psycopg2.connect(host='localhost', database='site_eventos',
+    user='postgres', password='123456')
+    cur = con.cursor()
+    sql = f'DELETE FROM cadastrar_eventos_inscrito_evento WHERE inscrito={usuario}'
+    cur.execute(sql)
     return redirect('index')
