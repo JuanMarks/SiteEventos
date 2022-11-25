@@ -4,13 +4,15 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from ..models import Evento, Inscrito_Evento
 def index(request):
-    user = request.user.username
+    id = request.user.id
+    user = User.objects.filter(pk=id)
     eventos = Evento.objects.all()
-    inscritos = Inscrito_Evento.objects.all()
+    inscritos = Inscrito_Evento.objects.filter(inscrito__in=user)
     
     dados = {
         'inscritos': inscritos,
         'eventos' : eventos,
+        'var': True
     }
     return render(request, 'index.html', dados)
 

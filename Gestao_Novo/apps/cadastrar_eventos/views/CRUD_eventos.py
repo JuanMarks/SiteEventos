@@ -64,22 +64,19 @@ def inscrever_evento(request, id):
         evento = get_object_or_404(Evento, pk=id)
         nome = request.POST['nome']
         email = request.POST['email']
-        evento_inscrito = Evento.objects.filter(id=id).values_list('inscritos_evento', flat=True).get()
-        lista = [evento_inscrito]
-        lista.append(inscrito)
+        #evento_inscrito = Evento.objects.filter(id=id).values_list('inscritos_evento', flat=True).get()
+        #lista = [evento_inscrito]
+        #lista.append(inscrito)
         
         inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito, nome=nome, email=email)
         inscrever.save()
-        evento_inscricao.update(inscritos_evento=lista)
+        #evento_inscricao.update(inscritos_evento=lista)
         return redirect('index')
     else:
         return redirect('tela-adm')
 
 def remover_inscricao(request,id):
-    usuario = request.user.username
-    con = psycopg2.connect(host='localhost', database='site_eventos',
-    user='postgres', password='123456')
-    cur = con.cursor()
-    sql = f'DELETE FROM cadastrar_eventos_inscrito_evento WHERE inscrito={usuario}'
-    cur.execute(sql)
+    usuario = request.user.id
+    inscrito = Inscrito_Evento.objects.filter(pk=id)
+    inscrito.delete()
     return redirect('index')

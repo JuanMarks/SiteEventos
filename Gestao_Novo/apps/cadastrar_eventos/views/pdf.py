@@ -25,7 +25,7 @@ def customer_render_pdf_view(request, *args, **kwargs):
     #if download:
     # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     #if diplay:
-    response['Content-Disposition'] = 'attachment; filename="relatorio.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="{evento.nome_evento}.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
@@ -58,7 +58,7 @@ def render_pdf_view(request, id):
     #if download:
     # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     #if diplay:
-    response['Content-Disposition'] = 'filename="relatorio.pdf"'
+    response['Content-Disposition'] = f'filename="{evento.nome_evento}.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)

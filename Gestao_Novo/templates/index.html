@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        
 
 <header class="wrapper-hero">
   <div class="menu">
@@ -57,17 +56,31 @@
                         <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tste{{evento.id}}" >
                           Saiba Mais
                         </button>
+                        <script>
+                          var a = true;
+                        </script>
                       {% include 'messages/alertas.html' %}
                       {% if evento.publico == 'Aberto' %}
-                      {% if user.username in evento.inscritos_evento %}
-                      <a href="remover_inscricao/{{evento.id}}"><button type="button" class="btn btn-danger">
-                        Remover Inscrição
-                      </button></a>
-                      {% else %}
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
-                        Inscrever-se
-                      </button>
-                      {% endif %}
+                        {% if inscritos.exists %}
+                          {% for inscrito in inscritos %}
+                            {% if evento.id == inscrito.evento.id %}
+                            <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
+                              Remover Inscrição
+                            </button></a>
+                            <script>
+                              a = false;
+                            </script>
+                            {% endif %}
+                            {% endfor %}      
+                        {% endif %}
+                            <script>
+                              if(a == true){
+                                var botao = "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#insc{{evento.id}}' id='btn-inscrever'>" +
+                                            "     Inscrever-se" +
+                                            "</button>";
+                                document.write(botao);
+                              }
+                            </script>                     
                       {% endif %}
                   
                   </div>
