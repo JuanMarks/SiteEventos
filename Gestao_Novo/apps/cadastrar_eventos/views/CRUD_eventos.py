@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from ..forms import Editar_Evento
 from django.contrib.auth.models import User
 from ..models import Evento, Inscrito_Evento
+import psycopg2
 
 @login_required(login_url='login')
 def cadastrar_eventos(request):
@@ -57,14 +58,25 @@ def apagar_evento(request, id):
 
 @login_required(login_url='login')
 def inscrever_evento(request, id):
+    evento_inscricao = Evento.objects.filter(id=id)
     if request.method == 'POST':
         inscrito = get_object_or_404(User, pk=request.user.id)
         evento = get_object_or_404(Evento, pk=id)
         nome = request.POST['nome']
         email = request.POST['email']
-    
+        #evento_inscrito = Evento.objects.filter(id=id).values_list('inscritos_evento', flat=True).get()
+        #lista = [evento_inscrito]
+        #lista.append(inscrito)
+        
         inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito, nome=nome, email=email)
         inscrever.save()
+        #evento_inscricao.update(inscritos_evento=lista)
         return redirect('index')
     else:
         return redirect('tela-adm')
+
+def remover_inscricao(request,id):
+    usuario = request.user.id
+    inscrito = Inscrito_Evento.objects.filter(pk=id)
+    inscrito.delete()
+    return redirect('index')

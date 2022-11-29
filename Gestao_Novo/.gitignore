@@ -13,3 +13,5 @@
 /apps/arquivo_excel/__pycache__
 /apps/arquivo_excel/migrations/__pycache__
 /users
+__pycache__/
+*.pyc

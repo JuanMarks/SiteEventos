@@ -10,7 +10,8 @@ def customer_render_pdf_view(request, *args, **kwargs):
     evento_id = get_object_or_404(Evento, id=id)
     inscrito = Inscrito_Evento.objects.filter(evento=evento_id)
     evento = get_object_or_404(Evento, id=id)
-    a = len(inscrito)
+    duracao_evento = evento.data_termino - evento.data_inicio
+    total_inscritos = len(inscrito)
     if len(inscrito) > 1:
         inscrito = get_list_or_404(Inscrito_Evento, evento=evento_id)
 
@@ -18,14 +19,15 @@ def customer_render_pdf_view(request, *args, **kwargs):
     context = {
             'eventos' : evento,
             'inscritos': inscrito,
-            'as': a
+            'total_inscritos': total_inscritos,
+            'duracao_evento' : duracao_evento
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     #if download:
     # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     #if diplay:
-    response['Content-Disposition'] = 'attachment; filename="relatorio.pdf"'
+    response['Content-Disposition'] = f'attachment; filename="{evento.nome_evento}.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
@@ -43,7 +45,8 @@ def render_pdf_view(request, id):
     evento_id = get_object_or_404(Evento, id=id)
     inscrito = Inscrito_Evento.objects.filter(evento=evento_id)
     evento = get_object_or_404(Evento, id=id)
-    a = len(inscrito)
+    duracao_evento = evento.data_termino - evento.data_inicio
+    total_inscritos = len(inscrito)
     if len(inscrito) > 1:
         inscrito = get_list_or_404(Inscrito_Evento, evento=evento_id)
 
@@ -51,14 +54,15 @@ def render_pdf_view(request, id):
     context = {
             'eventos' : evento,
             'inscritos': inscrito,
-            'as': a
+            'total_inscritos': total_inscritos,
+            'duracao_evento' : duracao_evento
         }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     #if download:
     # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
     #if diplay:
-    response['Content-Disposition'] = 'filename="relatorio.pdf"'
+    response['Content-Disposition'] = f'filename="{evento.nome_evento}.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)
