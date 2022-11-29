@@ -4,6 +4,7 @@ from ..forms import Editar_Evento
 from django.contrib.auth.models import User
 from ..models import Evento, Inscrito_Evento, Relatorio_Satisfacao
 from django.contrib import messages
+from datetime import datetime
 
 @login_required(login_url='login')
 def cadastrar_eventos(request):
@@ -17,6 +18,20 @@ def cadastrar_eventos(request):
         data_termino = request.POST['data_termino']
         qtd_convidados = request.POST['qtd_pessoas']
         foto_evento = request.FILES['foto_evento']
+
+        data_hoje = str(datetime.now())
+        #data = data_hoje.strftime("Y%/%m/%d %H:%M")
+        #print(date)
+        if data_inicio < data_hoje:
+            messages.error(request, 'Data de inicio menor que data de hoje')
+            return redirect('cadastrar_eventos')
+        
+        if int(qtd_convidados) > 100:
+            messages.error(request, 'Quantidades de convidados maior do que a maxima')
+            return redirect('cadastrar_eventos')
+        
+
+
         user = get_object_or_404(User, pk=request.user.id)
         evento = Evento.objects.create(
             pessoa=user,
