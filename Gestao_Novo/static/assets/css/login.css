@@ -9,23 +9,23 @@ body {
 }
 
 .wrapper-login {
-    margin: 50px auto;
+    margin: 8rem auto;
     display: flex;
-    width: 400px;
+    width: 30%;
     background: #FFF;
-    padding: 20px;
-    border-radius: 15px;
+    padding: 2rem;
+    border-radius: 2rem;
 }
 
 .wrapper-login__form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 2.5rem;
     width: 100%;
 }
 
 .wrapper-login__form--logo {
-    width: 200px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -36,12 +36,12 @@ body {
 
 .wrapper-login__form label {
     font-family: 'Righteous', cursive;
-    margin: 10px 0;
-    font-size: 20px;
+    margin: 1rem 0;
+    font-size: 2.5rem;
 }
 
 .wrapper-login__form input {
-    padding: 8px;
+    padding: 0.5rem;
     outline: none;
     border: 1px solid rgba(0, 0, 0, .4);
 }
@@ -57,7 +57,7 @@ body {
     font-weight: 500;
     color: #000;
     text-align: center;
-    font-size: 13px;
+    font-size: 1rem;;
 }
 
 .wrapper-login__form--button {
@@ -68,14 +68,14 @@ body {
     background: #00257A;
     color: #FFF;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1.5rem;
     border: none;
-    border-radius: 100px;
+    border-radius: 6rem;
     outline: none;
-    padding: 8px;
+    padding: 0.5rem;
     cursor: pointer;
-    margin: 20px auto 0;
-    width: 150px;
+    margin: 1.5rem auto 0;
+    width: 20%;
 }
 
 /* hover wrapper  */
@@ -88,4 +88,8 @@ body {
 .form-submit:hover {
     background-color: #7eb627;
     transition: 0.3s;
+}
+
+@media(max-width: 500px) {
+
 }

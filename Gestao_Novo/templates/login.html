@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +12,15 @@
     <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
 </head>
+
 <body>
-    
+
     <div class="wrapper-login">
         <form action="" class="wrapper-login__form" method="post">
             {% csrf_token %}
-            <a style="margin-left: 25%;" href="{% url 'index' %}"><img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo"></a>
+            <div class="form__img--centralizar" <a href="{% url 'index' %}"><img
+                    src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo"></a>
+            </div>
             {% include 'messages/alertas.html' %}
             <div class="wrapper-login__form--user">
                 <label for="user">Email</label>
@@ -25,7 +29,8 @@
 
             <div class="wrapper-login__form--password">
                 <label for="password">Senha</label>
-                <input style="border-radius: 10px;" type="password" name="senha" class="form-input input-password" id="password">
+                <input style="border-radius: 10px;" type="password" name="senha" class="form-input input-password"
+                    id="password">
             </div>
 
             <div class="wrapper-login__form--button">
@@ -39,4 +44,5 @@
         </form>
     </div>
 </body>
+
 </html>
