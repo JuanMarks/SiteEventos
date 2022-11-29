@@ -9,6 +9,13 @@
 
   <link rel="stylesheet" href="{% static 'assets/css/enviodeEmail.css' %}">
   <script src="https://s.codigofonte.com.br/wp-content/js/codigofonte-bar.js"></script>
+  <!-- SUMERNOTE -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   <script>
     function checkAll(o){
       var boxes = document.getElementsByTagName("input");
@@ -36,11 +43,11 @@
       <input type="radio" name="btn" value="evento" id="evento" checked style="display:none;">
     </div>
     <div class="container__manual none" id="container__manual">
-      <h3 style="margin-left: 150px;">Use uma base Excel ou digite os usuarios manualmente</h3>
+      <h3 class="title-excel">Use uma base excel ou digite os usuários manualmente</h3>
       <form action="{% url 'enviar' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="2_colunas" style="display: flex; justify-content: space-between;">
-          <div>
+        <div class="upload-archive">
+          <div class="archive-excel">
             <label>Coloque aqui o excel:</label>
             <input type="file" name="excel" id="">
           </div>
@@ -59,7 +66,23 @@
         <input type="text" name="imagem" id="imagem">
 
         <label for="mensagem">Mensagem:</label>
-        <textarea name="mensagem"></textarea>
+        <div name="mensagem" id="summernote"></div>
+        <script>
+          $('#summernote').summernote({
+            placeholder: 'Digite aqui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+              ['style', ['style']],
+              ['font', ['bold', 'underline', 'clear']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['table', ['table']],
+              ['insert', ['link', 'picture', 'video']],
+              ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+          });
+        </script>
 
         <button class="button-envio">Enviar</button>
       </form>
@@ -68,9 +91,9 @@
       <form class="container__form-bd" action="{% url 'enviar_todos' %}" method="POST">
         {% csrf_token %}
         <table class="container__table-bd">
-          <thead>
+          <thead class="thead">
             <tr>
-              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="chkAll" onclick="checkAll(this)"></th>
+              <th><input class="checkbox" type="checkbox" name="chkAll" onclick="checkAll(this)"></th>
               <th>Nome</th>
               <th>E-mail</th>
               <th>
@@ -96,10 +119,10 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="container__dados-table">
             {% for usuario in usuario %}
-            <tr>
-              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
+            <tr class="name-groups">
+              <td><input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
               <td>{{usuario.nome}}</td>
               <td>{{usuario.e_mail}}</td>
               <td>{{usuario.grupo}}</td>
@@ -123,9 +146,9 @@
       <form class="container__form-bd" action="{% url 'enviar_todos' %}" method="POST">
         {% csrf_token %}
         <table class="container__table-bd">
-          <thead>
+          <thead class="thead">
             <tr>
-              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="chkAll" onclick="checkAll(this)"></th>
+              <th><input class="checkbox" type="checkbox" name="chkAll" onclick="checkAll(this)"></th>
               <th>Evento</th>
               <th>Empresa</th>
               <th>
@@ -133,10 +156,10 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="name-groups">
             {% for usuario in usuario %}
             <tr>
-              <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
+              <td><input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
               <td>{{usuario.nome}}</td>
               <td>{{usuario.e_mail}}</td>
               <td>{{usuario.grupo}}</td>

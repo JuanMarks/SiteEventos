@@ -12,17 +12,26 @@
             <img src="static/assets/img/teste pra ver se funciona.png" class="logo">
         </header>
             <h2 class="relatorio">Relatorio</h2>
-
+            <hr>
             <div class="conteiner">
                 <h4>Nome Evento : {{eventos.nome_evento}}</h4>
+                <hr>
                 <h4>Descriçao do Evento : {{eventos.descricao}}</h4>
+                <hr>
                 <h4>Tipo : {{eventos.publico}}</h4>
+                <hr>
                     <div class="inicio">
                         <h4>Inicio : {{eventos.data_inicio}}</h4>
+                        <hr>
                         <h4>Termino : {{eventos.data_termino}}</h4>
+                        <hr>
+                        <h4>Duração : {{duracao_evento}}</h4>
+                        <hr>
                     </div>
                 <h4>Grupo : {{ eventos.grupo }}</h4>
-                <h4>Total de Inscritos no Evento : {{ as }}</h4>
+                <hr>
+                <h4>Total de Inscritos no Evento : {{ total_inscritos }}</h4>
+                <hr>
             </div>
             {% if inscritos %}
                 <table class="tabela">
@@ -33,35 +42,7 @@
                     {% for inscrito in inscritos %}
                         <tr>
                             <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
-                        </tr>
-                        <tr>
-                            <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
-                        </tr>
-                        <tr>
-                            <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
-                        </tr>
-                        <tr>
-                            <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
-                        </tr>
-                        <tr>
-                            <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
-                        </tr>
-                        <tr>
-                            <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
-                        </tr>
-                        <tr>
-                            <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
-                        </tr>
-                        <tr>
-                            <td>{{inscrito.inscrito}}</td>
-                            <td>E-mail???</td>
+                            <td>{{inscrito.email}}</td>
                         </tr>
                     {% endfor %}
                 </table>

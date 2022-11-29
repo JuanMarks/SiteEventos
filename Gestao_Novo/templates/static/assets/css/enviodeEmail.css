@@ -40,6 +40,7 @@ html, body {
   border: none;
   color: #ecedee;
   font-weight: 600;
+  border-radius: 100px;
 }
 
 .button-envio:hover{
@@ -60,8 +61,32 @@ html, body {
   flex-direction: column;
 }
 
+.title-excel {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.upload-archive {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.archive-excel {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.archive-excel > label {
+  margin-bottom: 10px;
+}
+
 .container__manual form > label {
-  font-size: 20px;
+  font-size: 19px;
+  font-weight: 600;
 }
 
 .container__manual form > input {
@@ -87,47 +112,32 @@ html, body {
   box-shadow: 0 0 0 0;
   outline: 0;
 }
+
 /* CSS ENVIO BANCO DE DADOS */
 
 table { 
   border-collapse: collapse;
   margin: 0 auto;
   margin-top: 20px;
+  margin-bottom: 20px;
   width: 100%;
-  height: 300px;
-  display: block;
+  max-height: 300px;
   overflow-x: auto;
   white-space: nowrap;
 }
 
 .container__envio-bd {
   width: 80%
-}
+} 
 
-.container__table-bd {
-  margin: 0 auto;
-  margin-left: 5%;
-  margin-top: 20px;
-
-}  
-
-.container__table-bd thead {
+.thead {
   background-color: #00257A;
   color: #ecedee;
-}
-
-.container__table-bd thead > tr > th{
-  padding: 10px;
+  width: 100%;
 }
 
 .container__table-bd tbody{
   background-color: #FFF;
-}
-
-.container__table-bd tr, td {
-  text-align: left;
-  border-bottom: 2px solid #ecedee;
-  padding: 10px;
 }
 
 .container__form-bd {
@@ -138,8 +148,13 @@ table {
   margin-top: 20px;
 }
 
+.name-groups {
+  text-align: center;
+}
+
 .container__form-bd label {
-  font-size: 20px;
+  font-size: 19px;
+  font-weight: 600;
 }
 
 .container__form-bd input {
