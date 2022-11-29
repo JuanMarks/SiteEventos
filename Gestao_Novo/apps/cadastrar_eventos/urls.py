@@ -10,5 +10,6 @@ urlpatterns = [
     path('teste/<int:id>', render_pdf_view, name='teste'),
     path('pdf/<id>/', customer_render_pdf_view, name='teste3'),
     path('inscrever/<int:id>', views.inscrever_evento, name='inscrever'),
-    path('remover_inscricao/<int:id>', views.remover_inscricao, name='remover_inscricao')
+    path('remover_inscricao/<int:id>', views.remover_inscricao, name='remover_inscricao'),
+    path('relatorio_satisfacao/<int:id>', views.tela_relatorio_satisfacao, name='relatorio_satisfacao')
 ]

@@ -15,6 +15,7 @@
 
 </head>
 <body>
+    
     <div style="width: 600px;" class="wrapper-login">
         <form action="{% url 'cadastro_empresa' %}" class="wrapper-login__form" method="post">
             <div class="saida-eventos">
@@ -26,12 +27,16 @@
             {% include 'messages/alertas.html' %}
             <div class="wrapper-login__form--user">
                 <label for="user">Categoria</label>
-                <select style="padding: 12px; border-radius: 10px;" name="categoria" id="">
-                    <option value="ADM">Administração</option>
+                <select id="seletor" style="padding: 12px; border-radius: 10px;" name="categoria" onchange="javascript:verificaSeletor(this);">
+                    
                     <option value="Empresa">Empresa</option>
+                    <option value="Mantenedores">Mantenedores</option>
+                    <option value="ADM">Administração</option>
+
                 </select>
             </div>
-            <div class="wrapper-login__form--password">
+            
+            <div id="senha_adm" class="wrapper-login__form--password">
                 <label for="password">Senha de ADM</label>
                 <input style="border-radius: 10px;" type="password" placeholder="preencha esse campo apenas se tiver a senha de Administração" name="password-admin" class="form-input input-password" id="password">
             </div>
@@ -65,5 +70,20 @@
             </div>
         </form>
     </div>
+    <script>
+        function verificaSeletor(){
+            adm = document.querySelector('#senha_adm')
+            seletor = document.querySelector('#seletor')
+            nome = seletor.value
+
+            if(nome == 'ADM'){
+                console.log(nome)
+                adm.addEventListener("click", adm.style.display = 'inline', false)
+            }else{
+                adm.addEventListener("click", adm.style.display = 'none', false)
+            }
+        }
+    </script>
+    
 </body>
 </html>

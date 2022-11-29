@@ -23,7 +23,7 @@
                     </div>
                 {% endif %}
 
-                {% if user.groups.all.0.name == 'Empresa' %}
+                {% if user.groups.all.0.name == 'Empresa' or user.groups.all.0.name == 'Mantenedores'%}
                     
                     <div class="menu-hambuguer">
                         <details class="details-menu-adm">
@@ -40,13 +40,15 @@
                     </div>
                 {% endif %}
 
+                
+
                 {% if user.groups.all.0.name == 'Usuarios Comuns' %}
                     <div class="menu-hambuguer">
                         <details class="details-menu-adm">
                             <summary class="img-perfil"><i class="fa-solid fa-user fa-2xl"></i> {{user.username}}</summary>
                             <div class="container__links-details">
                                 <div class="links-details">
-                                    <a class="details-options" href="{% url 'dashboard' %}">Meus Eventos</a>
+                                    <a class="details-options" href="{% url 'dashboard' %}">Eventos Inscritos</a>
                                 </div>
                                 <a id="logout-adm" href="{% url 'logout' %}">Sair</a>
                             </div>

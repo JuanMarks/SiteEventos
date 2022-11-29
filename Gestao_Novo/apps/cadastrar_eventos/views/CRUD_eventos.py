@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from ..forms import Editar_Evento
 from django.contrib.auth.models import User
-from ..models import Evento, Inscrito_Evento
-import psycopg2
+from ..models import Evento, Inscrito_Evento, Relatorio_Satisfacao
+from django.contrib import messages
 
 @login_required(login_url='login')
 def cadastrar_eventos(request):
@@ -29,7 +29,8 @@ def cadastrar_eventos(request):
             data_inicio=data_inicio,
             data_termino = data_termino,
             convidados_qtd=qtd_convidados,
-            img=foto_evento)
+            img=foto_evento,
+            relatorios_feitos=1)
         evento.save()
         return redirect('dashboard')
     else:
@@ -59,18 +60,20 @@ def apagar_evento(request, id):
 @login_required(login_url='login')
 def inscrever_evento(request, id):
     evento_inscricao = Evento.objects.filter(id=id)
+    verificar_email = request.user.email
     if request.method == 'POST':
         inscrito = get_object_or_404(User, pk=request.user.id)
         evento = get_object_or_404(Evento, pk=id)
         nome = request.POST['nome']
         email = request.POST['email']
-        #evento_inscrito = Evento.objects.filter(id=id).values_list('inscritos_evento', flat=True).get()
-        #lista = [evento_inscrito]
-        #lista.append(inscrito)
-        
+
+        if email != verificar_email:
+            messages.error(request, 'Email diferente do usuario')
+            return redirect('index')
+            
         inscrever = Inscrito_Evento.objects.create(evento=evento, inscrito=inscrito, nome=nome, email=email)
         inscrever.save()
-        #evento_inscricao.update(inscritos_evento=lista)
+        
         return redirect('index')
     else:
         return redirect('tela-adm')
@@ -80,3 +83,24 @@ def remover_inscricao(request,id):
     inscrito = Inscrito_Evento.objects.filter(pk=id)
     inscrito.delete()
     return redirect('index')
+
+def tela_relatorio_satisfacao(request, id):
+    if request.method == 'POST':
+        relatorios_feitos = Evento.objects.filter(id=id).values_list('relatorios_feitos', flat=True).get()
+        inscrito = get_object_or_404(User, pk=request.user.id)
+        evento_form = get_object_or_404(Evento, pk=id)
+        evento = Evento.objects.filter(id=id)
+        nota = request.POST['nota']
+        soma_notas = Evento.objects.filter(id=id).values_list('soma_notas',flat=True).get()
+        soma = int(nota) + int(soma_notas)
+        evento.update(soma_notas=soma)
+        relatorio = Relatorio_Satisfacao.objects.create(evento=evento_form, inscrito=inscrito, nota=nota)
+        evento.update(relatorios_feitos=int(relatorios_feitos) + 1)
+        print(int(relatorios_feitos))
+        evento.update(nota_media=soma/relatorios_feitos)
+
+        
+        
+        return redirect('index')
+    else:
+        return render(request,'relatorio_satisfacao.html')

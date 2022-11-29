@@ -16,6 +16,10 @@ html, body {
     visibility: hidden;
 }
 
+.visao{
+    display: none;
+}
+
 .bdy-container {
     opacity: 0.95;
     height: 100%;

@@ -42,11 +42,14 @@
         </section>
 
         <h2 class="title__eventos">Próximos eventos</h2>
-
+        {% include 'messages/alertas.html' %}
+        
         <section class="eventos">
+          
             {% for evento in eventos %}
               {% if evento.publicar == 'Publicado'%}
               <div class="card" style="width: 25rem; border-radius: 20px;">
+                
                   <img src="{{evento.img.url}}" class="card-img-top" alt="...">
                   <div class="card-body">
                       <h5 class="card-title">{{evento.nome_evento}}</h5>
@@ -59,9 +62,31 @@
                         <script>
                           var a = true;
                         </script>
-                      {% include 'messages/alertas.html' %}
-                      {% if evento.publico == 'Aberto' %}
-                        {% if inscritos.exists %}
+                      {% if user.groups.all.0.name == 'Usuarios Comuns' or user.groups.all.0.name == 'Empresa'%}
+                        {% if evento.publico == 'Aberto' %}
+                          {% if inscritos.exists %}
+                            {% for inscrito in inscritos %}
+                              {% if evento.id == inscrito.evento.id %}
+                              <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
+                                Remover Inscrição
+                              </button></a>
+                              <script>
+                                a = false;
+                              </script>
+                              {% endif %}
+                              {% endfor %}      
+                          {% endif %}
+                              <script>
+                                if(a == true){
+                                  var botao = "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#insc{{evento.id}}' id='btn-inscrever'>" +
+                                              "     Inscrever-se" +
+                                              "</button>";
+                                  document.write(botao);
+                                }
+                              </script>                   
+                        {% endif %}
+                        {% else %}
+                          {% if inscritos.exists %}
                           {% for inscrito in inscritos %}
                             {% if evento.id == inscrito.evento.id %}
                             <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
@@ -80,7 +105,7 @@
                                             "</button>";
                                 document.write(botao);
                               }
-                            </script>                     
+                            </script>                 
                       {% endif %}
                   
                   </div>
@@ -123,15 +148,32 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
             </a></button>
-            {% if user.username in evento.inscritos_evento %}
-                <a href="remover_inscricao/{{evento.id}}"><button type="button" class="btn btn-danger">
-                    Remover Inscrição
+            <script>
+              var a = true;
+            </script>
+          
+          {% if evento.publico == 'Aberto' %}
+            {% if inscritos.exists %}
+              {% for inscrito in inscritos %}
+                {% if evento.id == inscrito.evento.id %}
+                <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
+                  Remover Inscrição
                 </button></a>
-            {% else %}
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
-                    Inscrever-se
-                </button>
+                <script>
+                  a = false;
+                </script>
+                {% endif %}
+                {% endfor %}      
             {% endif %}
+                <script>
+                  if(a == true){
+                    var botao = "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#insc{{evento.id}}' id='btn-inscrever'>" +
+                                "     Inscrever-se" +
+                                "</button>";
+                    document.write(botao);
+                  }
+                </script>                     
+          {% endif %}
           </div>
         </div>
         </div>

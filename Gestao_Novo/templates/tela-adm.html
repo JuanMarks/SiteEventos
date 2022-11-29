@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{% static 'assets/css/adm.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/modalAdm.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style-saiba_mais.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/inscrever-se.css' %}">
 
     <!-- JavaScript -->
@@ -53,9 +52,6 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{evento.id}}">
                                 Gerar relatório
                             </button>
-                            <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tste{{evento.id}}" >
-                                Saiba Mais
-                            </button>
                             <a class="btn btn-info" href="editar_evento/{{evento.id}}"> Editar </a>
                             <a class="btn btn-danger" href="apagar_evento/{{evento.id}}"> Excluir</a>
                             
@@ -70,56 +66,12 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <a href="{% url 'teste3' evento.id%}"><button class="btn-visualizar btn-modal">Baixar<i class="fa-solid fa-eye"></i></button></a>
-                              <a target="_blank" href="{% url 'teste' evento.id%}"><button class="btn-pdf btn-modal">Visualizar <i class="fa-solid fa-file-pdf"></i></button></a>
+                              <a href="{% url 'teste3' evento.id%}"><button class="btn-visualizar btn-modal">Baixar<i style="margin-left: 20px;" class="fa-solid fa-file-pdf"></i></button></a>
+                              <a target="_blank" href="{% url 'teste' evento.id%}"><button class="btn-pdf btn-modal">Visualizar <i style="margin-left: 15px;" class="fa-solid fa-eye"></i></button></a>
                             </div>
                           </div>
                         </div>
                     </div> 
-
-                    <!--MODAL-->
-                    <div class="modal fade" id="tste{{evento.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel"> {{evento.nome_evento}} </h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="modal_img">
-                  <span><img src="{{evento.img.url}}"></span>
-                </div>
-              <div class="modal_descricao">
-                <h5> Descrição do evento </h5>
-                  <div class="moda_descricão-itens">
-                    <i class="fa-solid fa-check"></i>
-                    <p><span> Nome da empresa: </span> {{evento.nome_empresa}} </p>
-                  </div>
-              <div class="moda_descricão-itens">
-                <i class="fa-solid fa-check"></i>
-                <p><span> Quantidade de pessoas: </span> {{evento.convidados_qtd}} </p>
-              </div>
-              <div class="moda_descricão-itens">
-                <i class="fa-solid fa-check"></i>
-                <p><span> Horário de início: </span> {{evento.data_inicio}} </p>
-              </div>
-              <div class="modal_sobre">
-                <i class="fa-solid fa-check"></i>
-                {{evento.descricao}}
-              </div>
-        </div>
-      </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
-            </a></button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insc{{evento.id}}" id="btn-inscrever">
-              Inscrever-se
-            </button>
-          </div>
-        </div>
-        </div>
-        </div>
                     {% endfor %}
 
                 </div>

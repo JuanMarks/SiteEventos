@@ -13,7 +13,7 @@ def criar_user(username, email, password, grupo):
     usuario.save()
 
 def criar_grupos():
-    groups = ['Usuarios Comuns', 'Empresa', 'ADM']
+    groups = ['Usuarios Comuns', 'Empresa', 'ADM', 'Mantenedores']
     [Group.objects.get_or_create(name=group) for group in groups]
 
 def cadastro(request):
@@ -38,6 +38,10 @@ def cadastro(request):
             messages.error(request, 'As senha nao sao iguais')
             print('As senhas nao estao iguais')
             return redirect('cadastro')
+        
+        if len(telefone) > 11:
+            messages.error(request, 'Numero de telefone maior do que 11 digitos')
+            return redirect('cadastro_empresa')
         
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Usuario ja cadastrado')
@@ -92,9 +96,16 @@ def cadastro_empresa(request):
             messages.error(request, 'A senha nao pode ficar em branco')
             print('Senha nao pode ficar em branco')
             return redirect('cadastro_empresa')
+        
+        if len(telefone) > 11:
+            messages.error(request, 'Numero de telefone maior do que 11 digitos')
+            return redirect('cadastro_empresa')
 
-        if senha_admin == "123456":
-            if categoria == 'ADM':
+        if categoria == 'Mantenedores':
+            grupo = Group.objects.get(name='Mantenedores')
+        
+        if categoria == 'ADM':
+            if senha_admin == "123456":
                 grupo = Group.objects.get(name='ADM')
         else:
             grupo = Group.objects.get(name='Empresa')
