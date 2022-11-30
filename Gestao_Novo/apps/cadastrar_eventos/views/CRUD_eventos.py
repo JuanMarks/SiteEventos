@@ -118,10 +118,11 @@ def tela_relatorio_satisfacao(request, id):
         evento_form = get_object_or_404(Evento, pk=id)
         evento = Evento.objects.filter(id=id)
         nota = request.POST['nota']
+        opiniao = request.POST['opiniao']
         soma_notas = Evento.objects.filter(id=id).values_list('soma_notas',flat=True).get()
         soma = int(nota) + int(soma_notas)
         evento.update(soma_notas=soma)
-        relatorio = Relatorio_Satisfacao.objects.create(evento=evento_form, inscrito=inscrito, nota=nota)
+        relatorio = Relatorio_Satisfacao.objects.create(evento=evento_form, inscrito=inscrito, nota=nota, opniao=opiniao)
         evento.update(relatorios_feitos=int(relatorios_feitos) + 1)
         print(int(relatorios_feitos))
         evento.update(nota_media=soma/relatorios_feitos)

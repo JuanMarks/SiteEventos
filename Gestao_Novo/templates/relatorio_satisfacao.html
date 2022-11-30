@@ -1,17 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'assets/css/avaliacao.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
+    
+    <title> Formulario de avaliação </title>
 </head>
+
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="">Nota</label>
-        <input type="int" name="nota">
-        <input type="submit" value="Enviar">
-    </form>
+    <div class="container__formulario-avaliacao">
+        <form method="post" class="container__formulario">
+            {% csrf_token %}
+            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="Logo do NINNA Hub">
+            <div class="container__avaliacao">
+                <h5> Formulário de avaliação</h5>
+                <label for=""> Me diga o que você achou do evento? </label>
+                <select name="nota" id="">
+                    <option> Selecione uma opção </option>
+                    <option value="10"> 10 - Satisfatório </option> 
+                    <option value="9"> 9 - Ótimo </option>
+                    <option value="8"> 8 - Bom </option>
+                    <option value="7"> 7 - Mediano </option>
+                    <option value="6"> 6 - Ruim </option>
+                    <option value="5"> 5 - Péssimo </option>
+                </select>
+
+                <label for=""> Digite sua opnião sobre o evento </label>
+                <textarea name="opiniao" id="" rows="5" resize="none" maxlength="25" placeholder="Digite aqui" required></textarea>
+            </div>
+
+            <button class="button-envio">Enviar</button>
+        </form>
+    </div>
 </body>
+
 </html>

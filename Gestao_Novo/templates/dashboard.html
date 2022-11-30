@@ -27,14 +27,16 @@
                         <p class="artigo__paragrafo">
                             <span class="paragrafo--bold"> Empresa reesponsavel: {{evento.nome_empresa}} </span> 
                         </p>
-                        {% if evento.publicar == 'Publicado'%}
-                            <p class="artigo__paragrafo">
-                                <span style="color: green;" class="paragrafo--bold"> Status: {{evento.publicar}} </span> 
-                            </p>
-                        {% else %}
-                            <p class="artigo__paragrafo">
-                                <span style="color: red;" class="paragrafo--bold"> Status: {{evento.publicar}} </span> 
-                            </p>
+                        {% if user.groups.all.0.name == 'Empresa' or user.groups.all.0.name == 'ADM'%}
+                            {% if evento.publicar == 'Publicado'%}
+                                <p class="artigo__paragrafo">
+                                    <span style="color: green;" class="paragrafo--bold"> Status: {{evento.publicar}} </span> 
+                                </p>
+                            {% else %}
+                                <p class="artigo__paragrafo">
+                                    <span style="color: red;" class="paragrafo--bold"> Status: {{evento.publicar}} </span> 
+                                </p>
+                            {% endif %}
                         {% endif %}
                         <div class="artigo__icons">
                             <div class="icons">

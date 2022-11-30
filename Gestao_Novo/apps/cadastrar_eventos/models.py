@@ -43,6 +43,7 @@ class Relatorio_Satisfacao(models.Model):
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     inscrito = models.ForeignKey(User, on_delete=models.CASCADE)
     nota = models.IntegerField(blank=True)
+    opniao = models.CharField(max_length=100, blank=True)
 
     
 

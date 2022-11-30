@@ -57,7 +57,7 @@
 
             <div class="wrapper-login__form--user">
                 <label for="user">Email da Empresa</label>
-                <input style="border-radius: 10px;" type="text" name="email" class="form-input input-user" id="user">
+                <input style="border-radius: 10px;" type="email" name="email" class="form-input input-user" id="user">
             </div>
 
             <div class="wrapper-login__form--password">
@@ -71,6 +71,8 @@
         </form>
     </div>
     <script>
+        adm = document.querySelector('#senha_adm')
+        adm.style.display = 'none'
         function verificaSeletor(){
             adm = document.querySelector('#senha_adm')
             seletor = document.querySelector('#seletor')

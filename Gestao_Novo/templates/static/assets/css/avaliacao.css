@@ -1,0 +1,99 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+    background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('../img/hero.jpeg') center center / cover no-repeat;
+}
+
+.container__formulario-avaliacao {
+    height: 100%;
+}
+
+.container__formulario {
+    border: 5px solid red;
+    margin: 100px auto;
+    padding: 20px;
+    width: 700px;
+    border: #00000032 1px solid;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 15px 15px 5px #00000032;
+}
+
+.container__formulario img {
+    height: 100px;
+    max-width: 100%;
+    margin-left: 40%;
+}
+
+.container__avaliacao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.container__avaliacao h5 {
+    text-align: center;
+    font-size: 30px;
+    margin: 10px auto;
+}
+
+.container__avaliacao label {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.container__avaliacao select {
+    padding: 5px;
+    font-size: 15px;
+    margin-bottom: 8px;
+    border-radius: 15px;
+    border: 1px solid #00000032;
+    color: #000000; 
+}
+
+.container__avaliacao textarea {
+    padding: 4px;
+    resize: none;
+    font-size: 15px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    border: 1px solid #00000032;
+    color: #000000; 
+}
+
+.container__button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.container__button button {
+background-color: #00257A;
+border: 1px solid #00257A;
+border-radius: 30px;
+color: #fff;
+text-align: center;
+width: 150px;
+padding: 10px;
+cursor: pointer
+}
+
+.button-envio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  width: 200px;
+  height: 35px;
+  margin: 10px auto;
+  font-size: 17px;
+  background-color: #00257A;
+  border: none;
+  color: #ecedee;
+  font-weight: 600;
+  border-radius: 100px;
+}
