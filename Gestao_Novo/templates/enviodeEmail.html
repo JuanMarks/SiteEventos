@@ -99,21 +99,20 @@
               <th>
                 <div id="grupo" style="display: flex; flex-direction: column;">
                   <select id="link" onchange="location.href=this.value">
-                    <option>
-                      {{grupo}}
-                    </option>
                     <option value="{% url 'email' 'all' %}">
                       TODOS
                     </option>
-                    <option value="{% url 'email' 'adm' %}">
-                      ADM
-                    </option>
-                    <option value="{% url 'email' 'mantenedor' %}">
-                      MANTENEDOR
-                    </option>
-                    <option value="{% url 'email' 'usr' %}">
-                        USR
-                    </option>
+                    {% for grupo in grupo %}
+                      {% if grupo.id == parametro %}
+                      <option value="{% url 'email' grupo.id %}" selected>
+                        {{grupo.name}}
+                      </option>
+                      {% else %}
+                      <option value="{% url 'email' grupo.id %}">
+                        {{grupo.name}}
+                      </option>
+                      {% endif %}
+                    {% endfor %}
                   </select>
                 </div>
               </th>
@@ -166,6 +165,9 @@
               <th><input class="checkbox" type="checkbox" name="chkAll" onclick="checkAll(this)"></th>
               <th>Evento</th>
               <th>Empresa</th>
+              <th>
+                Publico
+              </th>
               <th>
                 Data
               </th>

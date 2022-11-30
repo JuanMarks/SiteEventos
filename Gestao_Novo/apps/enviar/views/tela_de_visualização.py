@@ -1,22 +1,26 @@
-from apps.enviar.models import *
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from apps.abstrair.funções import *
+from apps.cadastrar_eventos.models import Evento
+from django.contrib.auth.models import User, Group
 
 def mail(request, grupo):
-    grupo = grupo.upper()
-    if grupo != "ALL":
-        data_user = Usuario.objects.all().filter(grupo=grupo)
-        gp = comparar_grupos(grupo)
+    eventos =  Evento.objects.all()
+    if grupo != "all":
+        data_user = User.objects.filter(groups = grupo)
+        gp = Group.objects.all()
         usuario = {
             "usuario": data_user,
             "grupo": gp,
+            "parametro": int(grupo.strip()),
+            "eventos": eventos
         }
     else:
-        data_user = Usuario.objects.all()
-        gp = comparar_grupos(grupo)
+        data_user = User.objects.all()
+        gp = Group.objects.all()
         usuario = {
             "usuario": data_user,
-            "grupo": gp, 
+            "grupo": gp,
+            "parametro": grupo.strip(),
+            "eventos": eventos
         }
-    # empresas = 
     return render(request, 'enviodeEmail.html', usuario)

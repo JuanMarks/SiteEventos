@@ -59,3 +59,25 @@ def comparar_grupos(grupo):
     else:
         gp = "Escolha uma opção"
     return gp
+
+def html(dados):
+    html_s = f"""
+    </div>
+    <div class="conteudo">
+        <div class="dados">
+            <p><strong>De:</strong> {dados['usuario']}</p>
+            <p><strong>Enviado:</strong> {dados['enviado']}</p>
+            <p><strong>Assunto:</strong> {dados['assunto']}</p>
+            <p>Prezado(a) {dados['nome']}</p>
+            <br>
+            <div>
+                {dados['mensagem']}
+            </div>
+            <img src="{dados['imagem']}" alt="">
+        </div>
+    </div>
+    <div class="rodape">
+
+    </div>
+    """
+    return html_s
