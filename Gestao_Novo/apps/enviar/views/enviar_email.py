@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import HttpResponse, get_object_or_404
+from django.shortcuts import HttpResponse, get_object_or_404, render
 from apps.arquivo_excel.models import Arquivo_excel
 from apps.abstrair.funções import *
 from django.core.mail import EmailMultiAlternatives
@@ -80,7 +80,6 @@ def enviar_todos(request):
     usuario = request.user.id
     usuario1 = get_object_or_404(User, pk = usuario)
     if request.method == "POST":
-        print(request.POST)
         if request.POST['selecionar']:
             selecionar = request.POST.getlist('selecionar')
             print(selecionar)
@@ -91,10 +90,9 @@ def enviar_todos(request):
         if request.POST['mensagem']:
             mensagem = request.POST['mensagem']
             mensagem = mensagem.split("\n")
-            print(mensagem)
 
     for user in selecionar:
-        usuario = get_object_or_404(Usuario, pk=user)
+        usuario = get_object_or_404(User, pk=user)
         enviado = datetime.now()
         valores = {
             'usuario': usuario1.username,
@@ -102,11 +100,46 @@ def enviar_todos(request):
             'imagem': imagem,
             'mensagem': mensagem, 
             'enviado': enviado,
-            'nome':usuario.nome
+            'nome':usuario.first_name
             }
         htmlcontent = render_to_string('envio.html', valores)
-        print(htmlcontent)
-        emailenviado = EmailMultiAlternatives(assunto, htmlcontent, 'ouvidoriaadocicafornasa@gmail.com', [usuario.e_mail])
+        # print(htmlcontent)
+        emailenviado = EmailMultiAlternatives(assunto, htmlcontent, 'ouvidoriaadocicafornasa@gmail.com', [usuario.email])
         emailenviado.attach_alternative(htmlcontent, 'text/html')
         emailenviado.send(fail_silently=False)
     return HttpResponse('Enviado')
+
+
+def enviar_por_eventos(request):
+    usuario = request.user.id
+    usuario1 = get_object_or_404(User, pk = usuario)
+    if request.method == "POST":
+        if request.POST['selecionar']:
+            selecionar = request.POST.getlist('selecionar')
+        if request.POST['assunto']:
+            assunto = request.POST['assunto']
+        if request.POST['imagem']:
+            imagem = request.POST['imagem']
+        if request.POST['mensagem']:
+            mensagem = request.POST['mensagem']
+            mensagem = mensagem.split("\n")
+    for user in selecionar:
+        eventos = Evento.objects.all()
+        usuarios_cadastrados = Inscrito_Evento.objects.filter(evento__in=user)
+        for inscrito in usuarios_cadastrados:
+            enviado = datetime.now()
+            valores = {
+                'usuario': usuario1.username,
+                'assunto': assunto,
+                'imagem': imagem,
+                'mensagem': mensagem, 
+                'enviado': enviado,
+                'nome':inscrito.inscrito
+                }
+            htmlcontent = render_to_string('envio.html', valores)
+            # print(htmlcontent)
+            emailenviado = EmailMultiAlternatives(assunto, htmlcontent, 'ouvidoriaadocicafornasa@gmail.com', [inscrito.inscrito.email])
+            emailenviado.attach_alternative(htmlcontent, 'text/html')
+            emailenviado.send(fail_silently=False)
+    return render(request, 'htmlvazio.html', {'inscritos':usuarios_cadastrados, 'eventos':eventos})
+

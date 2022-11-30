@@ -121,11 +121,11 @@
           </thead>
           <tbody class="container__dados-table">
             {% for usuario in usuario %}
-            <tr class="name-groups">
+            <tr>
               <td><input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
-              <td>{{usuario.nome}}</td>
-              <td>{{usuario.e_mail}}</td>
-              <td>{{usuario.grupo}}</td>
+              <td>{{usuario.username}}</td>
+              <td>{{usuario.email}}</td>
+              <td>{{usuario.groups.all.0.name}}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -172,12 +172,13 @@
             </tr>
           </thead>
           <tbody class="name-groups">
-            {% for usuario in usuario %}
+            {% for evento in eventos %}
             <tr>
-              <td><input class="checkbox" type="checkbox" name="selecionar" value="{{usuario.pk}}" id=""></td>
-              <td>{{usuario.nome}}</td>
-              <td>{{usuario.e_mail}}</td>
-              <td>{{usuario.grupo}}</td>
+              <td><input class="checkbox" type="checkbox" name="selecionar" value="{{evento.pk}}" id=""></td>
+              <td>{{evento.nome_evento}}</td>
+              <td>{{evento.nome_empresa}}</td>
+              <td>{{evento.publico}}</td>
+              <td>{{evento.data_inicio}}</td>
             </tr>
             {% endfor %}
           </tbody>
