@@ -124,6 +124,7 @@ table {
   max-height: 300px;
   overflow-x: auto;
   white-space: nowrap;
+  text-align: center;
 }
 
 .container__envio-bd {

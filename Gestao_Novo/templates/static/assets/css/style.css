@@ -146,6 +146,11 @@ h1, h2 {
     gap: 30px;
 }
 
+.card-img-top {
+    height: 370px;
+    object-fit: cover;
+}
+
 .btn-card {
     background: #0E0062;
     color: #FFF;
