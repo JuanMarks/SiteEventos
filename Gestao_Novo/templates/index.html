@@ -240,7 +240,21 @@
             
             
         </section>
-        
+        <div style="margin-left: 45%;" class="pagination">
+          <span class="step-links">
+              {% if eventos.has_previous %}
+                  <a href="?page={{ eventos.previous_page_number }}">Anterior</a>
+              {% endif %}
+          
+              <span class="current">
+                  {{ eventos.number }} de {{ eventos.paginator.num_pages }}
+              </span>
+          
+              {% if eventos.has_next %}
+                  <a href="?page={{ eventos.next_page_number }}">Próxima</a>
+              {% endif %}
+          </span>
+      </div>
         
     </main>
     <footer class="wrapper-footer">

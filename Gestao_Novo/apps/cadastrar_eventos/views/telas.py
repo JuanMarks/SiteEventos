@@ -3,16 +3,21 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
 from ..models import Evento, Inscrito_Evento
+from django.core.paginator import Paginator
+
+
 def index(request):
     id = request.user.id
     user = User.objects.filter(pk=id)
-    eventos = Evento.objects.all()
+    events = Evento.objects.all()
     inscritos = Inscrito_Evento.objects.filter(inscrito__in=user)
-    
+    paginator = Paginator(events, 3)
+    page = request.GET.get('page')
+    eventos = paginator.get_page(page)
+
     dados = {
         'inscritos': inscritos,
-        'eventos' : eventos,
-        'var': True
+        'eventos' : eventos
     }
     return render(request, 'index.html', dados)
 
