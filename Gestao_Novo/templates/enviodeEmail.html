@@ -66,9 +66,9 @@
         <input type="text" name="imagem" id="imagem">
 
         <label for="mensagem">Mensagem:</label>
-        <div name="mensagem" id="summernote"></div>
+        <textarea name="mensagem" id="summernote1"></textarea>
         <script>
-          $('#summernote').summernote({
+          $('#summernote1').summernote({
             placeholder: 'Digite aqui',
             tabsize: 2,
             height: 120,
@@ -137,8 +137,23 @@
         <input type="text" name="imagem" id="imagem">
 
         <label for="mensagem">Mensagem</label>
-        <textarea name="mensagem"></textarea>
-
+        <textarea name="mensagem" id="summernote2"></textarea>
+        <script>
+          $('#summernote2').summernote({
+            placeholder: 'Digite aqui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+              ['style', ['style']],
+              ['font', ['bold', 'underline', 'clear']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['table', ['table']],
+              ['insert', ['link', 'picture', 'video']],
+              ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+          });
+        </script>
         <button class="button-envio">Enviar</button>
       </form>
     </div>
@@ -174,7 +189,23 @@
         <input type="text" name="imagem" id="imagem">
 
         <label for="mensagem">Mensagem</label>
-        <textarea name="mensagem"></textarea>
+        <textarea name="mensagem" id="summernote3"></textarea>
+        <script>
+          $('#summernote3').summernote({
+            placeholder: 'Digite aqui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+              ['style', ['style']],
+              ['font', ['bold', 'underline', 'clear']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['table', ['table']],
+              ['insert', ['link', 'picture', 'video']],
+              ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+          });
+        </script>
 
         <button class="button-envio">Enviar</button>
       </form>
