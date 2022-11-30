@@ -14,11 +14,11 @@ def enviar(request):
     usuario = request.user.id
     usuario1 = get_object_or_404(User, pk = usuario)
     arquivo = Arquivo_excel.objects.all()
-    salvar_excel = Arquivo_excel(arquivo=request.FILES['excel'])
-    salvar_excel.save()
     if request.method == "POST":
         print(request.POST)
-        if request.FILES['excel']:
+        if request.FILES != '':
+            salvar_excel = Arquivo_excel(arquivo=request.FILES['excel'])
+            salvar_excel.save()
             post_files = f"{request.FILES['excel']}"
             post_files = post_files.split(" ")
             post = f"{post_files[0]}_{post_files[1]}"
@@ -65,12 +65,10 @@ def enviar(request):
                 'nome' : nome[n]
                 }
             htmls = html(valores)
-            print(htmls)
-            # htmlcontent = render_to_string(htmls, valores)
-            # convertido = strip_tags(htmlcontent)
-            # emailenviado = EmailMultiAlternatives(assunto, convertido, 'ouvidoriaadocicafornasa@gmail.com', [destinatarios[n]])
-            # emailenviado.attach_alternative(htmlcontent, 'text/html')
-            # emailenviado.send()
+
+            emailenviado = EmailMultiAlternatives(assunto, htmls, 'ouvidoriaadocicafornasa@gmail.com', [destinatarios[n]])
+            emailenviado.attach_alternative(htmls, 'text/html')
+            emailenviado.send()
     return HttpResponse('Enviado')
 
 def enviar_todos(request):
@@ -100,7 +98,7 @@ def enviar_todos(request):
             }
         
         htmls = html(valores)
-        print(htmls)
+        # print(htmls)
 
         emailenviado = EmailMultiAlternatives(assunto, htmls, 'ouvidoriaadocicafornasa@gmail.com', [usuario.email])
         emailenviado.attach_alternative(htmls, 'text/html')
@@ -134,10 +132,11 @@ def enviar_por_eventos(request):
                 'enviado': enviado,
                 'nome':inscrito.inscrito
                 }
-            htmlcontent = render_to_string('envio.html', valores)
-            # print(htmlcontent)
-            emailenviado = EmailMultiAlternatives(assunto, htmlcontent, 'ouvidoriaadocicafornasa@gmail.com', [inscrito.inscrito.email])
-            emailenviado.attach_alternative(htmlcontent, 'text/html')
+            
+            htmls = html(valores)
+
+            emailenviado = EmailMultiAlternatives(assunto, htmls, 'ouvidoriaadocicafornasa@gmail.com', [inscrito.inscrito.email])
+            emailenviado.attach_alternative(htmls, 'text/html')
             emailenviado.send(fail_silently=False)
     return render(request, 'htmlvazio.html', {'inscritos':usuarios_cadastrados, 'eventos':eventos})
 
