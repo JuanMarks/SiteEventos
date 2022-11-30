@@ -6,6 +6,11 @@ from ..models import Evento, Inscrito_Evento, Relatorio_Satisfacao
 from django.contrib import messages
 from datetime import datetime
 
+def verifica_em_branco(dado):
+    if dado == "":
+        messages.error(request, f'Os campos não pode ficar em branco ')
+        return redirect('cadastrar_eventos')
+
 @login_required(login_url='login')
 def cadastrar_eventos(request):
     if request.method == 'POST':
@@ -22,13 +27,20 @@ def cadastrar_eventos(request):
         data_hoje = str(datetime.now())
         #data = data_hoje.strftime("Y%/%m/%d %H:%M")
         #print(date)
+        verifica_em_branco(nome_empresa)
+        verifica_em_branco(nome_evento)
+        verifica_em_branco(descricao)
+        verifica_em_branco(data_inicio)
+        verifica_em_branco(data_termino)
+        
         if data_inicio < data_hoje:
             messages.error(request, 'Data de inicio menor que data de hoje')
             return redirect('cadastrar_eventos')
         
         if int(qtd_convidados) > 100:
-            messages.error(request, 'Quantidades de convidados maior do que a maxima')
+            messages.error(request, 'Quantidade de convidados maior do que a maxima')
             return redirect('cadastrar_eventos')
+        
         
 
 
