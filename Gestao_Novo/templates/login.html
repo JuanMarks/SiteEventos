@@ -18,7 +18,7 @@
     <div class="wrapper-login">
         <form action="" class="wrapper-login__form" method="post">
             {% csrf_token %}
-            <div class="form__img--centralizar" <a href="{% url 'index' %}"><img
+            <div class="form__img--centralizar" ><a style="margin-left: 25%;" href="{% url 'index' %}"><img
                     src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo"></a>
             </div>
             {% include 'messages/alertas.html' %}

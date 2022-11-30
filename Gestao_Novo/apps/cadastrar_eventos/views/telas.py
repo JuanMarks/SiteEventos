@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 def index(request):
     id = request.user.id
     user = User.objects.filter(pk=id)
-    events = Evento.objects.all()
+    events = Evento.objects.all().order_by('id')
     inscritos = Inscrito_Evento.objects.filter(inscrito__in=user)
     paginator = Paginator(events, 3)
     page = request.GET.get('page')

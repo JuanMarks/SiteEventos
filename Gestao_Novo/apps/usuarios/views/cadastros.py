@@ -27,10 +27,12 @@ def cadastro(request):
         criar_grupos()
         
         if not nome_usuario.strip():
+            messages.error(request, 'O campo nome não pode ficar em branco')
             print("O campo nome nao pode ficar em branco")
             return redirect('cadastro')
 
         if not email.strip():
+            messages.error(request, 'O campo email não pode ficar em branco')
             print("O campo email nao pode ficar em branco")
             return redirect('cadastro')
         

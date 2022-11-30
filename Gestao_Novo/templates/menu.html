@@ -9,13 +9,13 @@
                     
                     <div class="menu-hambuguer">
                         <details class="details-menu-adm">
-                            <summary class="img-perfil"><i class="fa-sharp fa-solid fa-user-secret fa-2xl"></i> {{user.username}}</summary>
+                            <summary class="img-perfil"><i class="fa-sharp fa-solid fa-user-secret fa-2xl"></i> {{user.username}}/{{user.groups.all.0.name}}</summary>
                             <div class="container__links-details">
                                 <div class="links-details">
                                     <a class="details-options" href="{% url 'tela_adm' %}">Administração</a>
                                     <a class="details-options" href="{% url 'cadastrar_eventos' %}">Criar evento</a>
                                     <a class="details-options" href="{% url 'dashboard' %}">Eventos cadastrados</a>
-                                    <a class="details-options" href="">Enviar e-mail</a>
+                                    <a class="details-options" href="{% url 'email' 'all' %}">Enviar e-mail</a>
                                 </div>
                                 <a id="logout-adm" href="{% url 'logout' %}">Sair</a>
                             </div>  
@@ -23,16 +23,16 @@
                     </div>
                 {% endif %}
 
-                {% if user.groups.all.0.name == 'Empresa' or user.groups.all.0.name == 'Mantenedores'%}
+                {% if user.groups.all.0.name == 'Empresa'%}
                     
                     <div class="menu-hambuguer">
                         <details class="details-menu-adm">
-                            <summary class="img-perfil"><i class="fa-solid fa-user-tie fa-2xl"></i> {{user.username}}</summary>
+                            <summary class="img-perfil"><i class="fa-solid fa-user-tie fa-2xl"></i> <p style="margin-top: 5px;">{{user.username}}/{{user.groups.all.0.name}}</p></summary>
                             <div class="container__links-details">
                                 <div class="links-details">
                                     <a class="details-options" href="{% url 'cadastrar_eventos' %}">Solicitar Evento</a>
                                     <a class="details-options" href="{% url 'dashboard' %}">Meus Eventos</a>
-                                    <a class="details-options" href="">Enviar e-mail</a>
+                                    <a class="details-options" href="{% url 'email' 'all' %}">Enviar e-mail</a>
                                 </div>
                                 <a id="logout-adm" href="{% url 'logout' %}">Sair</a>
                             </div>
@@ -42,10 +42,10 @@
 
                 
 
-                {% if user.groups.all.0.name == 'Usuarios Comuns' %}
+                {% if user.groups.all.0.name == 'Usuarios Comuns' or user.groups.all.0.name == 'Mantenedores' %}
                     <div class="menu-hambuguer">
                         <details class="details-menu-adm">
-                            <summary class="img-perfil"><i class="fa-solid fa-user fa-2xl"></i> {{user.username}}</summary>
+                            <summary class="img-perfil"><i class="fa-solid fa-user fa-2xl"></i><p style="margin-top: 5px;">{{user.username}}/{{user.groups.all.0.name}}</p></summary>
                             <div class="container__links-details">
                                 <div class="links-details">
                                     <a class="details-options" href="{% url 'dashboard' %}">Eventos Inscritos</a>
@@ -55,6 +55,8 @@
                         </details>
                     </div>
                 {% endif %}
+
+
                 
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
