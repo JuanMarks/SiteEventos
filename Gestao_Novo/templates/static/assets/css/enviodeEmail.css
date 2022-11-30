@@ -9,6 +9,7 @@ html, body {
   background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/hero.jpeg) center center / cover no-repeat;
   opacity: 0.95;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -17,6 +18,23 @@ html, body {
   width: 1000px;
   margin: 100px auto;
   border-radius: 7px;
+}
+
+.back {
+  display: flex;
+  align-self: flex-start;
+  margin-left: 20px;
+  margin-top: 20px;
+  color: #00257A;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+.fa-arrow-left:hover {
+  color: #02123a;
+  transform: scale(1.3);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 /* CSS DOS BOTÕES */

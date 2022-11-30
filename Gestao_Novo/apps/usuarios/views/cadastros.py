@@ -109,10 +109,13 @@ def cadastro_empresa(request):
         if categoria == 'ADM':
             if senha_admin == "123456":
                 grupo = Group.objects.get(name='ADM')
-        else:
+        elif categoria == 'Mantenedores':
+            grupo = Group.objects.get(name='Mantenedores')
+        else: 
             grupo = Group.objects.get(name='Empresa')
             empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
             empresa.save()
+            
         
         criar_user(nome, email, senha, grupo)
         messages.success(request, 'Usuario cadastrado com sucesso')
