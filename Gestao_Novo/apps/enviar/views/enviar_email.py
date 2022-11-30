@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse, get_object_or_404, render
 from apps.arquivo_excel.models import Arquivo_excel
 from apps.abstrair.funções import *
-from django.core.mail import EmailMultiAlternatives
+from apps.cadastrar_eventos.models import Evento, Inscrito_Evento
+from django.core.mail import EmailMultiAlternatives, send_mail
 from apps.enviar.models import *
 import pyexcel as p
 from datetime import datetime
@@ -34,10 +35,6 @@ def enviar(request):
             if request.POST['imagem']:
                 imagem = request.POST['imagem']
             mensagem = request.POST['mensagem']
-            if '\n' in mensagem:
-                mensagem = mensagem.split('\n')
-            else:
-                mensagem = [mensagem]
 
             print(mensagem)
         else:
@@ -53,7 +50,6 @@ def enviar(request):
             
             if request.POST['mensagem']:
                 mensagem = request.POST['mensagem']
-                mensagem = mensagem.split("\n")
             print(mensagem)
             # else:
             #     mensagem = [mensagem]
@@ -68,12 +64,13 @@ def enviar(request):
                 'enviado': enviado,
                 'nome' : nome[n]
                 }
-
-            htmlcontent = render_to_string('envio.html', valores)
-            convertido = strip_tags(htmlcontent)
-            emailenviado = EmailMultiAlternatives(assunto, convertido, 'ouvidoriaadocicafornasa@gmail.com', [destinatarios[n]])
-            emailenviado.attach_alternative(htmlcontent, 'text/html')
-            emailenviado.send()
+            htmls = html(valores)
+            print(htmls)
+            # htmlcontent = render_to_string(htmls, valores)
+            # convertido = strip_tags(htmlcontent)
+            # emailenviado = EmailMultiAlternatives(assunto, convertido, 'ouvidoriaadocicafornasa@gmail.com', [destinatarios[n]])
+            # emailenviado.attach_alternative(htmlcontent, 'text/html')
+            # emailenviado.send()
     return HttpResponse('Enviado')
 
 def enviar_todos(request):
@@ -89,7 +86,6 @@ def enviar_todos(request):
             imagem = request.POST['imagem']
         if request.POST['mensagem']:
             mensagem = request.POST['mensagem']
-            mensagem = mensagem.split("\n")
 
     for user in selecionar:
         usuario = get_object_or_404(User, pk=user)
@@ -100,12 +96,14 @@ def enviar_todos(request):
             'imagem': imagem,
             'mensagem': mensagem, 
             'enviado': enviado,
-            'nome':usuario.first_name
+            'nome':usuario.username
             }
-        htmlcontent = render_to_string('envio.html', valores)
-        # print(htmlcontent)
-        emailenviado = EmailMultiAlternatives(assunto, htmlcontent, 'ouvidoriaadocicafornasa@gmail.com', [usuario.email])
-        emailenviado.attach_alternative(htmlcontent, 'text/html')
+        
+        htmls = html(valores)
+        print(htmls)
+
+        emailenviado = EmailMultiAlternatives(assunto, htmls, 'ouvidoriaadocicafornasa@gmail.com', [usuario.email])
+        emailenviado.attach_alternative(htmls, 'text/html')
         emailenviado.send(fail_silently=False)
     return HttpResponse('Enviado')
 
@@ -122,7 +120,7 @@ def enviar_por_eventos(request):
             imagem = request.POST['imagem']
         if request.POST['mensagem']:
             mensagem = request.POST['mensagem']
-            mensagem = mensagem.split("\n")
+
     for user in selecionar:
         eventos = Evento.objects.all()
         usuarios_cadastrados = Inscrito_Evento.objects.filter(evento__in=user)

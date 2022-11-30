@@ -45,11 +45,14 @@
             <p><strong>Enviado:</strong> {{enviado}}</p>
             <p><strong>Assunto:</strong> {{assunto}}</p>
             <p>Prezado(a) {{nome}}</p>
-            {% for mensagem in mensagem %}
-                {{mensagem}}
-                <br>
-                <br>
-            {% endfor %}
+            <br>
+            <div>
+                <script>
+                    var elemento = {{mensagem}};
+
+                    document.write(elemento);
+                </script>
+            </div>
             <img src="{{imagem}}" alt="">
         </div>
     </div>
