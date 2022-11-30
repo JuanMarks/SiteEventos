@@ -12,11 +12,11 @@
     </div>
 
     <main class="principal">
-        <div class="banner__principal">
-            <img src="{% static 'assets/img/section1-bg.png' %}">
-        </div>
-        <h1 class="principal__titulo"> Seus eventos cadastrados </h1>
-        
+        {% if user.groups.all.0.name == 'Usuarios Comuns' or user.groups.all.0.name == 'Mantenedores' %}
+            <h1 class="principal__titulo"> Eventos Inscritos </h1>
+        {% else %}
+            <h1 class="principal__titulo"> Seus eventos cadastrados </h1>
+        {% endif %}
         <div class="container__caixa">
             {% for evento in eventos %}
             <div class="principal__caixa">
@@ -31,10 +31,6 @@
                             <div class="icons">
                                 <i class="fa-solid fa-calendar-days"></i>
                                 <span class="icons_text"> {{evento.data_inicio}} </span>
-                            </div>
-                            <div class="icons">
-                                <i class="fa-solid fa-clock"></i>
-                                <span class="icons_text"> 00:00 </span>
                             </div>
                         </div>
                         <hr>
@@ -70,7 +66,21 @@
             </div>
             {% endfor %}
         </div>
-        
+        <div style="margin-left: 45%; margin-bottom: 5%;" class="pagination">
+            <span class="step-links">
+                {% if eventos.has_previous %}
+                    <a href="?page={{ eventos.previous_page_number }}">Anterior</a>
+                {% endif %}
+            
+                <span class="current">
+                    {{ eventos.number }} de {{ eventos.paginator.num_pages }}
+                </span>
+            
+                {% if eventos.has_next %}
+                    <a href="?page={{ eventos.next_page_number }}">Próxima</a>
+                {% endif %}
+            </span>
+        </div>
     </main>
     
 
