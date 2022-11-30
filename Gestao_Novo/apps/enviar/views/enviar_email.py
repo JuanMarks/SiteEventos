@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import HttpResponse, get_object_or_404, render
+from django.shortcuts import HttpResponse, get_object_or_404, render, redirect
 from apps.arquivo_excel.models import Arquivo_excel
 from apps.abstrair.funções import *
 from apps.cadastrar_eventos.models import Evento, Inscrito_Evento
@@ -141,3 +141,13 @@ def enviar_por_eventos(request):
             emailenviado.send(fail_silently=False)
     return render(request, 'htmlvazio.html', {'inscritos':usuarios_cadastrados, 'eventos':eventos})
 
+def enviar_relatorio(request, id):
+    evento = get_object_or_404(Evento, pk=id)
+    inscritos = Inscrito_Evento.objects.filter(evento=evento)
+
+    for inscrito in inscritos:
+        email_usr = inscrito.inscrito.email
+        
+        send_mail(f"Formulário de Satisfação do Evento: {inscrito.evento.nome_evento}", f"Avalie o evento por meio deste link http://localhost:8000/relatorio_satisfacao/{inscrito.evento.pk}", 'ouvidoriaadocicafornasa@gmail.com', [f"{email_usr}"])
+    
+    return redirect('tela_adm')
