@@ -1,283 +1,178 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %}NINNA · Próximos eventos{% endblock %}
+{% block header_title %}Próximos eventos{% endblock %}
+
 {% block content %}
-
-<header class="wrapper-hero">
-  <div class="menu">
-    <a href="{% url 'index' %}">
-      <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
-    </a>
-     
-    {% include 'menu.html' %}
-  </div>
-  <h1 class="hero-title">Seja Bem-Vindo a Sessão de Eventos do Ninna Hub</h1> 
-</header>
-        
-    <main class="wrapper-container">
-        <section class="wrapper-carousel">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="{% static 'assets/img/item1.jpg' %}" class="carousel-item-img" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{% static 'assets/img/item2.jpg' %}" class="carousel-item-img" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{% static 'assets/img/item3.jpg' %}" class="carousel-item-img" alt="...">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="{% static 'assets/img/item4.jpg' %}" class="carousel-item-img" alt="...">
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
-        </section>
-
-        <h2 class="title__eventos">Próximos eventos</h2>
-        {% include 'messages/alertas.html' %}
-        
-        <section class="eventos">
-          
-            {% for evento in eventos %}
-              {% if evento.publicar == 'Publicado'%}
-              <div class="card" style="width: 25rem; border-radius: 20px;">
-                
-                  <img src="{{evento.img.url}}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                      <h5 class="card-title">{{evento.nome_evento}}</h5>
-                      <p class="card-title">Evento: {{evento.publico}}</p>
-                      <p class="card-title">Convidados: {{evento.convidados_qtd}}</p>
-                      
-                        <button id="botao" type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tste{{evento.id}}" >
-                          Saiba Mais
-                        </button>
-                        <script>
-                          var a = true;
-                        </script>
-                      {% if user.groups.all.0.name == 'Usuarios Comuns' or user.groups.all.0.name == 'Empresa'%}
-                        {% if evento.publico == 'Aberto' %}
-                          {% if inscritos.exists %}
-                            {% for inscrito in inscritos %}
-                              {% if evento.id == inscrito.evento.id %}
-                              <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
-                                Remover Inscrição
-                              </button></a>
-                              <script>
-                                a = false;
-                              </script>
-                              {% endif %}
-                              {% endfor %}      
-                          {% endif %}
-                              <script>
-                                if(a == true){
-                                  var botao = "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#insc{{evento.id}}' id='btn-inscrever'>" +
-                                              "     Inscrever-se" +
-                                              "</button>";
-                                  document.write(botao);
-                                }
-                              </script>                   
-                        {% endif %}
-                        {% else %}
-                          {% if inscritos.exists %}
-                            {% for inscrito in inscritos %}
-                                {% if evento.id == inscrito.evento.id %}
-                                <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
-                                  Remover Inscrição
-                                </button></a>
-                                <script>
-                                  a = false;
-                                </script>
-                                {% endif %}
-                            {% endfor %}      
-                          {% endif %}
-                            <script>
-                              if(a == true){
-                                var botao = "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#insc{{evento.id}}' id='btn-inscrever'>" +
-                                            "     Inscrever-se" +
-                                            "</button>";
-                                document.write(botao);
-                              }
-                            </script>                 
-                        {% endif %}
-                  
-                  </div>
-              </div>
-              
-              
-             
-        <div class="modal fade" id="tste{{evento.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel"> {{evento.nome_evento}} </h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="modal_img">
-                  <span><img style="width: 100%; height: 70%;" src="{{evento.img.url}}"></span>
-                </div>
-              <div class="modal_descricao">
-                <h5> Descrição do evento </h5>
-                  <div class="moda_descricão-itens">
-                    <i class="fa-solid fa-check"></i>
-                    <p><span> Nome da empresa: </span> {{evento.nome_empresa}} </p>
-                  </div>
-              <div class="moda_descricão-itens">
-                <i class="fa-solid fa-check"></i>
-                <p><span> Quantidade de pessoas: </span> {{evento.convidados_qtd}} </p>
-              </div>
-              <div class="moda_descricão-itens">
-                <i class="fa-solid fa-check"></i>
-                <p><span> Horário de início: </span> {{evento.data_inicio}} </p>
-              </div>
-              <div class="modal_sobre">
-                {{evento.descricao}}
-              </div>
-        </div>
+  <!-- Hero / carrossel leve (Alpine) -->
+  <section
+    x-data="{ active: 0, total: 4 }"
+    x-init="setInterval(() => active = (active + 1) % total, 5000)"
+    class="relative mb-8 overflow-hidden rounded-2xl bg-slate-900">
+    <div class="relative aspect-[16/6] w-full">
+      <img x-show="active===0" x-transition.opacity src="{% static 'assets/img/item1.jpg' %}" alt="Destaque 1" class="absolute inset-0 h-full w-full object-cover">
+      <img x-show="active===1" x-transition.opacity src="{% static 'assets/img/item2.jpg' %}" alt="Destaque 2" class="absolute inset-0 h-full w-full object-cover">
+      <img x-show="active===2" x-transition.opacity src="{% static 'assets/img/item3.jpg' %}" alt="Destaque 3" class="absolute inset-0 h-full w-full object-cover">
+      <img x-show="active===3" x-transition.opacity src="{% static 'assets/img/item4.jpg' %}" alt="Destaque 4" class="absolute inset-0 h-full w-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 p-6 sm:p-8">
+        <h2 class="max-w-lg text-2xl font-bold text-white sm:text-3xl">Bem-vindo à sessão de eventos do Ninna Hub</h2>
+        <p class="mt-2 text-slate-200">Descubra, inscreva-se e avalie os próximos eventos.</p>
       </div>
+    </div>
+    <div class="absolute bottom-4 right-4 flex gap-2">
+      <template x-for="i in total" :key="i">
+        <button type="button" @click="active = i - 1"
+                :class="active === i - 1 ? 'bg-white' : 'bg-white/40'"
+                class="h-2.5 w-2.5 rounded-full" :aria-label="'Ir para slide ' + i"></button>
+      </template>
+    </div>
+  </section>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="#"> Fechar
-            </a></button>
-            <script>
-              var a = true;
-            </script>
-          {% if user.groups.all.0.name == 'Usuarios Comuns' or user.groups.all.0.name == 'Empresa'%}
-            {% if evento.publico == 'Aberto' %}
-              {% if inscritos.exists %}
-                {% for inscrito in inscritos %}
-                  {% if evento.id == inscrito.evento.id %}
-                  <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
-                    Remover Inscrição
-                  </button></a>
-                  <script>
-                    a = false;
-                  </script>
-                  {% endif %}
-                  {% endfor %}      
-              {% endif %}
-                  <script>
-                    if(a == true){
-                      var botao = "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#insc{{evento.id}}' id='btn-inscrever'>" +
-                                  "     Inscrever-se" +
-                                  "</button>";
-                      document.write(botao);
-                    }
-                  </script>                   
-            {% endif %}
+  {% include 'messages/alertas.html' %}
+
+  <!-- Grade de eventos: 4 colunas no desktop -->
+  {% if eventos %}
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {% for evento in eventos %}
+        <article
+          x-data="{ open: false, openInsc: false }"
+          class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            {% if evento.img %}
+              <img src="{{ evento.img.url }}" alt="{{ evento.nome_evento }}"
+                   class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
             {% else %}
-              {% if inscritos.exists %}
-                {% for inscrito in inscritos %}
-                    {% if evento.id == inscrito.evento.id %}
-                    <a href="remover_inscricao/{{inscrito.id}}"><button type="button" class="btn btn-danger">
-                      Remover Inscrição
-                    </button></a>
-                    <script>
-                      a = false;
-                    </script>
-                    {% endif %}
-                {% endfor %}      
-              {% endif %}
-                <script>
-                  if(a == true){
-                    var botao = "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#insc{{evento.id}}' id='btn-inscrever'>" +
-                                "     Inscrever-se" +
-                                "</button>";
-                    document.write(botao);
-                  }
-                </script>                 
-            {% endif %}
-      
-      </div>
-          
-                
-          </div>
-        </div>
-        </div>
-        </div>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="insc{{evento.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Informe os seguintes dados:</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <form class="form__inscrever-se" action="inscrever/{{evento.id}}" method="post">
-              {% csrf_token %}
-              <label for="nome">Nome</label>
-              <input id="nome" type="name" name="nome" placeholder="Seu nome">
-              
-              <label for="e-mail">E-mail</label>
-              <input id="e-mail" name="email" type="E-mail" placeholder="Seu e-mail">
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
-                <input class="btn btn-primary" type="submit" value="Inscrever-se">
+              <div class="flex h-full w-full items-center justify-center text-slate-300">
+                <i class="fa-solid fa-image text-4xl"></i>
               </div>
-            </form>
-            </div>
-            
+            {% endif %}
           </div>
-        </div>
-      </div>
-        {% endif %}
 
-            {% endfor %}
-
-            
-            
-        </section>
-        <div style="margin-left: 45%;" class="pagination">
-          <span class="step-links">
-              {% if eventos.has_previous %}
-                  <a href="?page={{ eventos.previous_page_number }}">Anterior</a>
-              {% endif %}
-          
-              <span class="current">
-                  {{ eventos.number }} de {{ eventos.paginator.num_pages }}
+          <div class="flex flex-1 flex-col p-4">
+            <div class="mb-2 flex items-start justify-between gap-2">
+              <h3 class="line-clamp-2 font-semibold text-slate-800">{{ evento.nome_evento }}</h3>
+              <span class="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium
+                {% if evento.publico == 'Aberto' %}bg-emerald-100 text-emerald-700{% else %}bg-amber-100 text-amber-700{% endif %}">
+                {{ evento.publico }}
               </span>
-          
-              {% if eventos.has_next %}
-                  <a href="?page={{ eventos.next_page_number }}">Próxima</a>
-              {% endif %}
-          </span>
-        </div>
-        
-    </main>
-    <footer class="wrapper-footer">
-        <div class="wrapper-footer__info">
-            <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">
-            <div class="wrapper-footer__info--geral">
-                <ul class="info--localizacao__list">
-                    <li class="info--localizacao__item">
-                      <i class="fa-solid fa-location-dot" style="padding-right: 5px"></i>Av. Dom Manuel, 1020 - Centro, Fortaleza - CE, 60060-090
-                    </li>
-                    <li class="info--localizacao__item">
-                      <i class="fa-solid fa-phone" style="padding-right: 5px"></i>(85) 3211-4201
-                    </li>
-                    <li class="redes-sociais">
-                      <i class="fa-brands fa-linkedin"></i>
-                      <i class="fa-brands fa-facebook"></i>
-                      <i class="fa-brands fa-instagram"></i>
-                    </li>
-                </ul>
             </div>
-        </div>
+            <p class="mb-4 flex items-center gap-1.5 text-sm text-slate-500">
+              <i class="fa-solid fa-users"></i> {{ evento.convidados_qtd }} convidados
+            </p>
 
-        <div class="wrapper-footer__copyright">
-            Todos os direitos reservados &copy; 2022
-        </div>
-    </footer>
+            <div class="mt-auto flex flex-col gap-2">
+              <button type="button" @click="open = true"
+                      class="w-full rounded-lg border border-brand-600 px-3 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+                Saiba mais
+              </button>
+
+              {% with grupo=user.groups.all.0.name %}
+              {% if grupo == 'Usuarios Comuns' or grupo == 'Empresa' %}
+                {% if evento.id in inscritos_ids %}
+                  <a href="{% url 'remover_inscricao' evento.id %}"
+                     class="w-full rounded-lg bg-red-50 px-3 py-2 text-center text-sm font-medium text-red-600 hover:bg-red-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500">
+                    Remover inscrição
+                  </a>
+                {% else %}
+                  <button type="button" @click="openInsc = true"
+                          class="w-full rounded-lg bg-brand-600 px-3 py-2 text-sm font-medium text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+                    Inscrever-se
+                  </button>
+                {% endif %}
+              {% endif %}
+              {% endwith %}
+            </div>
+          </div>
+
+          <!-- Modal: Saiba mais -->
+          <div x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4"
+               @keydown.escape.window="open = false">
+            <div class="absolute inset-0 bg-slate-900/60" @click="open = false" x-transition.opacity></div>
+            <div class="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-xl"
+                 x-transition role="dialog" aria-modal="true">
+              <div class="flex items-center justify-between border-b border-slate-200 p-4">
+                <h4 class="text-lg font-semibold text-slate-800">{{ evento.nome_evento }}</h4>
+                <button type="button" @click="open = false" aria-label="Fechar"
+                        class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <div class="max-h-[70vh] overflow-y-auto p-4">
+                {% if evento.img %}
+                  <img src="{{ evento.img.url }}" alt="{{ evento.nome_evento }}" class="mb-4 h-48 w-full rounded-lg object-cover">
+                {% endif %}
+                <dl class="space-y-2 text-sm">
+                  <div class="flex gap-2"><dt class="font-medium text-slate-500">Empresa:</dt><dd class="text-slate-800">{{ evento.nome_empresa }}</dd></div>
+                  <div class="flex gap-2"><dt class="font-medium text-slate-500">Convidados:</dt><dd class="text-slate-800">{{ evento.convidados_qtd }}</dd></div>
+                  <div class="flex gap-2"><dt class="font-medium text-slate-500">Início:</dt><dd class="text-slate-800">{{ evento.data_inicio }}</dd></div>
+                </dl>
+                <div class="mt-4 border-t border-slate-100 pt-4 text-sm text-slate-700">{{ evento.descricao }}</div>
+              </div>
+              <div class="flex justify-end gap-2 border-t border-slate-200 p-4">
+                <button type="button" @click="open = false"
+                        class="rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200">Fechar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal: Inscrever-se -->
+          <div x-show="openInsc" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4"
+               @keydown.escape.window="openInsc = false">
+            <div class="absolute inset-0 bg-slate-900/60" @click="openInsc = false" x-transition.opacity></div>
+            <div class="relative z-10 w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-xl"
+                 x-transition role="dialog" aria-modal="true">
+              <div class="flex items-center justify-between border-b border-slate-200 p-4">
+                <h4 class="text-lg font-semibold text-slate-800">Inscrição · {{ evento.nome_evento }}</h4>
+                <button type="button" @click="openInsc = false" aria-label="Fechar"
+                        class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <form action="{% url 'inscrever' evento.id %}" method="post" class="space-y-4 p-4">
+                {% csrf_token %}
+                <div>
+                  <label for="nome{{ evento.id }}" class="mb-1 block text-sm font-medium text-slate-700">Nome</label>
+                  <input id="nome{{ evento.id }}" name="nome" type="text" required placeholder="Seu nome"
+                         class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+                </div>
+                <div>
+                  <label for="email{{ evento.id }}" class="mb-1 block text-sm font-medium text-slate-700">E-mail</label>
+                  <input id="email{{ evento.id }}" name="email" type="email" required placeholder="seu@email.com"
+                         class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                  <button type="button" @click="openInsc = false"
+                          class="rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200">Cancelar</button>
+                  <button type="submit"
+                          class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">Confirmar inscrição</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <!-- Paginação -->
+    {% if eventos.has_other_pages %}
+      <nav class="mt-8 flex items-center justify-center gap-3 text-sm" aria-label="Paginação">
+        {% if eventos.has_previous %}
+          <a href="?page={{ eventos.previous_page_number }}" class="rounded-lg border border-slate-300 px-3 py-2 text-slate-600 hover:bg-slate-100">Anterior</a>
+        {% endif %}
+        <span class="text-slate-500">{{ eventos.number }} de {{ eventos.paginator.num_pages }}</span>
+        {% if eventos.has_next %}
+          <a href="?page={{ eventos.next_page_number }}" class="rounded-lg border border-slate-300 px-3 py-2 text-slate-600 hover:bg-slate-100">Próxima</a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  {% else %}
+    <!-- Estado vazio -->
+    <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 py-16 text-center">
+      <i class="fa-solid fa-calendar-xmark mb-3 text-4xl text-slate-300"></i>
+      <h3 class="text-lg font-semibold text-slate-700">Nenhum evento publicado</h3>
+      <p class="mt-1 text-sm text-slate-500">Volte mais tarde para conferir os próximos eventos.</p>
+    </div>
+  {% endif %}
 {% endblock %}

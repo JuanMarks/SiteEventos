@@ -13,10 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 import sys
-from decouple import config
+from decouple import config, Csv
 from django.contrib.messages import constants as messages
-# import django_heroku
-#from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,12 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lj2-&0#=7ljev5c44@h40hocbq58ksk9ul52&@)-fv8#uf5c2r'
+# Lido do .env (nunca versionado). Ver .env.example.
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
 
 
 # Application definition
@@ -88,10 +87,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'site_eventos',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST':'localhost'
+        'NAME': config('DB_NAME', default='site_eventos'),
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
@@ -143,18 +143,25 @@ STATICFILES_DIRS = [
     BASE_DIR/'templates/static'
 ]
 
+# Media (uploads de imagens de eventos, planilhas). Referenciado em core/urls.py.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR/'media'
+
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = 587
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# Remetente padrão — evita e-mail hardcoded espalhado pelas views.
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
 
-# django_heroku.settings(locals())
+# Código exigido para auto-cadastro como ADM (substitui o antigo "123456" hardcoded).
+ADMIN_REGISTRATION_CODE = config('ADMIN_REGISTRATION_CODE', default='')
 
-# PROJECT_ROOT = os.path.dirname(__file__)
-# sys.path.insert(1, os.path.join(PROJECT_ROOT, '../polls'))
+# Base URL usada em links de e-mail (recuperação de senha, relatórios).
+SITE_URL = config('SITE_URL', default='http://localhost:8000')
 
 MESSAGES_TAGS = {
     messages.ERROR: 'danger',

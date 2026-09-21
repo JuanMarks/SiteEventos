@@ -1,125 +1,69 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-{{lista_eventos}}
 
-    <div class="menu">
-        <a href="{% url 'index' %}">
-          <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
-        </a>
-         
-        {% include 'menu.html' %}
+{% block title %}NINNA · Meus eventos{% endblock %}
+{% block header_title %}
+  {% if user.groups.all.0.name == 'Usuarios Comuns' or user.groups.all.0.name == 'Mantenedores' %}Eventos inscritos{% else %}Meus eventos{% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if eventos %}
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {% for evento in eventos %}
+        <article x-data="{ open: false }"
+          class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
+          <div class="aspect-[4/3] overflow-hidden bg-slate-100">
+            {% if evento.img %}
+              <img src="{{ evento.img.url }}" alt="{{ evento.nome_evento }}"
+                   class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+            {% else %}
+              <div class="flex h-full w-full items-center justify-center text-slate-300"><i class="fa-solid fa-image text-4xl"></i></div>
+            {% endif %}
+          </div>
+          <div class="flex flex-1 flex-col p-4">
+            <h3 class="line-clamp-2 font-semibold text-slate-800">{{ evento.nome_evento }}</h3>
+            <p class="mt-1 text-sm text-slate-500">{{ evento.nome_empresa }}</p>
+            {% if user.groups.all.0.name == 'Empresa' or user.groups.all.0.name == 'ADM' %}
+              <p class="mt-2 text-xs font-medium {% if evento.publicar == 'Publicado' %}text-emerald-600{% else %}text-red-500{% endif %}">
+                Status: {{ evento.publicar }}
+              </p>
+            {% endif %}
+            <p class="mt-2 flex items-center gap-1.5 text-sm text-slate-500">
+              <i class="fa-solid fa-calendar-days"></i> {{ evento.data_inicio }}
+            </p>
+            <button type="button" @click="open = true"
+                    class="mt-4 w-full rounded-lg border border-brand-600 px-3 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50">
+              Saiba mais
+            </button>
+          </div>
+
+          <div x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4" @keydown.escape.window="open = false">
+            <div class="absolute inset-0 bg-slate-900/60" @click="open = false"></div>
+            <div class="relative z-10 w-full max-w-lg rounded-2xl bg-white p-5 shadow-xl" role="dialog" aria-modal="true">
+              <div class="mb-3 flex items-center justify-between">
+                <h4 class="text-lg font-semibold text-slate-800">{{ evento.nome_evento }}</h4>
+                <button type="button" @click="open = false" aria-label="Fechar"
+                        class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+              <p class="text-sm text-slate-700">{{ evento.descricao }}</p>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
     </div>
 
-    <main class="principal">
-        {% if user.groups.all.0.name == 'Usuarios Comuns' or user.groups.all.0.name == 'Mantenedores' %}
-            <h1 class="principal__titulo"> Eventos Inscritos </h1>
-        {% else %}
-            <h1 class="principal__titulo"> Seus eventos cadastrados </h1>
-        {% endif %}
-        <div class="container__caixa">
-            {% for evento in eventos %}
-            <div class="principal__caixa">
-                <div class="principal__artigo">
-                    <img class="artigo__imagem" src="{{evento.img.url}}" alt="imagem do evento cadastrado">
-                    <div class="artigo__caixa">
-                        <h3 class="artigo__titulo">{{evento.nome_evento}}</h3>
-                        <p class="artigo__paragrafo">
-                            <span class="paragrafo--bold"> Empresa reesponsavel: {{evento.nome_empresa}} </span> 
-                        </p>
-                        {% if user.groups.all.0.name == 'Empresa' or user.groups.all.0.name == 'ADM'%}
-                            {% if evento.publicar == 'Publicado'%}
-                                <p class="artigo__paragrafo">
-                                    <span style="color: green;" class="paragrafo--bold"> Status: {{evento.publicar}} </span> 
-                                </p>
-                            {% else %}
-                                <p class="artigo__paragrafo">
-                                    <span style="color: red;" class="paragrafo--bold"> Status: {{evento.publicar}} </span> 
-                                </p>
-                            {% endif %}
-                        {% endif %}
-                        <div class="artigo__icons">
-                            <div class="icons">
-                                <i class="fa-solid fa-calendar-days"></i>
-                                <span class="icons_text"> {{evento.data_inicio}} </span>
-                            </div>
-                        </div>
-                        <hr>
-
-                        <!-- Button trigger modal -->
-                        <div class="button--saiba">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#exampleModal">
-                                Saiba mais
-                            </button>
-                        </div>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">{{evento.nome_evento}}</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        {{evento.descricao}}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal"> Fechar </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <div style="margin-left: 45%; margin-bottom: 5%;" class="pagination">
-            <span class="step-links">
-                {% if eventos.has_previous %}
-                    <a href="?page={{ eventos.previous_page_number }}">Anterior</a>
-                {% endif %}
-            
-                <span class="current">
-                    {{ eventos.number }} de {{ eventos.paginator.num_pages }}
-                </span>
-            
-                {% if eventos.has_next %}
-                    <a href="?page={{ eventos.next_page_number }}">Próxima</a>
-                {% endif %}
-            </span>
-        </div>
-    </main>
-    
-
-    <footer class="wrapper-footer">
-        <div class="wrapper-footer__info">
-            <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">
-            <div class="wrapper-footer__info--geral">
-                <ul class="info--localizacao__list">
-                    <li class="info--localizacao__item">
-                        Av. Dom Manuel, 1020 - Centro, Fortaleza - CE, 60060-090
-                    </li>
-                    <li class="info--localizacao__item">
-                        (85) 3211-4201
-                    </li>
-                </ul>
-            </div>
-            <!-- <div class="wrapper-footer__info--sociais">
-                <ul class="info--sociais__list">
-                    <li class="info--sociais__item">Instagram</li>
-                    <li class="info--sociais__item">Youtube</li>
-                    <li class="info--sociais__item">LinkedIn</li>
-                </ul>
-            </div> -->
-        </div>
-
-        <div class="wrapper-footer__copyright">
-            Todos os direitos reservados &copy; 2022
-        </div>
-    </footer>
+    {% if eventos.has_other_pages %}
+      <nav class="mt-8 flex items-center justify-center gap-3 text-sm" aria-label="Paginação">
+        {% if eventos.has_previous %}<a href="?page={{ eventos.previous_page_number }}" class="rounded-lg border border-slate-300 px-3 py-2 text-slate-600 hover:bg-slate-100">Anterior</a>{% endif %}
+        <span class="text-slate-500">{{ eventos.number }} de {{ eventos.paginator.num_pages }}</span>
+        {% if eventos.has_next %}<a href="?page={{ eventos.next_page_number }}" class="rounded-lg border border-slate-300 px-3 py-2 text-slate-600 hover:bg-slate-100">Próxima</a>{% endif %}
+      </nav>
+    {% endif %}
+  {% else %}
+    <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 py-16 text-center">
+      <i class="fa-solid fa-calendar-xmark mb-3 text-4xl text-slate-300"></i>
+      <h3 class="text-lg font-semibold text-slate-700">Nada por aqui ainda</h3>
+      <p class="mt-1 text-sm text-slate-500">Você ainda não tem eventos.</p>
+    </div>
+  {% endif %}
 {% endblock %}
-    

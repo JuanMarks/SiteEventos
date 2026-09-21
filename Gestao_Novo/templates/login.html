@@ -1,48 +1,34 @@
+{% extends 'base_auth.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}NINNA · Entrar{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NINNA LOGIN</title>
+{% block auth_content %}
+  <h1 class="mb-1 text-xl font-bold text-slate-800">Entrar</h1>
+  <p class="mb-6 text-sm text-slate-500">Acesse sua conta para continuar.</p>
 
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
-</head>
-
-<body>
-
-    <div class="wrapper-login">
-        <form action="" class="wrapper-login__form" method="post">
-            {% csrf_token %}
-            <div class="form__img--centralizar" ><a style="margin-left: 25%;" href="{% url 'index' %}"><img
-                    src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo"></a>
-            </div>
-            {% include 'messages/alertas.html' %}
-            <div class="wrapper-login__form--user">
-                <label for="user">Email</label>
-                <input style="border-radius: 10px;" type="text" name="username" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--password">
-                <label for="password">Senha</label>
-                <input style="border-radius: 10px;" type="password" name="senha" class="form-input input-password"
-                    id="password">
-            </div>
-
-            <div class="wrapper-login__form--button">
-                <button style="border-radius: 10px;" type="submit" class="form-submit">Entrar</button>
-            </div>
-
-            <div class="wrapper-login__form--password--request">
-                <a href="{% url 'cadastro' %}">É novo por aqui? Clique aqui</a>
-                <a href="{% url 'cadastro_empresa' %}">É uma Empresa ou Admin? Clique aqui</a>
-            </div>
-        </form>
+  <form action="" method="post" class="space-y-4">
+    {% csrf_token %}
+    <div>
+      <label for="user" class="mb-1 block text-sm font-medium text-slate-700">E-mail</label>
+      <input id="user" name="username" type="email" autocomplete="email" required placeholder="seu@email.com"
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
     </div>
-</body>
+    <div>
+      <label for="password" class="mb-1 block text-sm font-medium text-slate-700">Senha</label>
+      <input id="password" name="senha" type="password" autocomplete="current-password" required placeholder="••••••••"
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+      <div class="mt-1 text-right">
+        <a href="{% url 'tela_recuperar_senha' %}" class="text-xs font-medium text-brand-600 hover:text-brand-700">Esqueci minha senha</a>
+      </div>
+    </div>
+    <button type="submit"
+            class="w-full rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2">
+      Entrar
+    </button>
+  </form>
 
-</html>
+  <div class="mt-6 space-y-1 border-t border-slate-100 pt-4 text-center text-sm">
+    <a href="{% url 'cadastro' %}" class="block text-brand-600 hover:text-brand-700">É novo por aqui? Criar conta</a>
+    <a href="{% url 'cadastro_empresa' %}" class="block text-slate-500 hover:text-slate-700">É uma empresa ou admin? Clique aqui</a>
+  </div>
+{% endblock %}

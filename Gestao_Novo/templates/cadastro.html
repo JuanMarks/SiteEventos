@@ -1,63 +1,56 @@
+{% extends 'base_auth.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Usuario</title>
+{% block title %}NINNA · Criar conta{% endblock %}
+{% block auth_width %}max-w-lg{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'assets/css/cadastroUsuario1.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
-    
-
-</head>
-<body>
-    <div style="width: 600px;" class="wrapper-login">
-        <form action="{% url 'cadastro' %}" class="wrapper-login__form" method="post">
-            <div class="saida-eventos">
-                <a href="{% url 'login' %}"> Fechar </a>
-            </div>
-            {% csrf_token %}
-            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
-            <h1>Cadastro</h1>
-            {% include 'messages/alertas.html' %}
-            <div class="wrapper-login__form--user">
-                <label for="user">Nome Completo</label>
-                <input style="border-radius: 10px;" type="text" name="nome_completo" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--user">
-                <label for="user">Nome de Usuario</label>
-                <input style="border-radius: 10px;" type="text" name="nome_usuario" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--user">
-                <label for="user">Telefone</label>
-                <input style="border-radius: 10px;" type="tel" name="telefone" placeholder="(xx) xxxxx-xxxx" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--user">
-                <label for="user">Email</label>
-                <input style="border-radius: 10px;" type="email" name="email"  class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--password">
-                <label for="password">Senha</label>
-                <input style="border-radius: 10px;" type="password" name="password" class="form-input input-password" id="password">
-            </div>
-
-            <div class="wrapper-login__form--password">
-                <label for="password">Confirmar Senha</label>
-                <input style="border-radius: 10px;" type="password" name="password2" class="form-input input-password" id="password">
-            </div>
-
-            <div class="wrapper-login__form--button">
-                <button style="border-radius: 10px;" type="submit" class="form-submit">Cadastrar</button>
-            </div>
-        </form>
+{% block auth_content %}
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold text-slate-800">Criar conta</h1>
+      <p class="text-sm text-slate-500">Cadastre-se como usuário.</p>
     </div>
-</body>
-</html>
+    <a href="{% url 'login' %}" class="text-sm text-slate-400 hover:text-slate-600" aria-label="Voltar ao login">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </a>
+  </div>
+
+  <form action="{% url 'cadastro' %}" method="post" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    {% csrf_token %}
+    <div class="sm:col-span-2">
+      <label for="nome_completo" class="mb-1 block text-sm font-medium text-slate-700">Nome completo</label>
+      <input id="nome_completo" name="nome_completo" type="text" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div>
+      <label for="nome_usuario" class="mb-1 block text-sm font-medium text-slate-700">Nome de usuário</label>
+      <input id="nome_usuario" name="nome_usuario" type="text" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div>
+      <label for="telefone" class="mb-1 block text-sm font-medium text-slate-700">Telefone</label>
+      <input id="telefone" name="telefone" type="tel" placeholder="(xx) xxxxx-xxxx"
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div class="sm:col-span-2">
+      <label for="email" class="mb-1 block text-sm font-medium text-slate-700">E-mail</label>
+      <input id="email" name="email" type="email" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div>
+      <label for="password" class="mb-1 block text-sm font-medium text-slate-700">Senha</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div>
+      <label for="password2" class="mb-1 block text-sm font-medium text-slate-700">Confirmar senha</label>
+      <input id="password2" name="password2" type="password" autocomplete="new-password" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div class="sm:col-span-2">
+      <button type="submit"
+              class="w-full rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2">
+        Cadastrar
+      </button>
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}NINNA · Eventos{% endblock %}</title>
+  <link rel="icon" href="{% static 'assets/img/logo-ninna.jpg' %}">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { brand: {
+        50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',500:'#6366f1',600:'#4f46e5',700:'#4338ca',900:'#312e81',
+      } } } },
+    };
+  </script>
+  <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="flex min-h-screen items-center justify-center bg-gradient-to-br from-brand-600 via-brand-700 to-slate-900 p-4">
+  <div class="w-full {% block auth_width %}max-w-md{% endblock %}">
+    <div class="mb-6 text-center">
+      <a href="{% url 'index' %}" class="inline-flex items-center gap-2 text-2xl font-bold text-white">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/15">
+          <i class="fa-solid fa-calendar-star"></i>
+        </span>
+        NINNA
+      </a>
+    </div>
+
+    <div class="rounded-2xl bg-white p-6 shadow-xl sm:p-8">
+      {% include 'messages/alertas.html' %}
+      {% block auth_content %}{% endblock %}
+    </div>
+
+    <p class="mt-6 text-center text-sm text-white/70">Ninna Hub · Sessão de eventos</p>
+  </div>
+  <style>[x-cloak]{display:none!important;}</style>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

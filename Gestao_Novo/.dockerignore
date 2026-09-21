@@ -1,0 +1,14 @@
+.git/
+ninna/
+.venv/
+.venv_check/
+__pycache__/
+*.pyc
+*.pyo
+.env
+media/
+.idea/
+.vscode/
+Dockerfile
+.dockerignore
+docker-compose.yml

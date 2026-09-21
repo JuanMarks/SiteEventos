@@ -1,9 +1,16 @@
-
-
 {% if messages %}
+  <div class="mb-6 space-y-2">
     {% for message in messages %}
-        <div class="alert alert-info" role="alert">
-            {{ message }}
-        </div>
+      <div role="alert" x-data="{ show: true }" x-show="show"
+           class="flex items-start justify-between gap-3 rounded-lg border px-4 py-3 text-sm
+           {% if message.tags == 'success' %}border-emerald-200 bg-emerald-50 text-emerald-800
+           {% elif message.tags == 'danger' or message.tags == 'error' %}border-red-200 bg-red-50 text-red-800
+           {% else %}border-brand-200 bg-brand-50 text-brand-700{% endif %}">
+        <span>{{ message }}</span>
+        <button type="button" @click="show = false" aria-label="Fechar" class="shrink-0 opacity-60 hover:opacity-100">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
     {% endfor %}
+  </div>
 {% endif %}

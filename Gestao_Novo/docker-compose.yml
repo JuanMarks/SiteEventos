@@ -1,0 +1,48 @@
+# Sobe o banco (PostgreSQL) e a aplicação Django em containers.
+# Uso:  docker compose up --build
+# App:  http://localhost:8000
+#
+# Interpolação de ${DB_*} vem do arquivo .env nesta mesma pasta.
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: ninna_db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-site_eventos}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-123456}
+    ports:
+      # Host 5433 -> container 5432 (evita conflito com um Postgres local na 5432).
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-site_eventos}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    container_name: ninna_web
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    # Produção: substituir a linha acima por gunicorn e rodar como usuário não-root.
+    #   command: sh -c "python manage.py migrate && gunicorn core.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Dentro da rede do compose, o banco é acessível pelo hostname do serviço "db".
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:-site_eventos}
+      DB_USER: ${DB_USER:-postgres}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

@@ -1,7 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
+from django.utils import timezone
 
 class Evento(models.Model):
 
@@ -19,8 +19,8 @@ class Evento(models.Model):
     grupo = models.CharField(max_length=20)
     nome_empresa = models.CharField(max_length=50)
     nome_evento = models.CharField(max_length=50)
-    data_inicio = models.DateTimeField(default=datetime.now(), blank=True)
-    data_termino = models.DateTimeField(default=datetime.now(), blank=True)
+    data_inicio = models.DateTimeField(default=timezone.now, blank=True)
+    data_termino = models.DateTimeField(default=timezone.now, blank=True)
     img = models.ImageField(upload_to='users/%Y/%m/%d/', blank=True)
     descricao = models.TextField()
     publico = models.CharField(max_length=20, choices=PUBLICO,)

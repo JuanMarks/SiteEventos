@@ -1,0 +1,95 @@
+{% load static %}
+{% comment %}
+  Sidebar de navegação — substitui o antigo menu de topo (menu.html).
+  Estado 'sidebarOpen' vem do x-data no base.html.
+  Desktop: fixa (lg:translate-x-0). Mobile: drawer com transição.
+{% endcomment %}
+<aside
+  class="fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-slate-900 text-slate-300 transition-transform duration-200 ease-in-out lg:translate-x-0"
+  :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+  x-cloak>
+
+  <!-- Marca -->
+  <div class="flex h-16 items-center gap-2 border-b border-white/10 px-5">
+    <a href="{% url 'index' %}" class="flex items-center gap-2 font-semibold text-white">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
+        <i class="fa-solid fa-calendar-star"></i>
+      </span>
+      NINNA
+    </a>
+    <button type="button" @click="sidebarOpen = false"
+            class="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 hover:bg-white/10 lg:hidden"
+            aria-label="Fechar menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Navegação -->
+  <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4" aria-label="Menu principal">
+    {% with active="flex items-center gap-3 rounded-lg bg-brand-600 px-3 py-2.5 text-sm font-medium text-white" inactive="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" %}
+
+    <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}{{ active }}{% else %}{{ inactive }}{% endif %}">
+      <i class="fa-solid fa-house w-5 text-center"></i> Início
+    </a>
+
+    {% if user.is_authenticated %}
+      {% with grupo=user.groups.all.0.name %}
+
+        {% if grupo == 'ADM' %}
+          <a href="{% url 'tela_adm' %}" class="{% if request.resolver_match.url_name == 'tela_adm' %}{{ active }}{% else %}{{ inactive }}{% endif %}">
+            <i class="fa-solid fa-chart-line w-5 text-center"></i> Administração
+          </a>
+          <a href="{% url 'cadastrar_eventos' %}" class="{% if request.resolver_match.url_name == 'cadastrar_eventos' %}{{ active }}{% else %}{{ inactive }}{% endif %}">
+            <i class="fa-solid fa-circle-plus w-5 text-center"></i> Criar evento
+          </a>
+          <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}{{ active }}{% else %}{{ inactive }}{% endif %}">
+            <i class="fa-solid fa-calendar-days w-5 text-center"></i> Eventos cadastrados
+          </a>
+          <a href="{% url 'email' 'all' %}" class="{{ inactive }}">
+            <i class="fa-solid fa-paper-plane w-5 text-center"></i> Enviar e-mail
+          </a>
+        {% elif grupo == 'Empresa' %}
+          <a href="{% url 'cadastrar_eventos' %}" class="{% if request.resolver_match.url_name == 'cadastrar_eventos' %}{{ active }}{% else %}{{ inactive }}{% endif %}">
+            <i class="fa-solid fa-circle-plus w-5 text-center"></i> Solicitar evento
+          </a>
+          <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}{{ active }}{% else %}{{ inactive }}{% endif %}">
+            <i class="fa-solid fa-calendar-days w-5 text-center"></i> Meus eventos
+          </a>
+          <a href="{% url 'email' 'all' %}" class="{{ inactive }}">
+            <i class="fa-solid fa-paper-plane w-5 text-center"></i> Enviar e-mail
+          </a>
+        {% else %}
+          <a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}{{ active }}{% else %}{{ inactive }}{% endif %}">
+            <i class="fa-solid fa-ticket w-5 text-center"></i> Eventos inscritos
+          </a>
+        {% endif %}
+
+      {% endwith %}
+    {% endif %}
+    {% endwith %}
+  </nav>
+
+  <!-- Rodapé: usuário / sair -->
+  <div class="border-t border-white/10 p-3">
+    {% if user.is_authenticated %}
+      <div class="mb-2 flex items-center gap-3 px-3 py-2">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white">
+          <i class="fa-solid fa-user"></i>
+        </span>
+        <div class="min-w-0">
+          <p class="truncate text-sm font-medium text-white">{{ user.username }}</p>
+          <p class="truncate text-xs text-slate-400">{{ user.groups.all.0.name|default:"Sem grupo" }}</p>
+        </div>
+      </div>
+      <a href="{% url 'logout' %}"
+         class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 hover:bg-red-500/10 hover:text-red-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500">
+        <i class="fa-solid fa-arrow-right-from-bracket w-5 text-center"></i> Sair
+      </a>
+    {% else %}
+      <a href="{% url 'login' %}"
+         class="flex items-center gap-3 rounded-lg bg-brand-600 px-3 py-2.5 text-sm font-medium text-white hover:bg-brand-700">
+        <i class="fa-solid fa-right-to-bracket w-5 text-center"></i> Entrar
+      </a>
+    {% endif %}
+  </div>
+</aside>

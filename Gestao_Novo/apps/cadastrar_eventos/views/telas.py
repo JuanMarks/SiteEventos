@@ -8,16 +8,19 @@ from django.core.paginator import Paginator
 
 def index(request):
     id = request.user.id
-    user = User.objects.filter(pk=id)
-    events = Evento.objects.all().order_by('id')
-    inscritos = Inscrito_Evento.objects.filter(inscrito__in=user)
-    paginator = Paginator(events, 3)
+    events = Evento.objects.filter(publicar='Publicado').order_by('id')
+    inscritos = Inscrito_Evento.objects.filter(inscrito_id=id)
+    # IDs dos eventos em que o usuário já está inscrito — usado no template
+    # para alternar entre "Inscrever-se" e "Remover inscrição" sem document.write.
+    inscritos_ids = list(inscritos.values_list('evento_id', flat=True))
+    paginator = Paginator(events, 12)
     page = request.GET.get('page')
     eventos = paginator.get_page(page)
 
     dados = {
         'inscritos': inscritos,
-        'eventos' : eventos
+        'inscritos_ids': inscritos_ids,
+        'eventos': eventos,
     }
     return render(request, 'index.html', dados)
 

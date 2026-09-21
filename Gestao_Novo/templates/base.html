@@ -1,32 +1,88 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NINNA || EVENTOS</title>
-
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style-saiba_mais.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/inscrever-se.css' %}">
+    <title>{% block title %}NINNA · Eventos{% endblock %}</title>
 
     <link rel="icon" href="{% static 'assets/img/logo-ninna.jpg' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/eventos_cadastrados.css' %}">
-   
+
+    <!-- Tailwind CSS (Play CDN — para produção, migrar para build) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1',
+                600: '#4f46e5', 700: '#4338ca', 900: '#312e81',
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Ícones -->
     <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <!-- Alpine.js (interatividade: sidebar, modais, dropdowns) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+    {% block extra_head %}{% endblock %}
 </head>
-<body>
-    {% block content %} {% endblock %}
-    
-    <script src="{% static 'bootstrap-5.2.0-dist/js/bootstrap.min.js' %}"></script>
+<body class="bg-slate-50 text-slate-800 antialiased">
+  <div x-data="{ sidebarOpen: false }" class="min-h-screen">
+
+    <!-- Overlay mobile -->
+    <div x-show="sidebarOpen" x-cloak
+         @click="sidebarOpen = false"
+         class="fixed inset-0 z-30 bg-slate-900/50 lg:hidden"
+         x-transition.opacity></div>
+
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Coluna de conteúdo -->
+    <div class="lg:pl-64">
+      <!-- Topbar -->
+      <header class="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-slate-200 bg-white/80 px-4 backdrop-blur">
+        <button type="button" @click="sidebarOpen = true"
+                class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 lg:hidden"
+                aria-label="Abrir menu">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        <h1 class="text-base font-semibold text-slate-700">{% block header_title %}Eventos{% endblock %}</h1>
+        <div class="ml-auto flex items-center gap-3">
+          {% if user.is_authenticated %}
+            <span class="hidden text-sm text-slate-500 sm:inline">
+              {{ user.username }} · {{ user.groups.all.0.name|default:"—" }}
+            </span>
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-100 text-brand-700">
+              <i class="fa-solid fa-user"></i>
+            </span>
+          {% else %}
+            <a href="{% url 'login' %}"
+               class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2">
+              Entrar
+            </a>
+          {% endif %}
+        </div>
+      </header>
+
+      <main class="px-4 py-6 sm:px-6 lg:px-8">
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer class="border-t border-slate-200 px-4 py-6 text-center text-sm text-slate-400 sm:px-6 lg:px-8">
+        Ninna Hub · Av. Dom Manuel, 1020 - Centro, Fortaleza - CE · Todos os direitos reservados &copy; 2022
+      </footer>
+    </div>
+  </div>
+
+  <style>[x-cloak]{display:none!important;}</style>
+  {% block scripts %}{% endblock %}
 </body>
 </html>

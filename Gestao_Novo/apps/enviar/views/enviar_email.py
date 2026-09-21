@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse, get_object_or_404, render, redirect
 from apps.arquivo_excel.models import Arquivo_excel
@@ -66,7 +67,7 @@ def enviar(request):
                 }
             htmls = html(valores)
 
-            emailenviado = EmailMultiAlternatives(assunto, htmls, 'ouvidoriaadocicafornasa@gmail.com', [destinatarios[n]])
+            emailenviado = EmailMultiAlternatives(assunto, htmls, settings.DEFAULT_FROM_EMAIL, [destinatarios[n]])
             emailenviado.attach_alternative(htmls, 'text/html')
             emailenviado.send()
     return HttpResponse('Enviado')
@@ -100,7 +101,7 @@ def enviar_todos(request):
         htmls = html(valores)
         # print(htmls)
 
-        emailenviado = EmailMultiAlternatives(assunto, htmls, 'ouvidoriaadocicafornasa@gmail.com', [usuario.email])
+        emailenviado = EmailMultiAlternatives(assunto, htmls, settings.DEFAULT_FROM_EMAIL, [usuario.email])
         emailenviado.attach_alternative(htmls, 'text/html')
         emailenviado.send(fail_silently=False)
     return HttpResponse('Enviado')
@@ -135,7 +136,7 @@ def enviar_por_eventos(request):
             
             htmls = html(valores)
 
-            emailenviado = EmailMultiAlternatives(assunto, htmls, 'ouvidoriaadocicafornasa@gmail.com', [inscrito.inscrito.email])
+            emailenviado = EmailMultiAlternatives(assunto, htmls, settings.DEFAULT_FROM_EMAIL, [inscrito.inscrito.email])
             emailenviado.attach_alternative(htmls, 'text/html')
             emailenviado.send(fail_silently=False)
     return render(request, 'htmlvazio.html', {'inscritos':usuarios_cadastrados, 'eventos':eventos})
@@ -147,6 +148,6 @@ def enviar_relatorio(request, id):
     for inscrito in inscritos:
         email_usr = inscrito.inscrito.email
         
-        send_mail(f"Formulário de Satisfação do Evento: {inscrito.evento.nome_evento}", f"Avalie o evento por meio deste link http://localhost:8000/relatorio_satisfacao/{inscrito.evento.pk}", 'ouvidoriaadocicafornasa@gmail.com', [f"{email_usr}"])
+        send_mail(f"Formulário de Satisfação do Evento: {inscrito.evento.nome_evento}", f"Avalie o evento por meio deste link {settings.SITE_URL}/relatorio_satisfacao/{inscrito.evento.pk}", settings.DEFAULT_FROM_EMAIL, [f"{email_usr}"])
     
     return redirect('tela_adm')

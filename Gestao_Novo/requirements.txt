@@ -1,0 +1,13 @@
+# Dependências de runtime do SiteEventos (substitui o antigo pacotes.txt em UTF-16).
+Django==4.1
+djangorestframework==3.14.0
+django-widget-tweaks==1.4.12
+python-decouple==3.6
+Pillow==9.2.0
+psycopg2-binary==2.9.3
+pyexcel==0.7.0
+pyexcel-io==0.6.6
+pyexcel-xlsx==0.6.0
+xhtml2pdf==0.2.8
+reportlab==3.6.11
+gunicorn==20.1.0

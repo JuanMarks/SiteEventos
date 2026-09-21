@@ -1,63 +1,30 @@
-
+{% extends 'base.html' %}
 {% load static %}
 {% load widget_tweaks %}
-<head>
-    <title>NINNA || EDITAR </title>
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/responsivo.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
-    <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
-</head>
 
-<div class="menu">
-    <a href="{% url 'index' %}">
-      <img src="{% static 'assets/img/logo.png' %}" class="hero-logo" alt=""> 
-    </a>
-     
-    {% include 'menu.html' %}
-</div>
+{% block title %}NINNA · Editar evento{% endblock %}
+{% block header_title %}Editar evento{% endblock %}
 
-<section class="col-10">
-    
-    <form style="margin: 50px 0px 50px 270px; text-align: center; background-color: #fdfdfd; border-radius: 20px; padding: 30px;" action="" method="post">
-        {% csrf_token %}
-        {% for field in form.visible_fields %}
-            <div class="form-group">
-                <label style="font-size: 25px; margin-top: 30px;" for="{{field.id_for_label}}">{{field.label}}</label>
-                {{field|add_class:'form-control'}}
-            </div>
-        {% endfor %}
-        <input style="margin-bottom: 20px; padding: 15px;" type="submit" value="Atualizar" class="btn btn-success">
-    </form>
-    
-</section>
+{% block content %}
+  <div class="mx-auto max-w-2xl">
+    {% include 'messages/alertas.html' %}
 
-<footer class="wrapper-footer">
-    <div class="wrapper-footer__info">
-        <img src="{% static 'assets/img/NINNA CINZA (1).png' %}" alt="Logo Ninna hub">
-        <div class="wrapper-footer__info--geral">
-            <ul class="info--localizacao__list">
-                <li class="info--localizacao__item">
-                    Av. Dom Manuel, 1020 - Centro, Fortaleza - CE, 60060-090
-                </li>
-                <li class="info--localizacao__item">
-                    (85) 3211-4201
-                </li>
-            </ul>
+    <form action="" method="post" enctype="multipart/form-data"
+          class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      {% csrf_token %}
+      {% for field in form.visible_fields %}
+        <div>
+          <label for="{{ field.id_for_label }}" class="mb-1 block text-sm font-medium text-slate-700">{{ field.label }}</label>
+          {{ field|add_class:'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600' }}
+          {% if field.errors %}
+            <p class="mt-1 text-xs text-red-600">{{ field.errors|striptags }}</p>
+          {% endif %}
         </div>
-        <!-- <div class="wrapper-footer__info--sociais">
-            <ul class="info--sociais__list">
-                <li class="info--sociais__item">Instagram</li>
-                <li class="info--sociais__item">Youtube</li>
-                <li class="info--sociais__item">LinkedIn</li>
-            </ul>
-        </div> -->
-    </div>
-
-    <div class="wrapper-footer__copyright">
-        Todos os direitos reservados &copy; 2022
-    </div>
-</footer>
+      {% endfor %}
+      <div class="flex justify-end gap-3 border-t border-slate-100 pt-5">
+        <a href="{% url 'tela_adm' %}" class="rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200">Voltar</a>
+        <button type="submit" class="rounded-lg bg-emerald-600 px-5 py-2 text-sm font-medium text-white hover:bg-emerald-700">Atualizar</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

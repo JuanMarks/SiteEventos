@@ -1,91 +1,69 @@
+{% extends 'base_auth.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Usuario</title>
+{% block title %}NINNA · Cadastro empresa/admin{% endblock %}
+{% block auth_width %}max-w-lg{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'assets/css/cadastroUsuario1.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
-    
-
-</head>
-<body>
-    
-    <div style="width: 600px;" class="wrapper-login">
-        <form action="{% url 'cadastro_empresa' %}" class="wrapper-login__form" method="post">
-            <div class="saida-eventos">
-                <a href="{% url 'login' %}"> Fechar </a>
-            </div>
-            {% csrf_token %}
-            <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="" class="wrapper-login__form--logo">
-            <h1>Cadastro</h1>
-            {% include 'messages/alertas.html' %}
-            <div class="wrapper-login__form--user">
-                <label for="user">Categoria</label>
-                <select id="seletor" style="padding: 12px; border-radius: 10px;" name="categoria" onchange="javascript:verificaSeletor(this);">
-                    
-                    <option value="Empresa">Empresa</option>
-                    <option value="Mantenedores">Mantenedores</option>
-                    <option value="ADM">Administração</option>
-
-                </select>
-            </div>
-            
-            <div id="senha_adm" class="wrapper-login__form--password">
-                <label for="password">Senha de ADM</label>
-                <input style="border-radius: 10px;" type="password" name="password-admin" class="form-input input-password" id="password">
-            </div>
-            <div class="wrapper-login__form--user">
-                <label for="user">Nome da Empresa ou Nome de ADM</label>
-                <input style="border-radius: 10px;" type="text" name="nome_empresa" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--user">
-                <label for="user">Telefone da Empresa</label>
-                <input style="border-radius: 10px;" type="text" name="telefone" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--user">
-                <label for="user">Seu nome</label>
-                <input style="border-radius: 10px;" type="text" name="nome" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--user">
-                <label for="user">Email da Empresa</label>
-                <input style="border-radius: 10px;" type="email" name="email" class="form-input input-user" id="user">
-            </div>
-
-            <div class="wrapper-login__form--password">
-                <label for="password">Senha</label>
-                <input style="border-radius: 10px;" type="password" name="password" class="form-input input-password" id="password">
-            </div>
-
-            <div class="wrapper-login__form--button">
-                <button style="border-radius: 10px;" type="submit" class="form-submit">Cadastrar</button>
-            </div>
-        </form>
+{% block auth_content %}
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold text-slate-800">Cadastro</h1>
+      <p class="text-sm text-slate-500">Empresa, mantenedor ou administrador.</p>
     </div>
-    <script>
-        adm = document.querySelector('#senha_adm')
-        adm.style.display = 'none'
-        function verificaSeletor(){
-            adm = document.querySelector('#senha_adm')
-            seletor = document.querySelector('#seletor')
-            nome = seletor.value
+    <a href="{% url 'login' %}" class="text-sm text-slate-400 hover:text-slate-600" aria-label="Voltar ao login">
+      <i class="fa-solid fa-xmark text-lg"></i>
+    </a>
+  </div>
 
-            if(nome == 'ADM'){
-                console.log(nome)
-                adm.addEventListener("click", adm.style.display = 'inline', false)
-            }else{
-                adm.addEventListener("click", adm.style.display = 'none', false)
-            }
-        }
-    </script>
-    
-</body>
-</html>
+  <form x-data="{ categoria: 'Empresa' }" action="{% url 'cadastro_empresa' %}" method="post"
+        class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    {% csrf_token %}
+    <div class="sm:col-span-2">
+      <label for="categoria" class="mb-1 block text-sm font-medium text-slate-700">Categoria</label>
+      <select id="categoria" name="categoria" x-model="categoria"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+        <option value="Empresa">Empresa</option>
+        <option value="Mantenedores">Mantenedores</option>
+        <option value="ADM">Administração</option>
+      </select>
+    </div>
+
+    <div class="sm:col-span-2" x-show="categoria === 'ADM'" x-cloak x-transition>
+      <label for="password-admin" class="mb-1 block text-sm font-medium text-slate-700">Código de administrador</label>
+      <input id="password-admin" name="password-admin" type="password"
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+      <p class="mt-1 text-xs text-slate-400">Definido em <code>ADMIN_REGISTRATION_CODE</code> no ambiente.</p>
+    </div>
+
+    <div class="sm:col-span-2">
+      <label for="nome_empresa" class="mb-1 block text-sm font-medium text-slate-700">Nome da empresa ou do admin</label>
+      <input id="nome_empresa" name="nome_empresa" type="text" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div>
+      <label for="nome" class="mb-1 block text-sm font-medium text-slate-700">Seu nome</label>
+      <input id="nome" name="nome" type="text" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div>
+      <label for="telefone" class="mb-1 block text-sm font-medium text-slate-700">Telefone</label>
+      <input id="telefone" name="telefone" type="tel" placeholder="(xx) xxxxx-xxxx"
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div class="sm:col-span-2">
+      <label for="email" class="mb-1 block text-sm font-medium text-slate-700">E-mail</label>
+      <input id="email" name="email" type="email" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div class="sm:col-span-2">
+      <label for="password" class="mb-1 block text-sm font-medium text-slate-700">Senha</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" required
+             class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-600 focus:outline-none focus:ring-1 focus:ring-brand-600">
+    </div>
+    <div class="sm:col-span-2">
+      <button type="submit"
+              class="w-full rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2">
+        Cadastrar
+      </button>
+    </div>
+  </form>
+{% endblock %}

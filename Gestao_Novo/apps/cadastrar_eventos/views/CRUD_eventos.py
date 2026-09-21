@@ -67,16 +67,15 @@ def cadastrar_eventos(request):
 @login_required(login_url='login')
 def editar_evento(request, id):
     evento = get_object_or_404(Evento, pk=id)
-    form = Editar_Evento(instance=evento)
     if request.method == 'POST':
-        form = Editar_Evento(request.POST, instance=evento)
+        form = Editar_Evento(request.POST, request.FILES, instance=evento)
         if form.is_valid():
-            evento.save()
+            form.save()  # antes chamava evento.save() e não persistia as alterações
+            messages.success(request, 'Evento atualizado com sucesso.')
             return redirect('tela_adm')
-        else:
-            return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
     else:
-        return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
+        form = Editar_Evento(instance=evento)
+    return render(request, 'editar_evento.html', {'form': form, 'eventos': evento})
 
 @login_required(login_url='login')
 def apagar_evento(request, id):
@@ -105,10 +104,11 @@ def inscrever_evento(request, id):
     else:
         return redirect('tela-adm')
 
-def remover_inscricao(request,id):
-    usuario = request.user.id
-    inscrito = Inscrito_Evento.objects.filter(pk=id)
-    inscrito.delete()
+@login_required(login_url='login')
+def remover_inscricao(request, id):
+    # 'id' agora é o id do EVENTO. Remove apenas a inscrição do próprio usuário
+    # (corrige IDOR: antes apagava qualquer inscrição por pk, sem checar dono).
+    Inscrito_Evento.objects.filter(evento_id=id, inscrito=request.user).delete()
     return redirect('index')
 
 def tela_relatorio_satisfacao(request, id):

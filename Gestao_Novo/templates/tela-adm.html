@@ -1,85 +1,173 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> NINNA || ADM </title>
 
-    
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/adm.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/modalAdm.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/inscrever-se.css' %}">
+{% block title %}NINNA · Administração{% endblock %}
+{% block header_title %}Painel administrativo{% endblock %}
 
-    <!-- JavaScript -->
-    <script src="https://kit.fontawesome.com/dfcc59a893.js" crossorigin="anonymous"></script>
-    
-</head>
-<body>
-    <main>
-        <div class="content">
-            <div class="content__perfil">
-                <img src="{% static 'assets/img/pinguim.opdownload' %}" class="imagem-vaniele" alt="Vaniele brigando com o Filipe e o Kaynan so olhando!! ;-;">
-                <p class="content__perfil--nome">{{user.username}}</p>
-                <nav class="content__perfil--menu">
-                    <a href="{% url 'index' %}"> Home </a>
-                    <a href=""> Eventos </a>
-                    <a href="{% url 'email' 'all' %}">Enviar Email</a>
-                </nav>
+{% block content %}
+  <!-- KPIs (Bento) -->
+  <section class="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p class="text-sm font-medium text-slate-500">Eventos</p>
+      <p class="mt-1 text-3xl font-bold text-slate-800">{{ kpis.total_eventos }}</p>
+      <p class="mt-1 text-xs text-emerald-600">{{ kpis.total_publicados }} publicados</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p class="text-sm font-medium text-slate-500">Inscrições</p>
+      <p class="mt-1 text-3xl font-bold text-slate-800">{{ kpis.total_inscritos }}</p>
+      <p class="mt-1 text-xs text-slate-400">total acumulado</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p class="text-sm font-medium text-slate-500">Nota média geral</p>
+      <p class="mt-1 text-3xl font-bold text-slate-800">{{ kpis.nota_media_geral }}</p>
+      <p class="mt-1 text-xs text-slate-400">satisfação</p>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p class="text-sm font-medium text-slate-500">Usuários</p>
+      <p class="mt-1 text-3xl font-bold text-slate-800">{{ kpis.total_usuarios }}</p>
+      <p class="mt-1 text-xs text-slate-400">cadastrados</p>
+    </div>
+  </section>
+
+  <!-- Gráficos -->
+  <section class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h3 class="mb-4 font-semibold text-slate-700">Publicação de eventos</h3>
+      <div class="mx-auto h-64 max-w-xs"><canvas id="chartPublicacao"></canvas></div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h3 class="mb-4 font-semibold text-slate-700">Inscritos por evento (top 8)</h3>
+      <div class="h-64"><canvas id="chartInscritos"></canvas></div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h3 class="mb-4 font-semibold text-slate-700">Distribuição de notas</h3>
+      <div class="h-64"><canvas id="chartNotas"></canvas></div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <h3 class="mb-4 font-semibold text-slate-700">Usuários por grupo</h3>
+      <div class="mx-auto h-64 max-w-xs"><canvas id="chartGrupos"></canvas></div>
+    </div>
+    <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:col-span-2">
+      <h3 class="mb-4 font-semibold text-slate-700">Eventos mais bem avaliados (top 5)</h3>
+      <div class="h-64"><canvas id="chartTop"></canvas></div>
+    </div>
+  </section>
+
+  <!-- Gestão de eventos -->
+  <section class="rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div class="border-b border-slate-200 p-5">
+      <h3 class="font-semibold text-slate-700">Gestão de eventos</h3>
+    </div>
+    {% if eventos %}
+      <div class="divide-y divide-slate-100">
+        {% for evento in eventos %}
+          <div x-data="{ openPdf: false }" class="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="min-w-0">
+              <p class="truncate font-medium text-slate-800">{{ evento.nome_evento }}</p>
+              <p class="text-sm text-slate-500">{{ evento.pessoa }} ·
+                <span class="{% if evento.publicar == 'Publicado' %}text-emerald-600{% else %}text-amber-600{% endif %}">{{ evento.publicar }}</span>
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <a href="{% url 'enviar_relatorio' evento.id %}"
+                 class="rounded-lg bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200">
+                <i class="fa-solid fa-paper-plane"></i> Enviar relatório
+              </a>
+              <button type="button" @click="openPdf = true"
+                 class="rounded-lg bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200">
+                <i class="fa-solid fa-file-pdf"></i> Gerar relatório
+              </button>
+              <a href="{% url 'editar_evento' evento.id %}"
+                 class="rounded-lg bg-brand-50 px-3 py-2 text-sm font-medium text-brand-700 hover:bg-brand-100">
+                <i class="fa-solid fa-pen"></i> Editar
+              </a>
+              <a href="{% url 'apagar_evento' evento.id %}"
+                 class="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-100">
+                <i class="fa-solid fa-trash"></i> Excluir
+              </a>
             </div>
 
-            <div class="content__mostragem">
-                <div class="content__mostragem--saida">
-                    <a href="{% url 'index' %}" class="x"> x </a>
+            <!-- Modal PDF -->
+            <div x-show="openPdf" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4"
+                 @keydown.escape.window="openPdf = false">
+              <div class="absolute inset-0 bg-slate-900/60" @click="openPdf = false"></div>
+              <div class="relative z-10 w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl" role="dialog" aria-modal="true">
+                <h4 class="mb-4 text-lg font-semibold text-slate-800">Relatório do evento</h4>
+                <div class="flex flex-col gap-2">
+                  <a href="{% url 'teste3' evento.id %}"
+                     class="flex items-center justify-between rounded-lg border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                    Baixar PDF <i class="fa-solid fa-file-arrow-down"></i>
+                  </a>
+                  <a href="{% url 'teste' evento.id %}" target="_blank"
+                     class="flex items-center justify-between rounded-lg border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                    Visualizar <i class="fa-solid fa-eye"></i>
+                  </a>
                 </div>
+                <button type="button" @click="openPdf = false"
+                        class="mt-4 w-full rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200">Fechar</button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="p-8 text-center text-sm text-slate-500">Nenhum evento cadastrado ainda.</p>
+    {% endif %}
+  </section>
 
-                <div class="logo__ninna">
-                    <img src="{% static 'assets/img/NINNA AZUL (1).png' %}" alt="Imagem do ninna">
-                </div>
-                
-                <div class="content__mostragem--eventos">
-                    {% for evento in eventos %}
-                    <div class="card-evento">
-                        <p class="card-evento__nome"> {{evento.nome_evento}} ({{evento.pessoa}}) </p>
-                        
-                        <div class="card-evento__btn">
-                            <!-- Button trigger modal -->
-                            <a class="btn btn-info" href="{% url 'enviar_relatorio' evento.id %}"> Enviar elatório </a>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{evento.id}}">
-                                Gerar relatório
-                            </button>
-                            <a class="btn btn-info" href="editar_evento/{{evento.id}}"> Editar </a>
-                            <a class="btn btn-danger" href="apagar_evento/{{evento.id}}"> Excluir</a>
-                            
-                        </div>
-                    </div>
+  <!-- Dados para os gráficos -->
+  {{ chart_publicacao|json_script:"data-publicacao" }}
+  {{ chart_inscritos|json_script:"data-inscritos" }}
+  {{ chart_notas|json_script:"data-notas" }}
+  {{ chart_grupos|json_script:"data-grupos" }}
+  {{ chart_top|json_script:"data-top" }}
+{% endblock %}
 
-                    <div class="modal fade" id="modal{{evento.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel">Selecione</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <a href="{% url 'teste3' evento.id%}"><button class="btn-visualizar btn-modal">Baixar<i style="margin-left: 20px;" class="fa-solid fa-file-pdf"></i></button></a>
-                              <a target="_blank" href="{% url 'teste' evento.id%}"><button class="btn-pdf btn-modal">Visualizar <i style="margin-left: 15px;" class="fa-solid fa-eye"></i></button></a>
-                            </div>
-                          </div>
-                        </div>
-                    </div> 
-                    {% endfor %}
+{% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    const parse = (id) => JSON.parse(document.getElementById(id).textContent);
+    const brand = '#4f46e5';
+    const palette = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#06b6d4', '#8b5cf6', '#ec4899', '#84cc16'];
 
-                </div>
-                
-                
-                
-        </div>
-    </main> 
-    <script src="{% static 'bootstrap-5.2.0-dist/js/bootstrap.min.js' %}"></script>
-</body>
+    // Publicação (doughnut)
+    const pub = parse('data-publicacao');
+    new Chart(document.getElementById('chartPublicacao'), {
+      type: 'doughnut',
+      data: { labels: ['Publicados', 'Não publicados'], datasets: [{ data: pub, backgroundColor: ['#10b981', '#e2e8f0'] }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
 
-</html>
+    // Inscritos por evento (bar)
+    const insc = parse('data-inscritos');
+    new Chart(document.getElementById('chartInscritos'), {
+      type: 'bar',
+      data: { labels: insc.labels, datasets: [{ label: 'Inscritos', data: insc.data, backgroundColor: brand, borderRadius: 6 }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+    });
+
+    // Distribuição de notas (bar)
+    const notas = parse('data-notas');
+    new Chart(document.getElementById('chartNotas'), {
+      type: 'bar',
+      data: { labels: notas.labels, datasets: [{ label: 'Qtd', data: notas.data, backgroundColor: '#f59e0b', borderRadius: 6 }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+    });
+
+    // Usuários por grupo (doughnut)
+    const grupos = parse('data-grupos');
+    new Chart(document.getElementById('chartGrupos'), {
+      type: 'doughnut',
+      data: { labels: grupos.labels, datasets: [{ data: grupos.data, backgroundColor: palette }] },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    // Top avaliados (bar horizontal)
+    const top = parse('data-top');
+    new Chart(document.getElementById('chartTop'), {
+      type: 'bar',
+      data: { labels: top.labels, datasets: [{ label: 'Nota média', data: top.data, backgroundColor: '#10b981', borderRadius: 6 }] },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true } } }
+    });
+  </script>
+{% endblock %}

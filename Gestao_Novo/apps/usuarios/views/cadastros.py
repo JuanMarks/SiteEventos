@@ -1,11 +1,10 @@
+import hmac
+from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from apps.usuarios.models import Usuarios, Empresa
 from apps.enviar.models import Usuario
-from apps.usuarios.models import Usuarios, Empresa
-from apps.enviar.models import Usuario
-from apps.usuarios.models import Usuarios, Empresa
 
 def criar_user(username, email, password, grupo):
     usuario = User.objects.create_user(username=username, email=email, password=password)
@@ -103,20 +102,23 @@ def cadastro_empresa(request):
             messages.error(request, 'Numero de telefone maior do que 11 digitos')
             return redirect('cadastro_empresa')
 
-        if categoria == 'Mantenedores':
-            grupo = Group.objects.get(name='Mantenedores')
-        
         if categoria == 'ADM':
-            if senha_admin == "123456":
-                grupo = Group.objects.get(name='ADM')
+            # Substitui o antigo backdoor senha_admin == "123456".
+            # O código vem do ambiente (settings.ADMIN_REGISTRATION_CODE); vazio bloqueia ADM.
+            codigo_valido = bool(settings.ADMIN_REGISTRATION_CODE) and hmac.compare_digest(
+                senha_admin or '', settings.ADMIN_REGISTRATION_CODE
+            )
+            if not codigo_valido:
+                messages.error(request, 'Código de administrador inválido.')
+                return redirect('cadastro_empresa')
+            grupo = Group.objects.get(name='ADM')
         elif categoria == 'Mantenedores':
             grupo = Group.objects.get(name='Mantenedores')
-        else: 
+        else:
             grupo = Group.objects.get(name='Empresa')
             empresa = Empresa.objects.create(nome_completo=nome, nome_empresa=nome_empresa, email=email, telefone=telefone)
             empresa.save()
-            
-        
+
         criar_user(nome, email, senha, grupo)
         messages.success(request, 'Usuario cadastrado com sucesso')
         return redirect('login')
